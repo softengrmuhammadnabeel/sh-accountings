@@ -2,8 +2,8 @@ import { assets } from '@/assets/assets'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import React, { useEffect, useRef, useState } from 'react'
-
-const  Navbar = ({ isDarkMode, setIsDarkMode }) => {
+import Link from 'next/link'
+const Navbar = ({ isDarkMode, setIsDarkMode }) => {
   const [isScroll, setIsScroll] = useState(false)
   const router = useRouter()
   const sideMenuRef = useRef()
@@ -40,12 +40,18 @@ const  Navbar = ({ isDarkMode, setIsDarkMode }) => {
         </a>
         <ul className={`hidden md:flex items-center gap-6 lg:gap-8 rounded-full px-12 py-3 shadow-sm bg-opacity-50 border
           ${isScroll ? (isDarkMode ? 'text-white border-white' : 'text-black border-black') : 'text-white border-gray-200'}`}>
-          <li><a className='font-Ovo' href="#top">Home</a></li>
+          {/* <li><a className='font-Ovo' href="#top">Home</a></li>
           <li><a className='font-Ovo' href="#about">About us</a></li>
           <li><a className='font-Ovo' href="#services">Services</a></li>
           <li><a className='font-Ovo' href="#work">My work</a></li>
           <li><a onClick={() => router.push('/blogs')} className='font-Ovo' href="#blogs">Blogs</a></li>
-          <li><a className='font-Ovo' href="#contact">Contact me</a></li>
+          <li><a className='font-Ovo' href="#contact">Contact me</a></li> */}
+          <li><Link href="/" className="font-Ovo">Home</Link></li>
+          <li><Link href="/about-us" className="font-Ovo">About us</Link></li>
+          <li><Link href="/services" className="font-Ovo">Services</Link></li>
+          <li><Link href="/work" className="font-Ovo">My work</Link></li>
+          <li><Link href="/blogs" className="font-Ovo">Blogs</Link></li>
+          <li><Link href="/contact" className="font-Ovo">Contact me</Link></li>
         </ul>
         <div className='flex items-center gap-4'>
           <button onClick={() => setIsDarkMode(prev => !prev)}>

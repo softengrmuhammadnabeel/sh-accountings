@@ -38,8 +38,24 @@ import right_arrow_bold_dark from "./right-arrow-bold-dark.png";
 import acc1 from "./acc1.jpg";
 import acc2 from "./acc2.jpg";
 import acc3 from "./acc3.jpg";
+import service1 from "./services/1.jpg";
+import service2 from "./services/2.jpg";
+import service3 from "./services/3.jpg";
+import service4 from "./services/4.jpg";
+import service5 from "./services/5.jpg";
+import service6 from "./services/6.jpg";
+import service7 from "./services/7.jpg";
+import contactUsGirl from "./services/contactUs.jpg";
 
 export const assets = {
+  service1,
+  service2,
+  contactUsGirl,
+  service3,
+  service4,
+  service5,
+  service6,
+  service7,
   user_image,
   acc1,
   acc2,

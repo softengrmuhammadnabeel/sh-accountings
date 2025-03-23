@@ -1,42 +1,17 @@
-/* eslint-disable @next/next/no-img-element */
-"use client"; // Mark this component as a Client Component
-
-import { assets } from '@/assets/assets';
-import Image from "next/image";
-import React from "react";
+"use client";
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 import { motion } from "framer-motion";
 import {
-  Box,
-  Typography,
   Grid,
-  Card,
-  CardMedia,
-  CardContent,
-  Button,
   TextField,
-  Container,
 } from "@mui/material";
-import blogData from '@/utils/blogData'; // Replace with your blog data
+import { assets } from "@/assets/assets";
 
 const Page = () => {
-  const isDarkMode = true; // Set this dynamically based on your theme logic
-  console.log(blogData);
-  const rowVariants = {
-    hidden: { opacity: 0, x: -150 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: { duration: 0.4, ease: "easeOut" },
-    },
-  };
-
-  const cardVariants = {
-    hover: {
-      scale: 1.02,
-      transition: { duration: 0.3, ease: "easeOut" },
-    },
-  };
-
   const onSubmit = (e) => {
     e.preventDefault();
     console.log("Message sent successfully!");
@@ -87,7 +62,7 @@ const Page = () => {
             transition={{ duration: 0.8 }}
             sx={{ mt: 20, mb: 3, fontWeight: 700, fontSize: { xs: "2.5rem", sm: "3.5rem", md: "4.5rem" }, lineHeight: 1.2 }}
           >
-            Explore Our <Typography component="span" color="#EB1552" variant="inherit">Latest Blogs</Typography>
+            Get in <Typography component="span" color="#EB1552" variant="inherit">Touch</Typography> With Us!
           </Typography>
 
           <Typography
@@ -104,7 +79,7 @@ const Page = () => {
               mx: "auto",
             }}
           >
-            Stay updated with the latest trends, insights, and tips from our experts. Dive into our collection of blogs designed to help you grow and innovate.
+            Have questions or need assistance? Reach out to us today! Our team is here to help you with all your accounting, tax, and financial needs.
           </Typography>
 
           <Button
@@ -116,99 +91,9 @@ const Page = () => {
             transition={{ duration: 0.6, ease: "easeInOut" }}
             sx={{ backgroundColor: "#EB1552", fontSize: "1rem", fontWeight: 600, px: 4, py: 2, borderRadius: "8px", boxShadow: "none", "&:hover": { backgroundColor: "#3c0e63" } }}
           >
-            Read Blogs
+            Contact Us
           </Button>
         </Container>
-      </Box>
-
-      {/* Blog Section */}
-      <Box sx={{ pb:5,px: { xs: 2, sm: 5 }, bgcolor: "#11001F" }}>
-        <Typography
-          variant="h4"
-          align="center"
-          sx={{ mb: 6, pt: 10, fontWeight: "bold", color: isDarkMode ? "common.white" : "text.primary" }}
-        >
-          Latest Blogs
-        </Typography>
-        <Grid container spacing={4}>
-          {blogData.map((blog, index) => (
-            <Grid item xs={12} sm={6} md={4} key={blog._id}>
-              <motion.div variants={cardVariants} whileHover="hover">
-                <Card
-                  sx={{
-                    height: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                    bgcolor: "background.paper",
-                    boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
-                    borderRadius: "12px",
-                    transition: "transform 0.3s, box-shadow 0.3s",
-                    "&:hover": {
-                      transform: "translateY(-10px)",
-                      boxShadow: "0 8px 30px rgba(0, 0, 0, 0.2)",
-                    },
-                  }}
-                >
-                  {/* Blog Image */}
-                  {blog.image && (
-                    <CardMedia
-                      component="img"
-                      height="200"
-                      image={blog.image.src}
-                      alt={blog.title}
-                      sx={{ objectFit: "cover", borderRadius: "12px 12px 0 0" }}
-                    />
-                  )}
-
-                  <CardContent sx={{ flexGrow: 1, p: 3 }}>
-                    {/* Category and Date */}
-                    <Typography
-                      variant="subtitle2"
-                      sx={{
-                        mb: 1,
-                        color: "text.secondary",
-                        fontWeight: "medium",
-                        textTransform: "uppercase",
-                      }}
-                    >
-                      {blog.category} · {blog.date}
-                    </Typography>
-
-                    {/* Blog Title */}
-                    <Typography
-                      variant="h5"
-                      component="h2"
-                      sx={{
-                        mb: 2,
-                        fontWeight: "bold",
-                        color: "text.primary",
-                        fontSize: { xs: "1.25rem", sm: "1.5rem" },
-                      }}
-                    >
-                      {blog.title}
-                    </Typography>
-
-                    {/* Read More Button */}
-                    <Button
-                      variant="outlined"
-                      sx={{
-                        color: "primary.main",
-                        borderColor: "primary.main",
-                        fontWeight: "600",
-                        "&:hover": {
-                          backgroundColor: "primary.main",
-                          color: "common.white",
-                        },
-                      }}
-                    >
-                      Read More
-                    </Button>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            </Grid>
-          ))}
-        </Grid>
       </Box>
 
       {/* Contact Section */}
@@ -229,9 +114,9 @@ const Page = () => {
       >
         {/* Contact Form */}
         <motion.div
-          variants={rowVariants}
-          initial="hidden"
-          whileInView="visible"
+          initial={{ opacity: 0, x: -50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
           viewport={{ once: true, amount: 0.3 }}
           sx={{ width: { xs: "100%", lg: "50%" } }}
         >
@@ -253,7 +138,7 @@ const Page = () => {
                 textAlign: { xs: "center", lg: "left" },
               }}
             >
-              Get in Touch
+              Contact Us
             </Typography>
             <form onSubmit={onSubmit}>
               <Grid container spacing={3}>
@@ -417,9 +302,9 @@ const Page = () => {
 
         {/* Contact Image */}
         <motion.div
-          variants={rowVariants}
-          initial="hidden"
-          whileInView="visible"
+          initial={{ opacity: 0, x: 50 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
           viewport={{ once: true, amount: 0.3 }}
           sx={{ width: { xs: "100%", lg: "50%" } }}
         >
