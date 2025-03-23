@@ -48,10 +48,10 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
           <li><a className='font-Ovo' href="#contact">Contact me</a></li> */}
           <li><Link href="/" className="font-Ovo">Home</Link></li>
           <li><Link href="/about-us" className="font-Ovo">About us</Link></li>
-          <li><Link href="/services" className="font-Ovo">Services</Link></li>
-          <li><Link href="/work" className="font-Ovo">My work</Link></li>
+          <li><Link href="/services" className="font-Ovo">Our Services</Link></li>
+          {/* <li><Link href="/work" className="font-Ovo">My work</Link></li> */}
           <li><Link href="/blogs" className="font-Ovo">Blogs</Link></li>
-          <li><Link href="/contact" className="font-Ovo">Contact me</Link></li>
+          <li><Link href="/contact" className="font-Ovo">Contact Us</Link></li>
         </ul>
         <div className='flex items-center gap-4'>
           <button onClick={() => setIsDarkMode(prev => !prev)}>
