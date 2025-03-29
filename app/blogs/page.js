@@ -13,6 +13,7 @@ import {
   CardMedia,
   CardContent,
   Button,
+  Avatar,
   TextField,
   Container,
 } from "@mui/material";
@@ -45,7 +46,13 @@ const Page = () => {
   return (
     <>
       {/* Hero Section */}
-      <Box sx={{ width: "100%", height: "100vh", position: "relative", overflow: "hidden" }}>
+      <Box sx={{
+        width: "100%",
+        height: "100vh",
+        position: "relative",
+        overflow: "hidden",
+        backgroundColor: "#3C4E80" // Fallback if video doesn't load
+      }}>
         <video
           autoPlay
           loop
@@ -58,12 +65,20 @@ const Page = () => {
             width: "100%",
             height: "100%",
             objectFit: "cover",
+            opacity: 0.8
           }}
         >
           <source src={"/vid.mp4"} type="video/mp4" />
         </video>
 
-        <Box sx={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", backgroundColor: "rgba(0, 0, 0, 0.5)" }} />
+        <Box sx={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          backgroundColor: "rgba(60, 78, 128, 0.5)"
+        }} />
 
         <Container
           maxWidth="lg"
@@ -85,9 +100,15 @@ const Page = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            sx={{ mt: 20, mb: 3, fontWeight: 700, fontSize: { xs: "2.5rem", sm: "3.5rem", md: "4.5rem" }, lineHeight: 1.2 }}
+            sx={{
+              mt: 20,
+              mb: 3,
+              fontWeight: 700,
+              fontSize: { xs: "2.5rem", sm: "3.5rem", md: "4.5rem" },
+              lineHeight: 1.2
+            }}
           >
-            Explore Our <Typography component="span" color="#EB1552" variant="inherit">Latest Blogs</Typography>
+            Explore Our <Typography component="span" color="white" variant="inherit">Latest Blogs</Typography>
           </Typography>
 
           <Typography
@@ -99,7 +120,7 @@ const Page = () => {
             sx={{
               mb: 4,
               fontSize: { xs: "1rem", sm: "1.25rem" },
-              color: "rgba(255, 255, 255, 0.8)",
+              color: "rgba(255, 255, 255, 0.9)",
               maxWidth: "800px",
               mx: "auto",
             }}
@@ -114,7 +135,19 @@ const Page = () => {
             initial={{ scale: 0.9, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.6, ease: "easeInOut" }}
-            sx={{ backgroundColor: "#EB1552", fontSize: "1rem", fontWeight: 600, px: 4, py: 2, borderRadius: "8px", boxShadow: "none", "&:hover": { backgroundColor: "#3c0e63" } }}
+            sx={{
+              backgroundColor: "#7F8DAB",
+              fontSize: "1rem",
+              fontWeight: 600,
+              px: 4,
+              py: 2,
+              borderRadius: "50px",
+              border: '2px solid white',
+              boxShadow: "none",
+              "&:hover": {
+                backgroundColor: "#3C4E80"
+              }
+            }}
           >
             Read Blogs
           </Button>
@@ -122,93 +155,169 @@ const Page = () => {
       </Box>
 
       {/* Blog Section */}
-      <Box sx={{ pb:5,px: { xs: 2, sm: 5 }, bgcolor: "#11001F" }}>
-        <Typography
-          variant="h4"
-          align="center"
-          sx={{ mb: 6, pt: 10, fontWeight: "bold", color: isDarkMode ? "common.white" : "text.primary" }}
-        >
-          Latest Blogs
-        </Typography>
-        <Grid container spacing={4}>
-          {blogData.map((blog, index) => (
-            <Grid item xs={12} sm={6} md={4} key={blog._id}>
-              <motion.div variants={cardVariants} whileHover="hover">
-                <Card
-                  sx={{
-                    height: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                    bgcolor: "background.paper",
-                    boxShadow: "0 4px 20px rgba(0, 0, 0, 0.1)",
-                    borderRadius: "12px",
-                    transition: "transform 0.3s, box-shadow 0.3s",
-                    "&:hover": {
-                      transform: "translateY(-10px)",
-                      boxShadow: "0 8px 30px rgba(0, 0, 0, 0.2)",
-                    },
-                  }}
+      {/* Blog Section */}
+      <Box sx={{
+        pb: 10,
+        px: { xs: 2, sm: 5 },
+        bgcolor: "background.default",
+        position: "relative",
+        "&::before": {
+          content: '""',
+          position: "absolute",
+          top: 0,
+          left: 0,
+          right: 0,
+          height: "100px",
+          zIndex: 0
+        }
+      }}>
+        <Container maxWidth="lg" sx={{ position: "relative", zIndex: 1 }}>
+          <Typography
+            variant="h4"
+            align="center"
+            sx={{
+              mb: 6,
+              pt: 10,
+              fontWeight: "bold",
+              color: "#3C4E80",
+            }}
+          >
+            Latest Blogs
+          </Typography>
+
+          <Grid container spacing={4}>
+            {blogData.map((blog) => (
+              <Grid item xs={12} sm={6} md={4} key={blog._id}>
+                <motion.div
+                  variants={cardVariants}
+                  whileHover={{ y: -5 }}
                 >
-                  {/* Blog Image */}
-                  {blog.image && (
-                    <CardMedia
-                      component="img"
-                      height="200"
-                      image={blog.image.src}
-                      alt={blog.title}
-                      sx={{ objectFit: "cover", borderRadius: "12px 12px 0 0" }}
-                    />
-                  )}
+                  <Card
+                    sx={{
+                      height: "100%",
+                      display: "flex",
+                      flexDirection: "column",
+                      bgcolor: "background.paper",
+                      boxShadow: "0 4px 20px rgba(60, 78, 128, 0.1)",
+                      borderRadius: "16px",
+                      transition: "transform 0.3s, box-shadow 0.3s",
+                      "&:hover": {
+                        boxShadow: "0 8px 40px rgba(60, 78, 128, 0.2)",
+                      },
+                      border: "1px solid rgba(127, 141, 171, 0.1)"
+                    }}
+                  >
+                    {/* Blog Image - Fixed height */}
+                    <Box sx={{
+                      height: 200,
+                      width: "100%",
+                      overflow: "hidden",
+                      position: "relative"
+                    }}>
+                      {blog.image && (
+                        <CardMedia
+                          component="img"
+                          image={blog.image.src}
+                          alt={blog.title}
+                          sx={{
+                            position: "absolute",
+                            height: "100%",
+                            width: "100%",
+                            objectFit: "cover",
+                            borderRadius: "16px 16px 0 0",
+                          }}
+                        />
+                      )}
+                    </Box>
 
-                  <CardContent sx={{ flexGrow: 1, p: 3 }}>
-                    {/* Category and Date */}
-                    <Typography
-                      variant="subtitle2"
-                      sx={{
-                        mb: 1,
-                        color: "text.secondary",
-                        fontWeight: "medium",
-                        textTransform: "uppercase",
-                      }}
-                    >
-                      {blog.category} · {blog.date}
-                    </Typography>
+                    <CardContent sx={{
+                      flexGrow: 1,
+                      p: 3,
+                      display: "flex",
+                      flexDirection: "column",
+                      minHeight: 180 // Ensures consistent height for text content
+                    }}>
+                      {/* Category and Date */}
+                      <Box sx={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        alignItems: "center",
+                        mb: 2
+                      }}>
+                        <Typography
+                          variant="caption"
+                          sx={{
+                            color: "#7F8DAB",
+                            fontWeight: "medium",
+                            textTransform: "uppercase",
+                            letterSpacing: "0.5px",
+                            fontSize: "0.7rem"
+                          }}
+                        >
+                          {blog.category}
+                        </Typography>
+                        <Typography
+                          variant="caption"
+                          sx={{
+                            color: "#7F8DAB",
+                            fontSize: "0.7rem"
+                          }}
+                        >
+                          {blog.date}
+                        </Typography>
+                      </Box>
 
-                    {/* Blog Title */}
-                    <Typography
-                      variant="h5"
-                      component="h2"
-                      sx={{
-                        mb: 2,
-                        fontWeight: "bold",
-                        color: "text.primary",
-                        fontSize: { xs: "1.25rem", sm: "1.5rem" },
-                      }}
-                    >
-                      {blog.title}
-                    </Typography>
+                      {/* Blog Title - Fixed height with line clamp */}
+                      <Typography
+                        variant="h6"
+                        component="h2"
+                        sx={{
+                          mb: 2,
+                          fontWeight: "bold",
+                          color: "#3C4E80",
+                          fontSize: "1.1rem",
+                          lineHeight: 1.4,
+                          flexGrow: 1,
+                          display: "-webkit-box",
+                          WebkitLineClamp: 3,
+                          WebkitBoxOrient: "vertical",
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          minHeight: "4.2rem" // 3 lines * 1.4 line-height
+                        }}
+                      >
+                        {blog.title}
+                      </Typography>
 
-                    {/* Read More Button */}
-                    <Button
-                      variant="outlined"
-                      sx={{
-                        color: "primary.main",
-                        borderColor: "primary.main",
-                        fontWeight: "600",
-                        "&:hover": {
-                          backgroundColor: "primary.main",
-                          color: "common.white",
-                        },
-                      }}
-                    >
-                      Read More
-                    </Button>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            </Grid>
-          ))}
-        </Grid>
+                      {/* Author */}
+                      <Typography
+                        variant="caption"
+                        sx={{
+                          color: "#7F8DAB",
+                          fontSize: "0.75rem",
+                          mt: "auto",
+                          display: "flex",
+                          alignItems: "center",
+                          gap: "8px"
+                        }}
+                      >
+                        <Avatar sx={{
+                          width: 24,
+                          height: 24,
+                          fontSize: "0.75rem",
+                          bgcolor: "#3C4E80"
+                        }}>
+                          {blog.author.charAt(0)}
+                        </Avatar>
+                        {blog.author}
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              </Grid>
+            ))}
+          </Grid>
+        </Container>
       </Box>
 
       {/* Contact Section */}
@@ -222,9 +331,8 @@ const Page = () => {
           alignItems: "center",
           justifyContent: "center",
           gap: { xs: 6, lg: 10 },
-          bgcolor: "#EB1552", // Primary color for the section background
-          background: "linear-gradient(135deg, #EB1552 0%, #3c0e63 100%)", // Gradient background
-          color: "common.white", // White text for better contrast
+          bgcolor: "#3C4E80",
+          color: "common.white",
         }}
       >
         {/* Contact Form */}
@@ -233,15 +341,15 @@ const Page = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
-          sx={{ width: { xs: "100%", lg: "50%" } }}
+          style={{ width: "100%", maxWidth: "600px" }}
         >
           <Box
             sx={{
               p: 4,
-              borderRadius: 2,
-              bgcolor: "rgba(255, 255, 255, 0.1)", // Semi-transparent white background
-              backdropFilter: "blur(10px)", // Blur effect for a modern look
-              boxShadow: "0 8px 32px rgba(0, 0, 0, 0.2)", // Subtle shadow
+              borderRadius: "30px",
+              bgcolor: "rgba(255, 255, 255, 0.1)",
+              backdropFilter: "blur(10px)",
+              boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)",
             }}
           >
             <Typography
@@ -275,10 +383,10 @@ const Page = () => {
                         },
                       },
                       "& .MuiInputLabel-root": {
-                        color: "rgba(255, 255, 255, 0.7)", // Light label color
+                        color: "rgba(255, 255, 255, 0.7)",
                       },
                       "& .MuiInputLabel-root.Mui-focused": {
-                        color: "common.white", // White label when focused
+                        color: "common.white",
                       },
                     }}
                   />
@@ -301,15 +409,15 @@ const Page = () => {
                         },
                       },
                       "& .MuiInputLabel-root": {
-                        color: "rgba(255, 255, 255, 0.7)", // Light label color
+                        color: "rgba(255, 255, 255, 0.7)",
                       },
                       "& .MuiInputLabel-root.Mui-focused": {
-                        color: "common.white", // White label when focused
+                        color: "common.white",
                       },
                     }}
                   />
                 </Grid>
-                <Grid item xs={12} sm={6}>
+                <Grid item xs={12}>
                   <TextField
                     fullWidth
                     label="Email"
@@ -328,36 +436,10 @@ const Page = () => {
                         },
                       },
                       "& .MuiInputLabel-root": {
-                        color: "rgba(255, 255, 255, 0.7)", // Light label color
+                        color: "rgba(255, 255, 255, 0.7)",
                       },
                       "& .MuiInputLabel-root.Mui-focused": {
-                        color: "common.white", // White label when focused
-                      },
-                    }}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    fullWidth
-                    label="Phone"
-                    variant="outlined"
-                    sx={{
-                      bgcolor: "rgba(255, 255, 255, 0.1)",
-                      borderRadius: "8px",
-                      "& .MuiOutlinedInput-root": {
                         color: "common.white",
-                        "& fieldset": {
-                          borderColor: "rgba(255, 255, 255, 0.3)",
-                        },
-                        "&:hover fieldset": {
-                          borderColor: "common.white",
-                        },
-                      },
-                      "& .MuiInputLabel-root": {
-                        color: "rgba(255, 255, 255, 0.7)", // Light label color
-                      },
-                      "& .MuiInputLabel-root.Mui-focused": {
-                        color: "common.white", // White label when focused
                       },
                     }}
                   />
@@ -382,10 +464,10 @@ const Page = () => {
                         },
                       },
                       "& .MuiInputLabel-root": {
-                        color: "rgba(255, 255, 255, 0.7)", // Light label color
+                        color: "rgba(255, 255, 255, 0.7)",
                       },
                       "& .MuiInputLabel-root.Mui-focused": {
-                        color: "common.white", // White label when focused
+                        color: "common.white",
                       },
                     }}
                   />
@@ -397,11 +479,11 @@ const Page = () => {
                     fullWidth
                     sx={{
                       bgcolor: "common.white",
-                      color: "#EB1552",
+                      color: "#3C4E80",
                       fontSize: "1rem",
                       fontWeight: 600,
                       py: 2,
-                      borderRadius: "8px",
+                      borderRadius: "50px",
                       "&:hover": {
                         bgcolor: "rgba(255, 255, 255, 0.9)",
                       },
@@ -421,14 +503,15 @@ const Page = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
-          sx={{ width: { xs: "100%", lg: "50%" } }}
+          style={{ width: "100%", maxWidth: "500px" }}
         >
           <Box
             sx={{
               height: { xs: 300, lg: 450 },
-              borderRadius: 2,
+              borderRadius: "30px",
               overflow: "hidden",
-              boxShadow: "0 8px 32px rgba(0, 0, 0, 0.2)",
+              boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)",
+              border: "2px solid rgba(255, 255, 255, 0.2)"
             }}
           >
             <img

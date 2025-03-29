@@ -1,32 +1,92 @@
-import { assets } from '@/assets/assets'
-import Image from 'next/image'
-import React from 'react'
+import { assets } from '@/assets/assets';
+import { Box, Typography } from '@mui/material';
+import Image from 'next/image';
 
-const Footer = ({isDarkMode}) => {
-    return (
-        <div className=' mt-20'>
-            <div className=' text-center'>
-                <Image src={isDarkMode ? assets.logo_dark :assets.logo} alt='' className=' w-36 mx-auto mb-2' />
+const Footer = () => {
+  return (
+    <Box sx={{ 
+      // mt: 20,
+      borderTop:'2px solid white',
+      position: 'relative',
+      zIndex: 1000,
+      bgcolor: '#3C4E80',
+      color: 'white'
+    }}>
+      <Box sx={{ 
+        textAlign: 'center',
+        pt: 8,
+        pb: 4
+      }}>
+        <Image 
+          src={assets.logo} 
+          alt="Clear Horizon" 
+          width={144}
+          height={144}
+          style={{ 
+            margin: '0 auto 8px',
+            filter: 'brightness(0) invert(1)' 
+          }} 
+        />
+        
+        <Box sx={{ 
+          display: 'inline-flex', 
+          alignItems: 'center', 
+          gap: 2,
+          mb: 2
+        }}>
+          <Image 
+            src={assets.mail_icon} 
+            alt="Email" 
+            width={24}
+            height={24}
+            style={{ filter: 'brightness(0) invert(1)' }}
+          />
+          <Typography variant="body1">clearHorizon@gmail.com</Typography>
+        </Box>
+      </Box>
 
-                <div className=' w-max flex items-center gap-2 mx-auto'>
-                    <Image src={isDarkMode ? assets.mail_icon_dark :assets.mail_icon} alt='' className=' w-6' />
-                    clearHorizon@gmail.com
-                </div>
-            </div>
+      <Box sx={{ 
+        textAlign: 'center',
+        display: 'flex',
+        flexDirection: { xs: 'column', sm: 'row' },
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        borderTop: '1px solid rgba(255,255,255,0.2)',
+        mx: '10%',
+        mt: 6,
+        py: 6
+      }}>
+        <Typography variant="body2">© All rights reserved {new Date().getFullYear()}</Typography>
+        <Box component="ul" sx={{ 
+          display: 'flex', 
+          gap: 5, 
+          mt: { xs: 4, sm: 0 },
+          p: 0,
+          m: 0,
+          listStyle: 'none'
+        }}>
+          {['Instagram', 'LinkedIn', 'Twitter'].map((platform) => (
+            <li key={platform}>
+              <a 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                href={`https://${platform.toLowerCase()}.com/`}
+                style={{ 
+                  color: 'white',
+                  textDecoration: 'none',
+                  '&:hover': {
+                    color: '#7F8DAB'
+                  }
+                }}
+              >
+                <Typography variant="body2">{platform}</Typography>
+              </a>
+            </li>
+          ))}
+        </Box>
+      </Box>
+    </Box>
+  );
+};
 
-            <div className=' text-center sm:flex items-center justify-between border-t
-             border-gray-400 mx-[10%] mt-12 py-6'>
-                <p>© All rights reserved 2024</p>
-                <ul className='flex items-center gap-10 justify-center mt-4 sm:mt-0'>
-                    <li><a target='_blank' href='https://instagram.com/'>Instagram</a></li>
-                    <li><a target='_blank' href='https://instagram.com/'>LinkedIn</a></li>
-                    <li><a target='_blank' href='https://instagram.com/'>Twitter</a></li>
-                </ul>
-            </div>
-        </div>
-    )
-}
-
-
-
-export default  Footer
+export default Footer;

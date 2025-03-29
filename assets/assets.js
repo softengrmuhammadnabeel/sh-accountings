@@ -46,9 +46,13 @@ import service5 from "./services/5.jpg";
 import service6 from "./services/6.jpg";
 import service7 from "./services/7.jpg";
 import contactUsGirl from "./services/contactUs.jpg";
+import logowithtext from "./navbar/logo.png";
+import logowotext from "./navbar/logo2short.png";
 
 export const assets = {
   service1,
+  logowithtext,
+  logowotext,
   service2,
   contactUsGirl,
   service3,
