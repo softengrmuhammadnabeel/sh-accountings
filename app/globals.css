@@ -73,3 +73,27 @@
 .ql-editor {
   min-height: 200px;
 }
+
+
+@font-face {
+  font-family: "Gotham";
+  src: url("/font/Gotham-Bold.otf") format("opentype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Moontime";
+  src: url("/font/Moontime.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Utility classes */
+.gotham-bold {
+  font-family: "Gotham", sans-serif !important;
+}
+
+.moontime {
+  font-family: "Moontime", cursive !important;
+}

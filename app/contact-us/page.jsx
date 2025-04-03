@@ -10,6 +10,7 @@ import {
   TextField,
 } from "@mui/material";
 import { assets } from "@/assets/assets";
+import { rowVariants } from "../services/page";
 
 const Page = () => {
   const onSubmit = (e) => {
@@ -107,12 +108,221 @@ const Page = () => {
           alignItems: "center",
           justifyContent: "center",
           gap: { xs: 6, lg: 10 },
-          bgcolor: "#EB1552", // Primary color for the section background
+          bgcolor: "#EB1552",
           background: "linear-gradient(135deg, #EB1552 0%, #3c0e63 100%)", // Gradient background
-          color: "common.white", // White text for better contrast
+          color: "common.white",
         }}
       >
-        {/* Contact Form */}
+        <Box
+          id="contact"
+
+          sx={{
+            px: { xs: 2, sm: 2 },
+            py: 16,
+            display: "flex",
+            flexDirection: { xs: "column", lg: "row" },
+            alignItems: "center",
+            justifyContent: "center",
+            gap: { xs: 6, lg: 10 },
+            // bgcolor: "#3C4E80",
+            color: "common.white",
+          }}
+        >
+          {/* Contact Form */}
+          <motion.div
+            variants={rowVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            style={{ width: "100%", maxWidth: "600px" }}
+          >
+            <Box
+              sx={{
+                p: 4,
+                borderRadius: "30px",
+                bgcolor: "rgba(255, 255, 255, 0.1)",
+                backdropFilter: "blur(10px)",
+                boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)",
+              }}
+            >
+              <Typography
+                variant="h4"
+                sx={{
+                  mb: 4,
+                  fontWeight: "bold",
+                  color: "common.white",
+                  textAlign: { xs: "center", lg: "left" },
+                }}
+              >
+                Get in Touch
+              </Typography>
+
+              <form onSubmit={onSubmit}>
+                <Grid container spacing={3}>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      fullWidth
+                      label="First Name"
+                      variant="outlined"
+                      sx={{
+                        bgcolor: "rgba(255, 255, 255, 0.1)",
+                        borderRadius: "8px",
+                        "& .MuiOutlinedInput-root": {
+                          color: "common.white",
+                          "& fieldset": {
+                            borderColor: "rgba(255, 255, 255, 0.3)",
+                          },
+                          "&:hover fieldset": {
+                            borderColor: "common.white",
+                          },
+                        },
+                        "& .MuiInputLabel-root": {
+                          color: "rgba(255, 255, 255, 0.7)",
+                        },
+                        "& .MuiInputLabel-root.Mui-focused": {
+                          color: "common.white",
+                        },
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={12} sm={6}>
+                    <TextField
+                      fullWidth
+                      label="Last Name"
+                      variant="outlined"
+                      sx={{
+                        bgcolor: "rgba(255, 255, 255, 0.1)",
+                        borderRadius: "8px",
+                        "& .MuiOutlinedInput-root": {
+                          color: "common.white",
+                          "& fieldset": {
+                            borderColor: "rgba(255, 255, 255, 0.3)",
+                          },
+                          "&:hover fieldset": {
+                            borderColor: "common.white",
+                          },
+                        },
+                        "& .MuiInputLabel-root": {
+                          color: "rgba(255, 255, 255, 0.7)",
+                        },
+                        "& .MuiInputLabel-root.Mui-focused": {
+                          color: "common.white",
+                        },
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      label="Email"
+                      type="email"
+                      variant="outlined"
+                      sx={{
+                        bgcolor: "rgba(255, 255, 255, 0.1)",
+                        borderRadius: "8px",
+                        "& .MuiOutlinedInput-root": {
+                          color: "common.white",
+                          "& fieldset": {
+                            borderColor: "rgba(255, 255, 255, 0.3)",
+                          },
+                          "&:hover fieldset": {
+                            borderColor: "common.white",
+                          },
+                        },
+                        "& .MuiInputLabel-root": {
+                          color: "rgba(255, 255, 255, 0.7)",
+                        },
+                        "& .MuiInputLabel-root.Mui-focused": {
+                          color: "common.white",
+                        },
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <TextField
+                      fullWidth
+                      label="Your Message"
+                      multiline
+                      rows={4}
+                      variant="outlined"
+                      sx={{
+                        bgcolor: "rgba(255, 255, 255, 0.1)",
+                        borderRadius: "8px",
+                        "& .MuiOutlinedInput-root": {
+                          color: "common.white",
+                          "& fieldset": {
+                            borderColor: "rgba(255, 255, 255, 0.3)",
+                          },
+                          "&:hover fieldset": {
+                            borderColor: "common.white",
+                          },
+                        },
+                        "& .MuiInputLabel-root": {
+                          color: "rgba(255, 255, 255, 0.7)",
+                        },
+                        "& .MuiInputLabel-root.Mui-focused": {
+                          color: "common.white",
+                        },
+                      }}
+                    />
+                  </Grid>
+                  <Grid item xs={12}>
+                    <Button
+                      type="submit"
+                      variant="contained"
+                      fullWidth
+                      sx={{
+                        bgcolor: "common.white",
+                        color: "#3C4E80",
+                        fontSize: "1rem",
+                        fontWeight: 600,
+                        py: 2,
+                        borderRadius: "50px",
+                        "&:hover": {
+                          bgcolor: "rgba(255, 255, 255, 0.9)",
+                        },
+                      }}
+                    >
+                      Send Message
+                    </Button>
+                  </Grid>
+                </Grid>
+              </form>
+            </Box>
+          </motion.div>
+
+          {/* Contact Image */}
+          <motion.div
+            variants={rowVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.3 }}
+            style={{ width: "100%", maxWidth: "500px" }}
+          >
+            <Box
+              sx={{
+                height: { xs: 300, lg: 450 },
+                borderRadius: "30px",
+                overflow: "hidden",
+                boxShadow: "0 8px 32px rgba(0, 0, 0, 0.1)",
+                border: "2px solid rgba(255, 255, 255, 0.2)"
+              }}
+            >
+              <img
+                src={assets.contactUsGirl.src}
+                alt="Contact"
+                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              />
+            </Box>
+          </motion.div>
+        </Box>
+      </Box>
+
+
+
+
+
+      {/* Contact Form
         <motion.div
           initial={{ opacity: 0, x: -50 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -301,7 +511,7 @@ const Page = () => {
         </motion.div>
 
         {/* Contact Image */}
-        <motion.div
+      {/* <motion.div
           initial={{ opacity: 0, x: 50 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
@@ -322,8 +532,9 @@ const Page = () => {
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
           </Box>
-        </motion.div>
-      </Box>
+        </motion.div>  */}
+
+
     </>
   );
 };

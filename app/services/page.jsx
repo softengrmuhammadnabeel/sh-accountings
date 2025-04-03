@@ -18,26 +18,73 @@ import {
 import servicesData from '@/utils/serviceData';
 import ContactUs from '../components/ContactUs';
 
+export const cardVariants = {
+  hover: {
+    scale: 1.02,
+    transition: { duration: 0.3, ease: "easeOut" },
+  },
+};
+
+export const rowVariants = {
+  hidden: { opacity: 0, x: -150 },
+  visible: {
+    opacity: 1,
+    x: 0,
+    transition: { duration: 0.4, ease: "easeOut" },
+  },
+};
 const Page = () => {
 
   let isDarkMode = 'true'
-  const rowVariants = {
-    hidden: { opacity: 0, x: -150 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: { duration: 0.4, ease: "easeOut" },
-    },
+
+  const [services, setServices] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  const fetchservices = async () => {
+    const response = await fetch("/api/services");
+    if (!response.ok) {
+      throw new Error("Failed to fetch services");
+    }
+    return response.json();
   };
 
-  const cardVariants = {
-    hover: {
-      scale: 1.02,
-      transition: { duration: 0.3, ease: "easeOut" },
-    },
+  const checkCacheAndFetch = async () => {
+    // Check if data exists in localStorage
+    const cachedData = localStorage.getItem("services");
+    const lastFetched = localStorage.getItem("lastFetchedservices");
+
+    // If cached data exists and was fetched less than 5 minutes ago, use it
+    if (cachedData && lastFetched) {
+      const now = new Date().getTime();
+      const timeDifference = now - parseInt(lastFetched, 10);
+
+      if (timeDifference < 5 * 60 * 1000) { // 5 minutes
+        setServices(JSON.parse(cachedData));
+        setLoading(false);
+        return;
+      }
+    }
+
+    // If no valid cache, fetch from API
+    try {
+      const data = await fetchservices();
+      setServices(data);
+
+      // Save data and timestamp to localStorage
+      localStorage.setItem("services", JSON.stringify(data));
+      localStorage.setItem("lastFetchedservices", new Date().getTime().toString());
+      console.log("SERVICES", services);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
-
+  useEffect(() => {
+    checkCacheAndFetch();
+  }, []);
 
   return (
     <>
@@ -50,7 +97,7 @@ const Page = () => {
           height: "100vh",
           position: "relative",
           overflow: "hidden",
-          backgroundColor: "#3C4E80" // Fallback if video doesn't load
+          backgroundColor: "#3C4E80"
         }}>
           <video
             autoPlay
@@ -140,7 +187,7 @@ const Page = () => {
                 fontWeight: 600,
                 px: 4,
                 py: 2,
-                border:'2px solid white',
+                border: '2px solid white',
                 borderRadius: "50px",
                 boxShadow: "none",
                 "&:hover": {
@@ -185,7 +232,7 @@ const Page = () => {
             </Typography>
 
             <Grid container spacing={4}>
-              {servicesData.map((service) => (
+              {services.map((service) => (
                 <Grid item xs={12} sm={6} md={4} key={service._id}>
                   <motion.div
                     variants={cardVariants}
@@ -232,7 +279,7 @@ const Page = () => {
                         p: 3,
                         display: "flex",
                         flexDirection: "column",
-                        minHeight: 220 // Ensures consistent height for text content
+                        minHeight: 180 // Ensures consistent height for text content
                       }}>
                         {/* Service Title */}
                         <Typography
@@ -257,11 +304,12 @@ const Page = () => {
                             color: "#7F8DAB",
                             fontSize: "0.9rem",
                             lineHeight: 1.6,
-                            flexGrow: 1
+                            flexGrow: 1,
                           }}
                         >
-                          {service.description}
+                          {service?.description?.split("\n")[0]}
                         </Typography>
+
 
                         {/* Explore Button */}
                         <Button

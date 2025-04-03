@@ -3,7 +3,7 @@
 
 import { assets } from '@/assets/assets';
 import Image from "next/image";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import {
   Box,
@@ -42,6 +42,55 @@ const Page = () => {
     e.preventDefault();
     console.log("Message sent successfully!");
   };
+
+  const [blogs, setBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  const fetchBlogs = async () => {
+    const response = await fetch("/api/blogs");
+    if (!response.ok) {
+      throw new Error("Failed to fetch blogs");
+    }
+    return response.json();
+  };
+
+  const checkCacheAndFetch = async () => {
+    // Check if data exists in localStorage
+    const cachedData = localStorage.getItem("blogs");
+    const lastFetched = localStorage.getItem("lastFetched");
+
+    // If cached data exists and was fetched less than 5 minutes ago, use it
+    if (cachedData && lastFetched) {
+      const now = new Date().getTime();
+      const timeDifference = now - parseInt(lastFetched, 10);
+
+      if (timeDifference < 5 * 60 * 1000) { // 5 minutes
+        setBlogs(JSON.parse(cachedData));
+        setLoading(false);
+        return;
+      }
+    }
+
+    // If no valid cache, fetch from API
+    try {
+      const data = await fetchBlogs();
+      setBlogs(data);
+
+      // Save data and timestamp to localStorage
+      localStorage.setItem("blogs", JSON.stringify(data));
+      localStorage.setItem("lastFetched", new Date().getTime().toString());
+      console.log(blogs);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    checkCacheAndFetch();
+  }, []);
 
   return (
     <>
@@ -186,7 +235,7 @@ const Page = () => {
           </Typography>
 
           <Grid container spacing={4}>
-            {blogData.map((blog) => (
+            {blogs.map((blog) => (
               <Grid item xs={12} sm={6} md={4} key={blog._id}>
                 <motion.div
                   variants={cardVariants}
@@ -214,7 +263,7 @@ const Page = () => {
                       overflow: "hidden",
                       position: "relative"
                     }}>
-                      {blog.image && (
+                      {blog?.image && (
                         <CardMedia
                           component="img"
                           image={blog.image.src}
@@ -222,10 +271,13 @@ const Page = () => {
                           sx={{
                             position: "absolute",
                             height: "100%",
-                            width: "100%",
+                            width: "auto",
+                            maxWidth: "100%", 
                             objectFit: "cover",
                             borderRadius: "16px 16px 0 0",
                           }}
+                          loading="lazy"
+                          blurDataURL={blog.image.blurDataURL}
                         />
                       )}
                     </Box>
@@ -254,7 +306,7 @@ const Page = () => {
                             fontSize: "0.7rem"
                           }}
                         >
-                          {blog.category}
+                          {blog?.category}
                         </Typography>
                         <Typography
                           variant="caption"
@@ -263,7 +315,7 @@ const Page = () => {
                             fontSize: "0.7rem"
                           }}
                         >
-                          {blog.date}
+                          {blog?.date}
                         </Typography>
                       </Box>
 
@@ -286,7 +338,7 @@ const Page = () => {
                           minHeight: "4.2rem" // 3 lines * 1.4 line-height
                         }}
                       >
-                        {blog.title}
+                        {blog?.title}
                       </Typography>
 
                       {/* Author */}
@@ -307,9 +359,9 @@ const Page = () => {
                           fontSize: "0.75rem",
                           bgcolor: "#3C4E80"
                         }}>
-                          {blog.author.charAt(0)}
+                          {String(blog?.author).charAt(0)}
                         </Avatar>
-                        {blog.author}
+                        {blog?.author}
                       </Typography>
                     </CardContent>
                   </Card>
