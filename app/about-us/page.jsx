@@ -1,15 +1,15 @@
 "use client";
 import * as React from "react";
-import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
-import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { Box, Typography } from "@mui/material";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
-// Background images
-const bgImage1 = "/1.jpg";
-const bgImage2 = "/2.jpg";
+const bgImage1 = "/about/fourth.jpg";
+// const bgImage1 = "/1.jpg";
+const bgImage2 = "/about/fourth.jpg";
 const headerImage = "/header_about.png";
 
 const SecondSection = () => {
@@ -259,6 +259,123 @@ const ThirdSection = () => {
     </Box>
   );
 };
+
+const MotionBox = motion(Box);
+
+const features = [
+  {
+    title: "Accuracy",
+    description:
+      "Taxviser provides precise assistance for accounting and taxation services with unparalleled accuracy. Our team of experts is dedicated to ensuring that your financial goals are met with the utmost attention to detail and professionalism.",
+  },
+  {
+    title: "Compliance",
+    description:
+      "Recognizing the paramount significance of adhering to ATO taxation compliance and regulations, we are committed to delivering our clients top-notch services that exude professionalism and expertise.",
+  },
+  {
+    title: "Approachable",
+    description:
+      "At Taxviser, we are approachable and committed to providing exceptional service and support. Whether it's a question, concern, or our clients requiring assistance, we are here to help.",
+  },
+  {
+    title: "Cost-effective",
+    description:
+      "At Taxviser, we offer cost-effective solutions to our clients understanding the importance of financial management. Our reputation is built on our commitment to providing service with the best possible advice.",
+  },
+  {
+    title: "Community-based",
+    description:
+      "We are a local community-based accounting & taxation firm that prides itself on its adaptability and inclusivity. As a proud member of the Whittlesea community, we provide a family-friendly atmosphere to feel right at home.",
+  },
+];
+
+const FourthSection = () => {
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: { xs: "column", md: "row" },
+        width: "100%",
+        background: 'transparent',
+        height: '1000px',
+        minHeight: "100vh",
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      {/* Left Section */}
+      <Box
+        sx={{
+          flex: 1,
+          px: { xs: 3, md: 6 },
+          py: { xs: 4, md: 8 },
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          // background: "linear-gradient(135deg, #ffffff 60%, #f1f1f1 100%)",
+        }}
+      >
+        <Typography
+          variant="caption"
+          sx={{ color: "#777", mb: 1 }}
+        >
+          Tax experts at your doorstep.
+        </Typography>
+        <Typography
+          variant="h4"
+          sx={{
+            fontWeight: 600,
+            color: "#111",
+            mb: 2,
+          }}
+        >
+          Many reasons to choose Taxviser...
+        </Typography>
+      </Box>
+
+      {/* Right Section */}
+      <Box
+        sx={{
+          flex: 1,
+          backgroundColor: "#a52727",
+          px: { xs: 3, md: 6 },
+          py: { xs: 4, md: 8 },
+          color: "white",
+          display: "flex",
+          flexDirection: "column",
+          gap: 3,
+        }}
+      >
+        {features.map((item, index) => (
+          <MotionBox
+            key={index}
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.1 }}
+            viewport={{ once: true }}
+            sx={{ display: "flex", alignItems: "flex-start", gap: 2 }}
+          >
+            <ChevronRightIcon sx={{ color: "white", fontSize: 28, mt: 0.5 }} />
+            <Box>
+              <Typography
+                variant="h6"
+                sx={{ fontWeight: 700, mb: 0.5, color: "white" }}
+              >
+                {item.title}
+              </Typography>
+              <Typography sx={{ fontSize: "0.95rem", color: "white" }}>
+                {item.description}
+              </Typography>
+            </Box>
+          </MotionBox>
+        ))}
+      </Box>
+    </Box>
+  );
+};
+
+
 const sections = [
   {
     type: "color",
@@ -266,11 +383,9 @@ const sections = [
     height: "auto"
   },
   {
-    type: "image",
-    bgValue: bgImage1,
-    title: "Our Story",
-    content: "Founded in 2010, we began as a small team passionate about financial empowerment. Today, we serve clients across multiple countries.",
-    height: "100vh"
+    type: "color",
+    content: <FourthSection />,
+    height: "auto"
   },
   {
     type: "color",
@@ -294,7 +409,7 @@ const AboutUsPage = () => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
       const windowHeight = window.innerHeight;
-      setActiveBg(scrollPosition > windowHeight * 2 ? 1 : 0);
+      setActiveBg(scrollPosition > windowHeight * 0.5 ? 1 : 0);
     };
 
     window.addEventListener("scroll", handleScroll);
