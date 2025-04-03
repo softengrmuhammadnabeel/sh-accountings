@@ -303,7 +303,7 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
         <Typography
           component="h5"
           variant="h5"
-          className={`text-[44px] gotham-bold cursor-pointer tracking-wide transition-colors duration-300 
+          className={`text-[30px] gotham-bold cursor-pointer tracking-wide transition-colors duration-300 
           ${isScroll ? 'text-[#1F2943]' : 'text-white'}`}
         >
           Clear
@@ -312,7 +312,7 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
         <Typography
           component="h5"
           variant="h5"
-          className={`text-[56px] moontime font-extrabold cursor-pointer tracking-wide transition-colors duration-300 
+          className={`text-[30px] moontime font-extrabold cursor-pointer tracking-wide transition-colors duration-300 
           ${isScroll ? 'text-[#1F2943]' : 'text-white'}`}
         >
           Horizon

@@ -60,7 +60,7 @@ const ContactModal = ({ closeModal }) => {
                         <Typography
                             component="h5"
                             variant="h5"
-                            className={`text-[44px] gotham-bold text-black cursor-pointer tracking-wide transition-colors duration-300 `}
+                            className={`text-[34px] gotham-bold text-black cursor-pointer tracking-wide transition-colors duration-300 `}
                         >
                             Clear
                         </Typography>
@@ -68,7 +68,7 @@ const ContactModal = ({ closeModal }) => {
                         <Typography
                             component="h5"
                             variant="h5"
-                            className={`text-[56px] moontime font-extrabold cursor-pointer tracking-wide transition-colors duration-300 text-black`}
+                            className={`text-[34px] moontime font-extrabold cursor-pointer tracking-wide transition-colors duration-300 text-black`}
                         >
                             Horizon
                         </Typography>

@@ -47,10 +47,27 @@ const About = ({ isDarkMode }) => {
                     initial={{ opacity: 0, scale: 0.9 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.6 }}
-                    className='w-64 sm:w-80 rounded-3xl max-w-none'
+                    className="w-48 sm:w-64 md:w-80 lg:w-96 rounded-3xl max-w-none"
                 >
-                    <Image src={assets.user_image} alt='user' className='w-full rounded-3xl' />
+                    <Box className="flex items-center justify-center text-nowrap">
+                        <Typography
+                            component="h6"
+                            variant="h6"
+                            className="text-[2rem] sm:text-[3rem] md:text-[4rem] gotham-bold cursor-pointer tracking-wide transition-colors duration-300 text-[#1F2943]"
+                        >
+                            Clear
+                        </Typography>
+
+                        <Typography
+                            component="h6"
+                            variant="h6"
+                            className="text-[2rem] sm:text-[3rem] md:text-[4rem] moontime font-extrabold cursor-pointer tracking-wide transition-colors duration-300 text-[#1F2943]"
+                        >
+                            Horizon
+                        </Typography>
+                    </Box>
                 </motion.div>
+
 
                 <motion.div
                     initial={{ opacity: 0 }}
