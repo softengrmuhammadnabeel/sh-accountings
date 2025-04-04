@@ -3,6 +3,9 @@
 
 import { assets } from '@/assets/assets';
 import Image from "next/image";
+import { CircularProgress } from "@mui/material";
+import { useRouter } from 'next/navigation';
+
 import React, { useState, useEffect } from "react";
 import { useCallback } from "react";
 import { motion } from "framer-motion";
@@ -31,6 +34,8 @@ const Page = () => {
       transition: { duration: 0.4, ease: "easeOut" },
     },
   };
+  const router = useRouter();
+
 
   const cardVariants = {
     hover: {
@@ -62,7 +67,7 @@ const Page = () => {
     const lastFetched = localStorage.getItem("lastFetched");
 
     const now = new Date().getTime();
-    if (cachedData && lastFetched && now - +lastFetched < 5 * 60 * 1000) {
+    if (cachedData && lastFetched && now - +lastFetched < 0.5 * 60 * 1000) {
       setBlogs(JSON.parse(cachedData));
       setLoading(false);
       return;
@@ -276,142 +281,151 @@ const Page = () => {
           <Grid container spacing={4}>
             {
               loading ? (
-                <Typography align="center" sx={{ mt: 8 }} >
-                  Loading blogs...
-                </Typography>
-              ) : blogs.map((blog) => (
-                <Grid item xs={12} sm={6} md={4} key={blog._id}>
-                  <motion.div
-                    variants={cardVariants}
-                    whileHover={{ y: -5 }}
-                  >
-                    <Card
-                      sx={{
-                        height: "100%",
-                        display: "flex",
-                        flexDirection: "column",
-                        bgcolor: "background.paper",
-                        boxShadow: "0 4px 20px rgba(60, 78, 128, 0.1)",
-                        borderRadius: "16px",
-                        transition: "transform 0.3s, box-shadow 0.3s",
-                        "&:hover": {
-                          boxShadow: "0 8px 40px rgba(60, 78, 128, 0.2)",
-                        },
-                        border: "1px solid rgba(127, 141, 171, 0.1)"
-                      }}
+                <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "50vh" }}>
+                  <CircularProgress />
+                </Box>
+              ) :
+                blogs.map((blog) => (
+                  <Grid item xs={12} sm={6} md={4} key={blog.id}>
+                    <motion.div
+                      variants={cardVariants}
+                      whileHover={{ y: -5 }}
                     >
-                      {/* Blog Image - Fixed height */}
-                      <Box sx={{
-                        height: 200,
-                        width: "100%",
-                        overflow: "hidden",
-                        position: "relative"
-                      }}>
-                        {blog?.image && (
-                          <CardMedia
-                            component="img"
-                            image={blog.image}
-                            alt={blog.title}
-                            sx={{
-                              position: "absolute",
-                              height: "100%",
-                              width: "auto",
-                              maxWidth: "100%",
-                              objectFit: "cover",
-                              borderRadius: "16px 16px 0 0",
-                            }}
-                            loading="lazy"
-                            blurDataURL={blog.image.blurDataURL}
-                          />
-                        )}
-                      </Box>
+                      <Box onClick={() => router.push(`/blogs/${blog._id}`)}>
 
-                      <CardContent sx={{
-                        flexGrow: 1,
-                        p: 3,
-                        display: "flex",
-                        flexDirection: "column",
-                        minHeight: 180 // Ensures consistent height for text content
-                      }}>
-                        {/* Category and Date */}
-                        <Box sx={{
-                          display: "flex",
-                          justifyContent: "space-between",
-                          alignItems: "center",
-                          mb: 2
-                        }}>
-                          <Typography
-                            variant="caption"
-                            sx={{
-                              color: "#7F8DAB",
-                              fontWeight: "medium",
-                              textTransform: "uppercase",
-                              letterSpacing: "0.5px",
-                              fontSize: "0.7rem"
-                            }}
-                          >
-                            {blog?.category}
-                          </Typography>
-                          <Typography
-                            variant="caption"
-                            sx={{
-                              color: "#7F8DAB",
-                              fontSize: "0.7rem"
-                            }}
-                          >
-                            {blog?.date}
-                          </Typography>
-                        </Box>
+                        <Card
 
-                        {/* Blog Title - Fixed height with line clamp */}
-                        <Typography
-                          variant="h6"
-                          component="h2"
                           sx={{
-                            mb: 2,
-                            fontWeight: "bold",
-                            color: "#3C4E80",
-                            fontSize: "1.1rem",
-                            lineHeight: 1.4,
-                            flexGrow: 1,
-                            display: "-webkit-box",
-                            WebkitLineClamp: 3,
-                            WebkitBoxOrient: "vertical",
-                            overflow: "hidden",
-                            textOverflow: "ellipsis",
-                            minHeight: "4.2rem" // 3 lines * 1.4 line-height
-                          }}
-                        >
-                          {blog?.title}
-                        </Typography>
-
-                        {/* Author */}
-                        <Typography
-                          variant="caption"
-                          sx={{
-                            color: "#7F8DAB",
-                            fontSize: "0.75rem",
-                            mt: "auto",
+                            height: "100%",
                             display: "flex",
-                            alignItems: "center",
-                            gap: "8px"
+                            flexDirection: "column",
+                            bgcolor: "background.paper",
+                            boxShadow: "0 4px 20px rgba(60, 78, 128, 0.1)",
+                            borderRadius: "16px",
+                            transition: "transform 0.3s, box-shadow 0.3s",
+                            "&:hover": {
+                              boxShadow: "0 8px 40px rgba(60, 78, 128, 0.2)",
+                              cursor: 'pointer',
+                            },
+                            border: "1px solid rgba(127, 141, 171, 0.1)"
                           }}
+
                         >
-                          <Avatar sx={{
-                            width: 24,
-                            height: 24,
-                            fontSize: "0.75rem",
-                            bgcolor: "#3C4E80"
+                          {/* Blog Image - Fixed height */}
+                          <Box sx={{
+                            height: 200,
+                            width: "100%",
+                            overflow: "hidden",
+                            position: "relative"
+
                           }}>
-                            {String(blog?.author).charAt(0)}
-                          </Avatar>
-                          {blog?.author}
-                        </Typography>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                </Grid>
-              ))}
+                            {blog?.image && (
+                              <CardMedia
+                                component="img"
+                                image={blog.image}
+                                alt={blog.title}
+                                sx={{
+                                  position: "absolute",
+                                  height: "100%",
+                                  width: "100%",
+                                  objectFit: "cover",
+                                  borderRadius: "16px 16px 0 0",
+                                }}
+                                loading="lazy"
+                                blurDataURL={blog.image.blurDataURL}
+                              />
+                            )}
+
+                          </Box>
+
+                          <CardContent sx={{
+                            flexGrow: 1,
+                            p: 3,
+                            display: "flex",
+                            flexDirection: "column",
+                            minHeight: 180 // Ensures consistent height for text content
+                          }}>
+                            {/* Category and Date */}
+                            <Box sx={{
+                              display: "flex",
+                              justifyContent: "space-between",
+                              alignItems: "center",
+                              mb: 2
+                            }}>
+                              <Typography
+                                variant="caption"
+                                sx={{
+                                  color: "#7F8DAB",
+                                  fontWeight: "medium",
+                                  textTransform: "uppercase",
+                                  letterSpacing: "0.5px",
+                                  fontSize: "0.7rem"
+                                }}
+                              >
+                                {blog?.category}
+                              </Typography>
+                              <Typography
+                                variant="caption"
+                                sx={{
+                                  color: "#7F8DAB",
+                                  fontSize: "0.7rem"
+                                }}
+                              >
+                                {blog?.date}
+                              </Typography>
+                            </Box>
+
+                            {/* Blog Title - Fixed height with line clamp */}
+                            <Typography
+                              variant="h6"
+                              component="h2"
+                              sx={{
+                                mb: 2,
+                                fontWeight: "bold",
+                                color: "#3C4E80",
+                                fontSize: "1.1rem",
+                                lineHeight: 1.4,
+                                flexGrow: 1,
+                                display: "-webkit-box",
+                                WebkitLineClamp: 3,
+                                WebkitBoxOrient: "vertical",
+                                overflow: "hidden",
+                                textOverflow: "ellipsis",
+                                minHeight: "4.2rem" // 3 lines * 1.4 line-height
+                              }}
+                            >
+                              {blog?.title}
+                            </Typography>
+
+                            {/* Author */}
+                            <Typography
+                              variant="caption"
+                              sx={{
+                                color: "#7F8DAB",
+                                fontSize: "0.75rem",
+                                mt: "auto",
+                                display: "flex",
+                                alignItems: "center",
+                                gap: "8px"
+                              }}
+                            >
+                              <Avatar sx={{
+                                width: 24,
+                                height: 24,
+                                fontSize: "0.75rem",
+                                bgcolor: "#3C4E80"
+                              }}>
+                                {String(blog?.author).charAt(0)}
+                              </Avatar>
+                              {blog?.author}
+                            </Typography>
+                          </CardContent>
+                        </Card>
+
+                      </Box>
+                    </motion.div>
+                  </Grid>
+                ))}
           </Grid>
         </Container>
       </Box >

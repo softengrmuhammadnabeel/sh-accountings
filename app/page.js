@@ -6,7 +6,7 @@ import Footer from "./components/Footer";
 import { Header } from "./components/Header";
 import Navbar from "./components/Navbar";
 import Services from "./components/Services";
-import Work from "./components/Work";
+import Blogs from "./components/Blogs";
 import ContactUs from "./components/ContactUs";
 
 export default function Home() {
@@ -41,7 +41,7 @@ export default function Home() {
       <Header isDarkMode={isDarkMode} />
       <About isDarkMode={isDarkMode} />
       <Services isDarkMode={isDarkMode} />
-      <Work isDarkMode={isDarkMode} />
+      <Blogs isDarkMode={isDarkMode} />
       <ContactUs />
       {/* <Footer isDarkMode={isDarkMode}/> */}
     </>

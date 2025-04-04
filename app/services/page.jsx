@@ -4,6 +4,8 @@ import { assets } from '@/assets/assets';
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { CircularProgress } from "@mui/material";
+
 import {
   Box,
   Typography,
@@ -40,7 +42,7 @@ const Page = () => {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  
+
   const fetchservices = async () => {
     const response = await fetch("/api/services");
     if (!response.ok) {
@@ -60,7 +62,7 @@ const Page = () => {
       const now = new Date().getTime();
       const timeDifference = now - parseInt(lastFetched, 10);
 
-      if (timeDifference < 5 * 60 * 1000) { // 5 minutes
+      if (timeDifference < 0.5 * 60 * 1000) { // 5 minutes
         setServices(JSON.parse(cachedData));
         setLoading(false);
         return;
@@ -232,7 +234,11 @@ const Page = () => {
             </Typography>
 
             <Grid container spacing={4}>
-              {services.map((service) => (
+              {loading ? (
+                <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "50vh" }}>
+                  <CircularProgress />
+                </Box>
+              ) : services.map((service) => (
                 <Grid item xs={12} sm={6} md={4} key={service._id}>
                   <motion.div
                     variants={cardVariants}

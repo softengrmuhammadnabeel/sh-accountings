@@ -1,7 +1,8 @@
-'use client'
+'use client';
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
 import { motion } from 'framer-motion';
+import { Box, Container, Grid, Typography, Card, CardContent, CardMedia } from '@mui/material';
 
 const BlogPost = () => {
   const [blog, setBlog] = useState(null);
@@ -22,34 +23,88 @@ const BlogPost = () => {
   };
 
   if (!blog) {
-    return <div className="min-h-screen flex items-center justify-center">Loading...</div>;
+    return (
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          minHeight: '100vh',
+          fontSize: '1.25rem',
+          color: 'text.secondary',
+        }}
+      >
+        Loading...
+      </Box>
+    );
   }
 
   return (
-    <motion.div 
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.5 }}
-      className="min-h-screen p-6 bg-white dark:bg-darkTheme"
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
     >
-      <div className="container mx-auto max-w-4xl">
-        <div className="bg-white dark:bg-darkHover rounded-lg shadow-md overflow-hidden">
-          <img
-            src={blog.image}
-            alt={blog.title}
-            className="w-full h-[400px] object-cover"
-          />
-          <div className="p-8">
-            <h1 className="text-4xl font-bold text-[#2a004a] dark:text-white mb-4">
-              {blog.title}
-            </h1>
-            <div 
-              className="prose prose-lg max-w-none dark:prose-invert prose-headings:text-[#2a004a] dark:prose-headings:text-white prose-a:text-blue-600 dark:prose-a:text-blue-400"
-              dangerouslySetInnerHTML={{ __html: blog.description }}
-            />
-          </div>
-        </div>
-      </div>
+      <Container maxWidth="lg" sx={{ py: 4 }}>
+        {/* Hero Section */}
+        <Grid container spacing={4} justifyContent="center">
+          <Grid item xs={12} sx={{ mt: 12 }}>
+            <Card sx={{ position: 'relative', height: '60vh', borderRadius: 2, boxShadow: 3 }}>
+              <CardMedia
+                component="img"
+                alt={blog.title}
+                height="100%"
+                image={blog.image}
+                sx={{ objectFit: 'cover', borderRadius: 2 }}
+              />
+              <Box
+                sx={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  backgroundColor: 'rgba(0, 0, 0, 0.4)',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                <Typography variant="h3" color="white" sx={{ textShadow: 2 }}>
+                  {blog.title}
+                </Typography>
+              </Box>
+            </Card>
+          </Grid>
+        </Grid>
+
+        {/* Content Section */}
+        <Grid container spacing={4} justifyContent="center" >
+          <Grid item xs={12} md={12} >
+            <Card sx={{ gap: 5, display: 'flex', boxShadow: 3, borderRadius: 2, bgcolor: 'background.paper' }}>
+              <CardContent sx={{ p: 4, }}>
+                <Typography variant="h5" gutterBottom>
+                  {blog.title}
+                </Typography>
+                <Box
+                  sx={{
+                    typography: 'body1',
+                    '& p': {
+                      lineHeight: 1.8,
+                      color: 'text.primary',
+                    },
+                    '& h2': {
+                      color: 'primary.main',
+                      fontWeight: 'bold',
+                    },
+                  }}
+                  dangerouslySetInnerHTML={{ __html: blog.description }}
+                />
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+      </Container>
     </motion.div>
   );
 };

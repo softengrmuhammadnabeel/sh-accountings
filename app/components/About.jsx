@@ -8,8 +8,8 @@ const About = ({ isDarkMode }) => {
     const router = useRouter();
     return (
         <motion.div
-            id='about'
-            className='w-full px-[12%] py-10 scroll-mt-20'
+            id="about"
+            className="w-full px-[12%] py-10 scroll-mt-20"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 1 }}
@@ -20,7 +20,7 @@ const About = ({ isDarkMode }) => {
             }}
         >
             <motion.h4
-                className='text-center mb-2 text-lg font-Ovo'
+                className="text-center mb-2 text-lg font-Ovo"
                 initial={{ opacity: 0, y: -20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
@@ -29,7 +29,7 @@ const About = ({ isDarkMode }) => {
             </motion.h4>
 
             <motion.h2
-                className='text-center text-5xl font-Ovo'
+                className="text-center text-5xl font-Ovo"
                 initial={{ opacity: 0, y: -20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.5 }}
@@ -41,71 +41,60 @@ const About = ({ isDarkMode }) => {
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
                 transition={{ duration: 0.8 }}
-                className='flex w-full flex-col lg:flex-row items-center gap-20 my-20'
+                className="flex flex-col gap-16 my-20 px-4 lg:px-20 lg:flex-row"
             >
+                {/* Image Section */}
                 <motion.div
                     initial={{ opacity: 0, scale: 0.9 }}
                     whileInView={{ opacity: 1, scale: 1 }}
                     transition={{ duration: 0.6 }}
-                    className="w-48 sm:w-64 md:w-80 lg:w-96 rounded-3xl max-w-none"
+                    className="flex-1 flex justify-center"
                 >
-                    <Box className="flex items-center justify-center text-nowrap">
-                        <Typography
-                            component="h6"
-                            variant="h6"
-                            className="text-[2rem] sm:text-[3rem] md:text-[4rem] gotham-bold cursor-pointer tracking-wide transition-colors duration-300 text-[#1F2943]"
-                        >
-                            Clear
-                        </Typography>
-
-                        <Typography
-                            component="h6"
-                            variant="h6"
-                            className="text-[2rem] sm:text-[3rem] md:text-[4rem] moontime font-extrabold cursor-pointer tracking-wide transition-colors duration-300 text-[#1F2943]"
-                        >
-                            Horizon
-                        </Typography>
+                    <Box className="w-full max-w-md lg:max-w-lg xl:max-w-xl rounded-3xl overflow-hidden shadow-lg">
+                        <img
+                            src="/home/about-us-home.jpg"
+                            alt="Clear Horizon Logo"
+                            className="w-full h-full object-cover rounded-3xl transition-transform duration-300 hover:scale-105"
+                            style={{
+                                objectFit: 'cover',
+                                height: '100%',
+                                width: '100%',
+                            }}
+                        />
                     </Box>
                 </motion.div>
 
-
+                {/* Text Content */}
                 <motion.div
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ duration: 0.6, delay: 0.8 }}
-                    className='flex-1'
+                    initial={{ opacity: 0, x: -50 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                    className="flex-1 flex flex-col justify-center"
                 >
-                    <p className='mb-10 max-w-2xl font-Ovo'>
+                    <p className="mb-8 max-w-2xl font-Ovo text-lg text-[#1F2943] leading-relaxed">
                         We are a team of Chartered Accountants committed to precision and financial clarity.
                         With expertise in accounting, financial reporting, and bookkeeping, we help businesses
                         stay financially organized and ahead of challenges.
                     </p>
 
-                    <p className='mb-10 max-w-2xl font-Ovo'>
+                    <p className="mb-8 max-w-2xl font-Ovo text-lg text-[#1F2943] leading-relaxed">
                         Our experience spans corporate and public practice, allowing us to offer tailored
                         solutions to small businesses, enterprises, and SMSFs. Beyond number crunching, we
                         identify opportunities, solve problems, and streamline financial processes.
                     </p>
 
-                    <p className='mb-10 max-w-2xl font-Ovo'>
+                    <p className="mb-8 max-w-2xl font-Ovo text-lg text-[#1F2943] leading-relaxed">
                         We ensure you have <strong>accurate, timely financial insights</strong> to make informed
                         decisions—so you can focus on growing your business with confidence.
                     </p>
 
-                    {/* The Button you specified */}
-                    <Box
-                        sx={{
-                            display: 'flex',
-                            justifyContent: 'flex-start',
-                            mt: 4,
-                        }}
-                    >
+                    <Box sx={{ mt: 4 }}>
                         <Button
                             variant="contained"
                             size="large"
                             component={motion.button}
                             initial={{ scale: 0.9, opacity: 0 }}
-                            onClick={() => router.push('/about-us')}
+                            onClick={() => router.push("/about-us")}
                             animate={{ scale: 1, opacity: 1 }}
                             transition={{ duration: 0.6, ease: "easeInOut" }}
                             sx={{
@@ -114,12 +103,12 @@ const About = ({ isDarkMode }) => {
                                 fontWeight: 600,
                                 px: 4,
                                 py: 1.5,
-                                border: '2px solid white',
+                                border: "2px solid white",
                                 borderRadius: "50px",
                                 boxShadow: "none",
                                 "&:hover": {
-                                    backgroundColor: "#3C4E80"
-                                }
+                                    backgroundColor: "#3C4E80",
+                                },
                             }}
                         >
                             Get to Know Us
@@ -128,6 +117,7 @@ const About = ({ isDarkMode }) => {
                 </motion.div>
             </motion.div>
         </motion.div>
+
     )
 }
 
