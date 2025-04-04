@@ -35,7 +35,7 @@ const ServiceForm = ({ editItem, onClose }) => {
           body: imageFormData,
         });
         const uploadData = await uploadResponse.json();
-        imageUrl = uploadData.filename;
+        imageUrl = uploadData.imageUrl;
       }
 
       // Then send the service data as JSON

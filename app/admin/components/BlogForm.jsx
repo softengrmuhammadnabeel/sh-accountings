@@ -95,7 +95,7 @@ const BlogForm = ({ editItem, onClose }) => {
           body: imageFormData,
         });
         const uploadData = await uploadResponse.json();
-        imageUrl = uploadData.filename;
+        imageUrl = uploadData.imageUrl;
       }
 
       // Then send the blog data as JSON

@@ -266,7 +266,7 @@ const Page = () => {
                       {blog?.image && (
                         <CardMedia
                           component="img"
-                          image={blog.image.src}
+                          image={blog.image}
                           alt={blog.title}
                           sx={{
                             position: "absolute",

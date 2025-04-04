@@ -40,7 +40,7 @@ const Page = () => {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-
+  
   const fetchservices = async () => {
     const response = await fetch("/api/services");
     if (!response.ok) {
@@ -48,6 +48,7 @@ const Page = () => {
     }
     return response.json();
   };
+  console.log("SERVICES", services);
 
   const checkCacheAndFetch = async () => {
     // Check if data exists in localStorage
@@ -74,7 +75,6 @@ const Page = () => {
       // Save data and timestamp to localStorage
       localStorage.setItem("services", JSON.stringify(data));
       localStorage.setItem("lastFetchedservices", new Date().getTime().toString());
-      console.log("SERVICES", services);
     } catch (error) {
       setError(error.message);
     } finally {
@@ -262,7 +262,7 @@ const Page = () => {
                       }}>
                         <CardMedia
                           component="img"
-                          image={service.image.src}
+                          image={service.image}
                           alt={service.title}
                           sx={{
                             position: "absolute",

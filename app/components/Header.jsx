@@ -225,9 +225,10 @@ export const Header = () => {
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
-                    sx={{ mt: 20, mb: 3, fontWeight: 700, fontSize: { xs: "2.5rem", sm: "3.5rem", md: "4.5rem" }, lineHeight: 1.2 }}
+                    sx={{ mt: 20, mb: 3, fontWeight: 700, fontSize: { xs: "2.5rem", sm: "3.5rem", md: "4rem" }, lineHeight: 1.2 }}
                 >
-                    Manage Your <Typography component="span" color="#EB1552" variant="inherit">Finances</Typography> With Confidence!
+                    Manage Your <Typography component="span" color="white" variant="inherit">Finances</Typography> With Confidence!
+                    {/* Manage Your <Typography component="span" color="#EB1552" variant="inherit">Finances</Typography> With Confidence! */}
                 </Typography>
 
                 <Typography
@@ -242,7 +243,7 @@ export const Header = () => {
                         color: "rgba(255, 255, 255, 0.8)",
                         maxWidth: "800px",
                         mx: "auto",
-                        
+
                     }}
                 >
                     We provide expert accounting, tax, and financial services to help businesses and individuals make informed decisions and achieve financial success.
@@ -255,7 +256,19 @@ export const Header = () => {
                     initial={{ scale: 0.9, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ duration: 0.6, ease: "easeInOut" }}
-                    sx={{ backgroundColor: "#EB1552", fontSize: "1rem", fontWeight: 600, px: 4, py: 2, borderRadius: "8px", boxShadow: "none", "&:hover": { backgroundColor: "#3c0e63" } }}
+                    sx={{
+                        backgroundColor: "#7F8DAB",
+                        fontSize: "1rem",
+                        fontWeight: 600,
+                        px: 4,
+                        py: 2,
+                        border: '2px solid white',
+                        borderRadius: "50px",
+                        boxShadow: "none",
+                        "&:hover": {
+                            backgroundColor: "#3C4E80"
+                        }
+                    }}
                 >
                     Contact Us
                 </Button>

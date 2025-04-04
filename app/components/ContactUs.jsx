@@ -32,8 +32,7 @@ const ContactUs = () => {
           alignItems: "center",
           justifyContent: "center",
           gap: { xs: 6, lg: 10 },
-          bgcolor: "#EB1552",
-          background: "linear-gradient(135deg, #EB1552 0%, #3c0e63 100%)", // Gradient background
+          bgcolor: "#3C4E80",
           color: "common.white",
         }}
       >

@@ -96,7 +96,7 @@ const About = ({ isDarkMode }) => {
                     <Box
                         sx={{
                             display: 'flex',
-                            justifyContent: 'center',
+                            justifyContent: 'flex-start',
                             mt: 4,
                         }}
                     >
