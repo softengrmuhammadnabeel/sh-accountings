@@ -63,7 +63,7 @@ const Page = () => {
             transition={{ duration: 0.8 }}
             sx={{ mt: 20, mb: 3, fontWeight: 700, fontSize: { xs: "2.5rem", sm: "3.5rem", md: "4.5rem" }, lineHeight: 1.2 }}
           >
-            Get in <Typography component="span" color="#EB1552" variant="inherit">Touch</Typography> With Us!
+            Get in <Typography component="span" color="white" variant="inherit">Touch</Typography> With Us!
           </Typography>
 
           <Typography
@@ -83,7 +83,7 @@ const Page = () => {
             Have questions or need assistance? Reach out to us today! Our team is here to help you with all your accounting, tax, and financial needs.
           </Typography>
 
-          <Button
+          {/* <Button
             variant="contained"
             size="large"
             component={motion.button}
@@ -91,6 +91,29 @@ const Page = () => {
             animate={{ scale: 1, opacity: 1 }}
             transition={{ duration: 0.6, ease: "easeInOut" }}
             sx={{ backgroundColor: "#EB1552", fontSize: "1rem", fontWeight: 600, px: 4, py: 2, borderRadius: "8px", boxShadow: "none", "&:hover": { backgroundColor: "#3c0e63" } }}
+          >
+            Contact Us
+          </Button> */}
+          <Button
+            variant="contained"
+            size="large"
+            component={motion.button}
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.6, ease: "easeInOut" }}
+            sx={{
+              backgroundColor: "#7F8DAB",
+              fontSize: "1rem",
+              fontWeight: 600,
+              px: 4,
+              py: 2,
+              borderRadius: "50px",
+              border: '2px solid white',
+              boxShadow: "none",
+              "&:hover": {
+                backgroundColor: "#3C4E80"
+              }
+            }}
           >
             Contact Us
           </Button>
@@ -108,8 +131,7 @@ const Page = () => {
           alignItems: "center",
           justifyContent: "center",
           gap: { xs: 6, lg: 10 },
-          bgcolor: "#EB1552",
-          background: "linear-gradient(135deg, #EB1552 0%, #3c0e63 100%)", // Gradient background
+          bgcolor: "#3C4E80",
           color: "common.white",
         }}
       >

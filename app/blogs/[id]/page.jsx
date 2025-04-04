@@ -1,110 +1,167 @@
 'use client';
-import { useEffect, useState } from 'react';
+
+import { useEffect, useState, useCallback } from 'react';
 import { useParams } from 'next/navigation';
 import { motion } from 'framer-motion';
-import { Box, Container, Grid, Typography, Card, CardContent, CardMedia } from '@mui/material';
+import {
+  Box,
+  Container,
+  Grid,
+  Typography,
+  Card,
+  CardContent,
+  CardMedia,
+  List,
+  ListItem,
+  ListItemText,
+  Divider
+} from '@mui/material';
 
 const BlogPost = () => {
   const [blog, setBlog] = useState(null);
+  const [headings, setHeadings] = useState([]);
+  const [recentBlogs, setRecentBlogs] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const params = useParams();
+
+  const fetchBlog = useCallback(async () => {
+    try {
+      const response = await fetch(`/api/blogs/${params.id}`);
+      if (!response.ok) throw new Error('Failed to fetch blog');
+      const data = await response.json();
+      setBlog(data);
+      setTimeout(() => extractHeadings(data.description), 100);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
+    }
+  }, [params.id]);
+
+  const fetchRecentBlogs = useCallback(async () => {
+    try {
+      const response = await fetch(`/api/blogs`);
+      if (!response.ok) throw new Error('Failed to fetch recent blogs');
+      const data = await response.json();
+      setRecentBlogs(data);
+    } catch (err) {
+      console.error('Error fetching recent blogs:', err);
+      // Fallback to static data
+      setRecentBlogs([
+        {
+          title: 'Understanding React Server Components',
+          image: 'https://via.placeholder.com/300x200',
+          date: 'April 3, 2025'
+        },
+        {
+          title: 'Top 10 Tips for TypeScript Developers',
+          image: 'https://via.placeholder.com/300x200',
+          date: 'March 30, 2025'
+        },
+        {
+          title: 'Mastering MUI v6 Layouts',
+          image: 'https://via.placeholder.com/300x200',
+          date: 'March 25, 2025'
+        }
+      ]);
+    }
+  }, []);
+
+  const extractHeadings = (html) => {
+    const div = document.createElement('div');
+    div.innerHTML = html;
+
+    const headingsArray = Array.from(div.querySelectorAll('h2')).map((heading) => {
+      const text = heading.innerText;
+      const id = heading.id || text.toLowerCase().replace(/\s+/g, '-');
+      heading.id = id;
+      return { id, title: text };
+    });
+
+    setBlog((prev) => ({ ...prev, description: div.innerHTML }));
+    setHeadings(headingsArray);
+  };
 
   useEffect(() => {
     fetchBlog();
-  }, []);
+    fetchRecentBlogs();
+  }, [fetchBlog, fetchRecentBlogs]);
 
-  const fetchBlog = async () => {
-    try {
-      const response = await fetch(`/api/blogs/${params.id}`);
-      const data = await response.json();
-      setBlog(data);
-    } catch (error) {
-      console.error('Error fetching blog:', error);
-    }
-  };
-
-  if (!blog) {
+  if (loading) {
     return (
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          minHeight: '100vh',
-          fontSize: '1.25rem',
-          color: 'text.secondary',
-        }}
-      >
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
         Loading...
       </Box>
     );
   }
 
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6 }}
-    >
-      <Container maxWidth="lg" sx={{ py: 4 }}>
-        {/* Hero Section */}
-        <Grid container spacing={4} justifyContent="center">
-          <Grid item xs={12} sx={{ mt: 12 }}>
-            <Card sx={{ position: 'relative', height: '60vh', borderRadius: 2, boxShadow: 3 }}>
-              <CardMedia
-                component="img"
-                alt={blog.title}
-                height="100%"
-                image={blog.image}
-                sx={{ objectFit: 'cover', borderRadius: 2 }}
-              />
-              <Box
-                sx={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  right: 0,
-                  bottom: 0,
-                  backgroundColor: 'rgba(0, 0, 0, 0.4)',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                }}
-              >
-                <Typography variant="h3" color="white" sx={{ textShadow: 2 }}>
-                  {blog.title}
-                </Typography>
-              </Box>
-            </Card>
-          </Grid>
-        </Grid>
+  if (!blog) {
+    return (
+      <Box sx={{ textAlign: 'center', mt: 4 }}>
+        <Typography variant="h6" color="error">{error || 'Blog not found'}</Typography>
+      </Box>
+    );
+  }
 
-        {/* Content Section */}
-        <Grid container spacing={4} justifyContent="center" >
-          <Grid item xs={12} md={12} >
-            <Card sx={{ gap: 5, display: 'flex', boxShadow: 3, borderRadius: 2, bgcolor: 'background.paper' }}>
-              <CardContent sx={{ p: 4, }}>
-                <Typography variant="h5" gutterBottom>
-                  {blog.title}
-                </Typography>
-                <Box
-                  sx={{
-                    typography: 'body1',
-                    '& p': {
-                      lineHeight: 1.8,
-                      color: 'text.primary',
-                    },
-                    '& h2': {
-                      color: 'primary.main',
-                      fontWeight: 'bold',
-                    },
-                  }}
-                  dangerouslySetInnerHTML={{ __html: blog.description }}
-                />
-              </CardContent>
-            </Card>
+  return (
+    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+      <Box
+        sx={{
+          background: 'linear-gradient(to bottom, rgba(1, 10, 0, 0.1), transparent)',
+          minHeight: '100vh',
+          py: 6
+        }}
+      >
+        <Container maxWidth="xl">
+          <Grid container spacing={4}>
+            <Grid item xs={12} md={8}>
+              <Box sx={{ pr: 2, scrollBehavior: 'smooth', mt: 10 }}>
+                <Typography variant="h3" fontWeight="bold" gutterBottom>{blog.title}</Typography>
+                <Card sx={{ mb: 3, borderRadius: 2, overflow: 'hidden', boxShadow: 3 }}>
+                  <CardMedia component="img" alt={blog.title} height="400" image={blog.image} sx={{ objectFit: 'cover' }} />
+                </Card>
+                <Card sx={{ p: 4, borderRadius: 2, boxShadow: 3 }}>
+                  <Box sx={{ typography: 'body1', '& p': { mb: 2, lineHeight: 1.8 }, '& h2': { color: 'primary.main', mt: 4, mb: 2, fontWeight: 'bold' } }}
+                    dangerouslySetInnerHTML={{ __html: blog.description }} />
+                </Card>
+              </Box>
+            </Grid>
+
+            <Grid item xs={12} md={4} mt={10} sx={{
+               overflowY: 'scroll', scrollbarWidth: 'none', msOverflowStyle: 'none',
+              '::-webkit-scrollbar': { display: 'none' }  // Hides the scrollbar
+            }}>
+              <Card sx={{ p: 3, mb: 4, borderRadius: 2, boxShadow: 3 }}>
+                <Typography variant="h6" color='#3C4E80' fontWeight='bold' gutterBottom>Table Of Contents</Typography>
+                <List>
+                  {headings.map((item, index) => (
+                    <Box key={index}>
+                      <ListItem button onClick={() => document.getElementById(item.id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })} sx={{ px: 2 }}>
+                        <ListItemText primary={item.title} />
+                      </ListItem>
+                      <Divider />
+                    </Box>
+                  ))}
+                </List>
+              </Card>
+
+              <Typography variant="h5" fontWeight="bold" color='#3C4E80' mb={2}>Recent Blogs</Typography>
+              {recentBlogs.map((blog, index) => (
+                <Card key={index} sx={{ display: 'flex', mb: 2, borderRadius: 2, boxShadow: 3, overflow: 'hidden' }}>
+                  <CardMedia component="img" image={blog.image} alt={blog.title} sx={{
+                    maxWidth: 150, maxHeight: 100, height: "100%",
+                    width: "100%", objectFit: 'cover'
+                  }} />
+                  <CardContent>
+                    <Typography variant="h6" fontWeight="bold" sx={{ fontSize: '1rem' }}>{blog.title}</Typography>
+                  </CardContent>
+                </Card>
+              ))}
+            </Grid>
           </Grid>
-        </Grid>
-      </Container>
+        </Container>
+      </Box>
     </motion.div>
   );
 };
