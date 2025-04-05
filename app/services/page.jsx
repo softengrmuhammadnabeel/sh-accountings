@@ -19,7 +19,7 @@ import {
 } from "@mui/material";
 import servicesData from '@/utils/serviceData';
 import ContactUs from '../components/ContactUs';
-
+import { useRouter } from 'next/navigation';
 export const cardVariants = {
   hover: {
     scale: 1.02,
@@ -36,7 +36,7 @@ export const rowVariants = {
   },
 };
 const Page = () => {
-
+  const router = useRouter();
   let isDarkMode = 'true'
 
   const [services, setServices] = useState([]);
@@ -258,6 +258,7 @@ const Page = () => {
                         },
                         border: "1px solid rgba(127, 141, 171, 0.1)"
                       }}
+                      onClick={() => router.push(`/services/${service._id}`)}
                     >
                       {/* Service Image - Fixed height */}
                       <Box sx={{
