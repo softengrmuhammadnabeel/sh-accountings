@@ -5,7 +5,6 @@ import Image from 'next/image';
 const Footer = () => {
   return (
     <Box sx={{ 
-      // mt: 20,
       borderTop:'2px solid white',
       position: 'relative',
       zIndex: 1000,
@@ -56,7 +55,21 @@ const Footer = () => {
         mt: 6,
         py: 6
       }}>
-        <Typography variant="body2">© All rights reserved {new Date().getFullYear()}</Typography>
+        <Box>
+          <Typography variant="body2">© All rights reserved {new Date().getFullYear()}</Typography>
+          <Typography variant="body2" sx={{ mt: 1 }}>
+            Developed by <a 
+              href="https://www.linkedin.com/in/softengrmuhammadnabeel/" 
+              // href="https://www.linkedin.com/in/your-linkedin-username/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              style={{ color: 'white', textDecoration: 'underline' }}
+            >
+              MD NABEEL
+            </a>
+          </Typography>
+        </Box>
+
         <Box component="ul" sx={{ 
           display: 'flex', 
           gap: 5, 
@@ -70,7 +83,8 @@ const Footer = () => {
               <a 
                 target="_blank" 
                 rel="noopener noreferrer" 
-                href={`https://${platform.toLowerCase()}.com/`}
+                href='#'
+                // href={`https://${platform.toLowerCase()}.com/`}
                 style={{ 
                   color: 'white',
                   textDecoration: 'none',
