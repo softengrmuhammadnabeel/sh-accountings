@@ -475,12 +475,12 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
 
   return (
     <nav className={`fixed w-full px-8 xs:px-4 sm:px-10 lg:px-12 xl:px-[10%] py-4 flex items-center justify-between z-50 h-20 transition-all
-      ${isScroll ? "bg-white bg-opacity-90 backdrop-blur-lg shadow-md dark:bg-darkTheme dark:shadow-white/20" : "bg-transparent"}`}>
+      ${isScroll ? "bg-white bg-opacity-100   dark:shadow-white/20" : "bg-transparent"}`}>
 
       {/* Logo - Adjusted for better responsiveness */}
       <Link href="/" className="flex items-center">
         <img
-          src="/home/logo-bg.png"
+          src={isScroll ? '/navbar/1-bg.png' : '/navbar/dark/2-bg.png'}
           alt="Clear Horizon Logo"
           className="h-[8rem] sm:h-[10rem] md:h-[12rem] w-auto max-w-[18rem] md:max-w-[20rem] ml-[-30px] sm:ml-[-40px] md:ml-[-50px] cursor-pointer transition-all duration-300 object-contain"
         />
@@ -488,7 +488,7 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
 
       {/* Desktop Navigation - Centered with better spacing */}
       <div className="hidden md:flex flex-1 justify-center mx-4">
-        <ul className={`flex items-center gap-4 lg:gap-8 xl:gap-10 rounded-full px-6 lg:px-8 py-1 shadow-md bg-opacity-50 border 
+        <ul className={`flex items-center gap-4 lg:gap-8 xl:gap-10  px-6 lg:px-8 py-1  bg-opacity-50  
           transition duration-300 ${isScroll ? 'text-black border-black' : 'text-white border-gray-300'}`}>
           {["Home", "About Us", "Services", "Blogs", "Contact Us"].map((item) => (
             <li key={item}>

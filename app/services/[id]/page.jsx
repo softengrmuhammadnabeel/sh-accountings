@@ -186,11 +186,12 @@ const BlogPost = () => {
                 <Container maxWidth="lg">
                     <Box
                         sx={{
-                            backgroundColor: '#181A1E',
-                            px: 3,
-                            py: 2,
+                            backgroundColor: '#7f8dab',
+                            // px: 3,
+                            py: 1,
                             borderRadius: 2,
                             mb: 4,
+                            justifyContent:'center',
                             textAlign: 'center',
                             mt: 10
                         }}
@@ -198,7 +199,7 @@ const BlogPost = () => {
                         <Typography
                             variant="h3"
                             fontWeight="bold"
-                            color="#FFB000"
+                            color="#FFF"
                             gutterBottom
                             sx={{ fontSize: { xs: '1.8rem', sm: '2.4rem', md: '3rem' } }}
                         >
