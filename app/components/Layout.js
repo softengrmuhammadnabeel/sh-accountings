@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-
+import Wheader from "./page-components/WaComp";
 const Layout = ({ children }) => {
   const [isDarkMode, setIsDarkMode] = useState(true);
 
@@ -31,6 +31,7 @@ const Layout = ({ children }) => {
   return (
     <>
       <Navbar isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
+      <Wheader />
       <main>{children}</main>
       <Footer isDarkMode={isDarkMode} />
     </>
