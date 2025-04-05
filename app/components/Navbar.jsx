@@ -474,7 +474,7 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
   }
 
   return (
-    <nav className={`fixed w-full px-8 xs:px-4 sm:px-10 lg:px-12 xl:px-[10%] py-4 flex items-center justify-between z-50 h-20 transition-all
+    <nav className={`fixed w-full px-8 xs:px-4 backdrop-blur-xs sm:px-10 lg:px-12 xl:px-[10%] py-4 flex items-center justify-between z-50 h-20 transition-all
       ${isScroll ? "bg-white bg-opacity-100   dark:shadow-white/20" : "bg-transparent"}`}>
 
       {/* Logo - Adjusted for better responsiveness */}
