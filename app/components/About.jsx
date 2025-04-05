@@ -19,15 +19,6 @@ const About = ({ isDarkMode }) => {
                 borderRadius: '10px', // Optional: to add rounded corners to the section
             }}
         >
-            <motion.h4
-                className="text-center mb-2 text-lg font-Ovo"
-                initial={{ opacity: 0, y: -20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.3 }}
-            >
-                Introduction
-            </motion.h4>
-
             <motion.h2
                 className="text-center text-5xl font-Ovo"
                 initial={{ opacity: 0, y: -20 }}
