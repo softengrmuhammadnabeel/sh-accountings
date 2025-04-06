@@ -40,7 +40,7 @@ const Footer = () => {
 
   const renderSection = (title, items) => (
     isMobile ? (
-      <Box sx={{ borderBottom: '3px solid #3498DB' }}>
+      <Box sx={{ borderBottom: '3px solid #3498DB',  }}>
         <Accordion
           elevation={0}
           square
@@ -64,7 +64,7 @@ const Footer = () => {
         </Accordion>
       </Box>
     ) : (
-      <Box>
+      <Box >
         <Typography
           variant="h6"
           sx={{ mb: 2, borderBottom: '2px solid #3498DB', display: 'inline-block' }}
@@ -90,6 +90,7 @@ const Footer = () => {
           px: { xs: 2, md: 10 },
           pt: 6,
           pb: 2,
+          borderTop:'3px solid #3498DB'
         }}
       >
         <Grid container spacing={4}>
@@ -115,11 +116,11 @@ const Footer = () => {
         }}
       >
         <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
-          <Link href="#" target="_blank" color="inherit" sx={{ bgcolor: '#00294f', borderRadius: "50%", p: '6px' }}><FaFacebook size={20} /></Link>
-          <Link href="#" target="_blank" color="inherit" sx={{ bgcolor: '#00294f', borderRadius: "50%", p: '6px' }}><FaXTwitter size={20} /></Link>
-          <Link href="#" target="_blank" color="inherit" sx={{ bgcolor: '#00294f', borderRadius: "50%", p: '6px' }}><FaLinkedin size={20} /></Link>
-          <Link href="#" target="_blank" color="inherit" sx={{ bgcolor: '#00294f', borderRadius: "50%", p: '6px' }}><FaInstagram size={20} /></Link>
-          <Link href="#" target="_blank" color="inherit" sx={{ bgcolor: '#00294f', borderRadius: "50%", p: '6px' }}><FaYoutube size={20} /></Link>
+          <Link href="#" target="_blank" color="#ffff" sx={{ bgcolor: '#00294f', borderRadius: "50%", p: '6px' }}><FaFacebook size={20} /></Link>
+          <Link href="#" target="_blank" color="#ffff" sx={{ bgcolor: '#00294f', borderRadius: "50%", p: '6px' }}><FaXTwitter size={20} /></Link>
+          <Link href="#" target="_blank" color="#ffff" sx={{ bgcolor: '#00294f', borderRadius: "50%", p: '6px' }}><FaLinkedin size={20} /></Link>
+          <Link href="#" target="_blank" color="#ffff" sx={{ bgcolor: '#00294f', borderRadius: "50%", p: '6px' }}><FaInstagram size={20} /></Link>
+          <Link href="#" target="_blank" color="#ffff" sx={{ bgcolor: '#00294f', borderRadius: "50%", p: '6px' }}><FaYoutube size={20} /></Link>
         </Box>
 
         <Typography variant="body2" sx={{ fontWeight: "semibold", mt: 1, color: '#00294f' }}>
