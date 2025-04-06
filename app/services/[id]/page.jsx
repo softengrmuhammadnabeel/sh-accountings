@@ -177,7 +177,7 @@ const BlogPost = () => {
         <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
             <Box
                 sx={{
-                    backgroundColor: '#F5F5F5',
+                    backgroundColor: '#E6E7E6',
                     minHeight: '100vh',
                     py: 6,
 
@@ -186,7 +186,7 @@ const BlogPost = () => {
                 <Container maxWidth="lg">
                     <Box
                         sx={{
-                            backgroundColor: '#7f8dab',
+                            backgroundColor: '#2B4B74',
                             // px: 3,
                             py: 1,
                             borderRadius: 2,

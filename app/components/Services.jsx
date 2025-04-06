@@ -138,6 +138,7 @@ const Services = () => {
                     </p>
                     <Button
                       variant="outlined"
+                      onClick={() => router.push(`/services/${service._id}`)}
                       sx={{
                         color: "#3C4E80",
                         borderColor: "#3C4E80",
