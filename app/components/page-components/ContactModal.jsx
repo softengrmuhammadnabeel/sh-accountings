@@ -1,12 +1,24 @@
 "use client";
-import * as React from "react";
-import Box from "@mui/material/Box";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
+import React from "react";
+import {
+    Box,
+    Typography,
+    Button,
+    Grid,
+    TextField,
+    IconButton,
+    MenuItem,
+    Select,
+    FormControl,
+    InputLabel,
+    Paper,
+    Stack,
+} from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
 import { motion } from "framer-motion";
-import { Grid, TextField, IconButton, MenuItem, Select, FormControl, InputLabel } from "@mui/material";
-import CloseIcon from '@mui/icons-material/Close';
-
+import EmailIcon from "@mui/icons-material/Email";
+import PhoneIcon from "@mui/icons-material/Phone";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 const industries = [
     "Technology", "Healthcare", "Finance", "Education", "Retail", "Manufacturing", "Real Estate", "Automotive", "Energy", "Telecommunications",
     "Agriculture", "Entertainment", "Media", "Construction", "Food & Beverage", "Pharmaceuticals", "Hospitality", "Transportation", "Legal Services", "Aerospace",
@@ -14,6 +26,8 @@ const industries = [
 ];
 
 const ContactModal = ({ closeModal }) => {
+    const [industry, setIndustry] = React.useState("");
+
     const onSubmit = (e) => {
         e.preventDefault();
         console.log("Message sent successfully!");
@@ -26,84 +40,140 @@ const ContactModal = ({ closeModal }) => {
                 top: 0,
                 left: 0,
                 width: "100%",
-                height: "100%",
+                height: "100vh",
                 bgcolor: "rgba(0, 0, 0, 0.5)",
-                backdropFilter: "blur(10px)",
+                backdropFilter: "blur(6px)",
                 display: "flex",
-                alignItems: "center",
+                alignItems: "flex-start",
                 justifyContent: "center",
                 zIndex: 9999,
+                pt: 4,
+                px: 2,
+                mb: 2
             }}
             onClick={(e) => {
-                if (e.target === e.currentTarget) {
-                    closeModal();
-                }
+                if (e.target === e.currentTarget) closeModal();
             }}
         >
             <motion.div
+                initial={{ opacity: 0, y: -30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, ease: [0.43, 0.13, 0.23, 0.96] }}
                 style={{
-                    backgroundColor: "white",
-                    borderRadius: "16px",
-                    padding: "30px",
-                    maxWidth: "900px",
-                    width: "95%",
-                    boxShadow: "0px 10px 20px rgba(0, 0, 0, 0.2)",
+                    backgroundColor: "#fff",
+                    borderRadius: 8,
+                    padding: "32px",
+                    width: "100%",
+                    maxWidth: 700,
+                    maxHeight: "90vh",
+                    overflowY: "auto",
                     position: "relative",
+                    boxShadow: "0 10px 40px rgba(0, 0, 0, 0.3)",
                 }}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ duration: 0.3 }}
             >
                 <IconButton
                     onClick={closeModal}
-                    style={{ position: 'absolute', top: 10, right: 10 }}
+                    sx={{ position: "absolute", top: 16, right: 16 }}
                 >
                     <CloseIcon />
                 </IconButton>
 
-                {/* Contact Info */}
-                <Typography variant="h4" sx={{ fontWeight: "bold", textAlign: "center", mb: 2 }}>
-                    Get in Touch
+                <Typography variant="h5" fontWeight="bold" mb={1}>
+                    What have you seen?
                 </Typography>
-                <Typography variant="body1" sx={{ textAlign: "center", mb: 3 }}>
+
+                <Typography variant="body1" color="text.secondary" mb={2}>
                     Give us some details about who you are and what you do and we'll get in touch with you right away.
                 </Typography>
 
-                {/* Form */}
+                <Typography variant="body2" color="text.secondary" mb={3}>
+                    We can't wait to collaborate with you.
+                </Typography>
+
                 <form onSubmit={onSubmit}>
                     <Grid container spacing={2}>
-                        <Grid item xs={6}>
-                            <TextField fullWidth label="First Name" variant="outlined" required />
+                        <Grid item xs={12} sm={6}>
+                            <TextField fullWidth label="First Name" required />
                         </Grid>
-                        <Grid item xs={6}>
-                            <TextField fullWidth label="Last Name" variant="outlined" required />
+                        <Grid item xs={12} sm={6}>
+                            <TextField fullWidth label="Last Name" required />
                         </Grid>
-                        <Grid item xs={6}>
-                            <TextField fullWidth label="Email Address" type="email" variant="outlined" required />
+                        <Grid item xs={12} sm={6}>
+                            <TextField fullWidth label="Email Address" type="email" required />
                         </Grid>
-                        <Grid item xs={6}>
-                            <TextField fullWidth label="Company Name" variant="outlined" required />
+                        <Grid item xs={12} sm={6}>
+                            <TextField fullWidth label="Company Name" required />
                         </Grid>
-                        <Grid item xs={6}>
-                            <FormControl fullWidth>
+                        <Grid item xs={12} sm={6}>
+                            <FormControl fullWidth required>
                                 <InputLabel>Industry</InputLabel>
-                                <Select required>
+                                <Select
+                                    value={industry}
+                                    label="Industry"
+                                    onChange={(e) => setIndustry(e.target.value)}
+                                    MenuProps={{
+                                        PaperProps: {
+                                            style: {
+                                                maxHeight: 200,
+                                            },
+                                        },
+                                    }}
+                                >
                                     {industries.map((industry, index) => (
-                                        <MenuItem key={index} value={industry}>{industry}</MenuItem>
+                                        <MenuItem key={index} value={industry}>
+                                            {industry}
+                                        </MenuItem>
                                     ))}
                                 </Select>
                             </FormControl>
                         </Grid>
-                        <Grid item xs={6}>
-                            <TextField fullWidth label="Services Interested In" multiline rows={3} variant="outlined" required />
+                        <Grid item xs={12}>
+                            <TextField
+                                fullWidth
+                                label="What Services Are You Interested In?"
+                                multiline
+                                rows={3}
+                                required
+                            />
                         </Grid>
                         <Grid item xs={12}>
-                            <Button type="submit" variant="contained" fullWidth sx={{ bgcolor: "#3C4E80", color: "white", py: 2, borderRadius: "50px", '&:hover': { bgcolor: "#2c3e50" } }}>
+                            <Button
+                                type="submit"
+                                variant="contained"
+                                fullWidth
+                                sx={{
+                                    bgcolor: "#3C4E80",
+                                    color: "white",
+                                    py: 1.4,
+                                    borderRadius: "8px",
+                                    fontWeight: 600,
+                                    '&:hover': {
+                                        bgcolor: "#2c3e50"
+                                    }
+                                }}
+                            >
                                 Submit
                             </Button>
                         </Grid>
                     </Grid>
                 </form>
+
+                <Box mt={6} pt={4} borderTop="1px solid #e0e0e0">
+                    <Typography variant="h5" gutterBottom>
+                        Contact Us
+                    </Typography>
+                    <Stack direction="row" alignItems="center" spacing={1} mt={2}>
+                        <EmailIcon sx={{ color: "#3C4E80" }} />
+                        <Typography variant="body2">
+                            <strong>info@clearhorizonaccountants.com</strong>
+                        </Typography>
+                    </Stack>
+
+                    <Stack direction="row" alignItems="center" spacing={1} mt={0.5}>
+                        <PhoneIcon sx={{ color: "#3C4E80" }} />
+                        <Typography variant="body2"><strong>+61 424 887 032</strong></Typography>
+                    </Stack>
+                </Box>
             </motion.div>
         </Box>
     );

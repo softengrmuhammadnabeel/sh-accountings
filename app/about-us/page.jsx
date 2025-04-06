@@ -448,7 +448,7 @@ const sections = [
   {
     type: "image",
     bgValue: bgImage2,
-    title: "Page in development",
+    title: "Page in under-development",
     content: "Built on integrity. Driven by transparency. Focused on your success— MD NABEEL",
     height: "100vh"
   }
