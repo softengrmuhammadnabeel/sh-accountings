@@ -430,7 +430,7 @@
 
 import { assets } from '@/assets/assets'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import { useParams, useRouter, usePathname } from 'next/navigation'
 import React, { useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
 import { Typography, Box, Dialog, DialogContent, DialogTitle, DialogActions, Button } from '@mui/material'
@@ -439,18 +439,33 @@ import ContactModal from './page-components/ContactModal'
 
 const Navbar = ({ isDarkMode, setIsDarkMode }) => {
   const [isScroll, setIsScroll] = useState(false)
+  const [isSinglePage, setIsSinglePage] = useState()
   const [menuOpen, setMenuOpen] = useState(false)
   const router = useRouter()
   const sideMenuRef = useRef(null)
   const [openModal, setOpenModal] = useState(false)
+  const pathname = usePathname();
+  useEffect(() => {
+    const pattern = /\/(services\/[a-f0-9]{24}|blogs\/[a-f0-9]{24}|about-us)$/;
+    const match = pattern.test(pathname);
+    setIsSinglePage(match);
+  }, [pathname]);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScroll(window.scrollY > 50)
-    }
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+      if (isSinglePage) {
+        setIsScroll(true);
+      } else {
+        setIsScroll(window.scrollY > 50);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    handleScroll();
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [isSinglePage]);
 
   // Close menu when clicking outside
   useEffect(() => {
@@ -475,7 +490,10 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
 
   return (
     <nav className={`fixed w-full px-8 xs:px-4 backdrop-blur-xs sm:px-10 lg:px-12 xl:px-[10%] py-4 flex items-center justify-between z-50 h-20 transition-all
-      ${isScroll ? "bg-white bg-opacity-100   dark:shadow-white/20" : "bg-transparent"}`}>
+      ${(isScroll && isSinglePage) || (isScroll && !isSinglePage)
+      ? "bg-white bg-opacity-100 dark:shadow-white/20"
+      : "bg-transparent"
+      }`}>
 
       {/* Logo - Adjusted for better responsiveness */}
       <Link href="/" className="flex items-center">
