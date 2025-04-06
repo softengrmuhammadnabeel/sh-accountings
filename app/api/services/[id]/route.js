@@ -1,14 +1,14 @@
 import connectDB from '@/lib/mongodb';
 import Service from '@/models/Service';
 import { NextResponse } from 'next/server';
-
 export async function GET(request, { params }) {
     try {
         await connectDB();
-        const service = await Service.findById(params.id);
+        const { id } = await params;
+        const service = await Service.findById(id);
 
         if (!service) {
-            return NextResponse.json({ error: 'service not found' }, { status: 404 });
+            return NextResponse.json({ error: 'Service not found' }, { status: 404 });
         }
 
         return NextResponse.json(service);
@@ -20,7 +20,8 @@ export async function GET(request, { params }) {
 export async function DELETE(request, { params }) {
     try {
         await connectDB();
-        const service = await Service.findByIdAndDelete(params.id);
+        const { id } = await params;
+        const service = await Service.findByIdAndDelete(id);
 
         if (!service) {
             return NextResponse.json({ error: 'service not found' }, { status: 404 });
@@ -35,8 +36,9 @@ export async function DELETE(request, { params }) {
 export async function PUT(request, { params }) {
     try {
         await connectDB();
+        const { id } = await params;
         const data = await request.json();
-        const service = await Service.findByIdAndUpdate(params.id, data, { new: true });
+        const service = await Service.findByIdAndUpdate(id, data, { new: true });
 
         if (!blog) {
             return NextResponse.json({ error: 'service not found' }, { status: 404 });

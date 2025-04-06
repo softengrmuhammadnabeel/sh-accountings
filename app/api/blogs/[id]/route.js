@@ -5,7 +5,8 @@ import { NextResponse } from 'next/server';
 export async function GET(request, { params }) {
   try {
     await connectDB();
-    const blog = await Blog.findById(params.id);
+    const { id } = await params;
+    const blog = await Blog.findById(id);
     
     if (!blog) {
       return NextResponse.json({ error: 'Blog not found' }, { status: 404 });
@@ -20,7 +21,8 @@ export async function GET(request, { params }) {
 export async function DELETE(request, { params }) {
   try {
     await connectDB();
-    const blog = await Blog.findByIdAndDelete(params.id);
+    const { id } = await params;
+    const blog = await Blog.findByIdAndDelete(id);
     
     if (!blog) {
       return NextResponse.json({ error: 'Blog not found' }, { status: 404 });
@@ -35,8 +37,9 @@ export async function DELETE(request, { params }) {
 export async function PUT(request, { params }) {
   try {
     await connectDB();
+    const { id } = await params;
     const data = await request.json();
-    const blog = await Blog.findByIdAndUpdate(params.id, data, { new: true });
+    const blog = await Blog.findByIdAndUpdate(id, data, { new: true });
     
     if (!blog) {
       return NextResponse.json({ error: 'Blog not found' }, { status: 404 });
