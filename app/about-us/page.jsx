@@ -6,11 +6,11 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { Box, Typography } from "@mui/material";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-
+import Link from "next/link";
 const bgImage1 = "/about/fourth.jpg";
 // const bgImage1 = "/1.jpg";
 const bgImage2 = "/about/fourth.jpg";
-const headerImage = "/header_about.png";
+const headerImage = "/about/fourth.jpg";
 
 const SecondSection = () => {
   return (
@@ -27,7 +27,7 @@ const SecondSection = () => {
         width: "100%",
         maxWidth: "1200px",
         mb: { xs: 0, md: 0 },
-        pl: 10
+        pl: { xs: 2, md: 10 },
       }}>
         <Box sx={{
           display: "flex",
@@ -42,7 +42,7 @@ const SecondSection = () => {
           minHeight: 250,
           position: "relative",
           overflow: "hidden",
-          px: { xs: 2, md: 0 }
+          px: { xs: 2, sm: 2, md: 2 }
         }}>
           <Box sx={{
             display: "flex",
@@ -65,7 +65,7 @@ const SecondSection = () => {
               "&::after": {
                 content: '""',
                 position: "absolute",
-                left: { xs: 0, md: -60 },
+                left: { xs: 0, md: -70 },
                 bottom: -8,
                 width: 80,
                 height: 4,
@@ -76,11 +76,11 @@ const SecondSection = () => {
             </Typography>
 
             <Typography variant="h1" sx={{
-              fontSize: { xs: "2rem", sm: "2.5rem", md: "3.5rem" },
+              fontSize: { xs: "1rem", sm: "2.5rem", md: "3rem" },
               fontWeight: 700,
               lineHeight: 1.1,
               py: { xs: 0, md: 2 },
-              px: { xs: 0, md: 4 },
+              px: { xs: 0, md: 0 },
               textTransform: "uppercase"
             }}>
               About Us
@@ -266,7 +266,7 @@ const features = [
   {
     title: "Accuracy",
     description:
-      "Taxviser provides precise assistance for accounting and taxation services with unparalleled accuracy. Our team of experts is dedicated to ensuring that your financial goals are met with the utmost attention to detail and professionalism.",
+      "ClearHorizon provides precise assistance for accounting and taxation services with unparalleled accuracy. Our team of experts is dedicated to ensuring that your financial goals are met with the utmost attention to detail and professionalism.",
   },
   {
     title: "Compliance",
@@ -276,12 +276,12 @@ const features = [
   {
     title: "Approachable",
     description:
-      "At Taxviser, we are approachable and committed to providing exceptional service and support. Whether it's a question, concern, or our clients requiring assistance, we are here to help.",
+      "At ClearHorizon, we are approachable and committed to providing exceptional service and support. Whether it's a question, concern, or our clients requiring assistance, we are here to help.",
   },
   {
     title: "Cost-effective",
     description:
-      "At Taxviser, we offer cost-effective solutions to our clients understanding the importance of financial management. Our reputation is built on our commitment to providing service with the best possible advice.",
+      "At ClearHorizon, we offer cost-effective solutions to our clients understanding the importance of financial management. Our reputation is built on our commitment to providing service with the best possible advice.",
   },
   {
     title: "Community-based",
@@ -330,7 +330,7 @@ const FourthSection = () => {
             mb: 2,
           }}
         >
-          Many reasons to choose Taxviser...
+          Many reasons to choose ClearHorizon...
         </Typography>
       </Box>
 
@@ -338,7 +338,7 @@ const FourthSection = () => {
       <Box
         sx={{
           flex: 1,
-          backgroundColor: "#a52727",
+          backgroundColor: "#3C4E80",
           px: { xs: 3, md: 6 },
           py: { xs: 4, md: 8 },
           color: "white",
@@ -375,6 +375,52 @@ const FourthSection = () => {
   );
 };
 
+const AppointmentBanner = () => {
+  return (
+    <Box
+      sx={{
+        backgroundColor: '#1976D2',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: { xs: '2rem 1rem', md: '4rem 8rem' },
+        gap:5,
+
+        borderRadius: 0,
+      }}
+    >
+      <Typography
+        variant="h5"
+        sx={{
+          color: '#fff',
+          fontWeight: 'bold',
+          fontSize: { xs: '1.2rem', md: '2rem' },
+        }}
+      >
+        For more information book an appointment
+      </Typography>
+
+      <Link href="/contact-us" style={{ textDecoration: 'none' }}>
+        <Button
+          variant="contained"
+          sx={{
+            borderRadius: '999px',
+            padding: '0.8rem 2rem',
+            backgroundColor: '#fff',
+            color: 'black', 
+            boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.2)',
+            fontWeight: 600,
+            '&:hover': {
+              backgroundColor: '#f1f1f1',
+            },
+          }}
+        >
+          Book Now
+        </Button>
+      </Link>
+    </Box>
+  );
+};
 
 const sections = [
   {
@@ -387,17 +433,23 @@ const sections = [
     content: <FourthSection />,
     height: "auto"
   },
+  // {
+  //   type: "color",
+  //   bgValue: "#EB1552",
+  //   content: <SecondSection />,
+  //   height: "100vh"
+  // },
   {
     type: "color",
     bgValue: "#EB1552",
-    content: <SecondSection />,
-    height: "100vh"
+    content: <AppointmentBanner />,
+    height: "auto"
   },
   {
     type: "image",
     bgValue: bgImage2,
-    title: "Our Values",
-    content: "Integrity, transparency, and client success drive everything we do. We build relationships based on trust and results.",
+    title: "Page in development",
+    content: "Built on integrity. Driven by transparency. Focused on your success— MD NABEEL",
     height: "100vh"
   }
 ];
@@ -444,7 +496,7 @@ const AboutUsPage = () => {
           left: 0,
           width: "100%",
           height: "100%",
-          backgroundColor: "rgba(0,0,0,0.3)"
+          // backgroundColor: "rgba(0,0,0,0.1)"
         }} />
       </Box>
 
