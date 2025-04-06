@@ -1,105 +1,140 @@
-import { assets } from '@/assets/assets';
-import { Box, Typography } from '@mui/material';
-import Image from 'next/image';
+import {
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  Box,
+  Grid,
+  Link,
+  Typography,
+  useMediaQuery,
+  useTheme
+} from '@mui/material';
+import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube, FaXTwitter } from 'react-icons/fa6';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
+const footerLinks = {
+  services: [
+    'Year End Accounts', 'Tax Returns', 'Bookkeeping', 'TPAR', 'BAS Returns',
+    'Payroll', 'Commercial and Business', 'Loans', 'Tax Savings', 'Company Tax',
+    'Cash flow Projections', 'Online Accounts', 'Superannuation', 'Business Plans',
+    'Employment Law', 'Debt Recovery', 'Capital Gains Tax', 'Audits', 'Cryptocurrency Tax',
+  ],
+  help: [
+    'Start Ups', 'Sole Traders', 'Partnerships', 'Companies', 'Contractors',
+    'LSL Contractors', 'Landlords', 'Selling Your Business', 'Employed Individuals',
+    'Primary producers',
+  ],
+  about: [
+    'Fixed Fee Pricing', 'Right For You', 'Switching Is Easy',
+    'Buy Local Campaign', 'Careers and Vacancies',
+  ],
+  resources: [
+    'News', 'Articles', 'Questions And Answers', 'Customer Services',
+    'Register For Newsletter', 'Join Our Franchise', 'Guides',
+  ],
+};
 
 const Footer = () => {
-  return (
-    <Box sx={{ 
-      borderTop:'2px solid white',
-      position: 'relative',
-      zIndex: 1000,
-      bgcolor: '#3C4E80',
-      color: 'white'
-    }}>
-      <Box sx={{ 
-        textAlign: 'center',
-        pt: 8,
-        pb: 4
-      }}>
-        <Image 
-          src={assets.logo} 
-          alt="Clear Horizon" 
-          width={144}
-          height={144}
-          style={{ 
-            margin: '0 auto 8px',
-            filter: 'brightness(0) invert(1)' 
-          }} 
-        />
-        
-        <Box sx={{ 
-          display: 'inline-flex', 
-          alignItems: 'center', 
-          gap: 2,
-          mb: 2
-        }}>
-          <Image 
-            src={assets.mail_icon} 
-            alt="Email" 
-            width={24}
-            height={24}
-            style={{ filter: 'brightness(0) invert(1)' }}
-          />
-          <Typography variant="body1">clearHorizon@gmail.com</Typography>
-        </Box>
-      </Box>
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-      <Box sx={{ 
-        textAlign: 'center',
-        display: 'flex',
-        flexDirection: { xs: 'column', sm: 'row' },
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        borderTop: '1px solid rgba(255,255,255,0.2)',
-        mx: '10%',
-        mt: 6,
-        py: 6
-      }}>
-        <Box>
-          <Typography variant="body2">© All rights reserved {new Date().getFullYear()}</Typography>
-          <Typography variant="body2" sx={{ mt: 1 }}>
-            Developed by <a 
-              href="https://www.linkedin.com/in/softengrmuhammadnabeel/" 
-              // href="https://www.linkedin.com/in/your-linkedin-username/" 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              style={{ color: 'white', textDecoration: 'underline' }}
-            >
-              MD NABEEL
-            </a>
+  const renderSection = (title, items) => (
+    isMobile ? (
+      <Box sx={{ borderBottom: '3px solid #3498DB' }}>
+        <Accordion
+          elevation={0}
+          square
+          disableGutters
+          sx={{
+            bgcolor: '#3C4E80',
+            color: 'white',
+            boxShadow: 'none',
+          }}
+        >
+          <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: 'white' }} />}>
+            <Typography variant="h6">{title}</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            {items.map((item) => (
+              <Typography key={item} variant="body2" sx={{ mt: 1, lineHeight: '1rem' }}>
+                {item}
+              </Typography>
+            ))}
+          </AccordionDetails>
+        </Accordion>
+      </Box>
+    ) : (
+      <Box>
+        <Typography
+          variant="h6"
+          sx={{ mb: 2, borderBottom: '2px solid #3498DB', display: 'inline-block' }}
+        >
+          {title}
+        </Typography>
+        {items.map((item) => (
+          <Typography key={item} variant="body2" sx={{ mt: 1, lineHeight: '1rem' }}>
+            {item}
           </Typography>
+        ))}
+      </Box>
+    )
+  );
+
+  return (
+    <>
+      <Box
+        sx={{
+          bgcolor: '#3C4E80',
+          position: 'relative',
+          color: 'white',
+          px: { xs: 2, md: 10 },
+          pt: 6,
+          pb: 2,
+        }}
+      >
+        <Grid container spacing={4}>
+          <Grid item xs={12} md={3}>{renderSection('Our Services', footerLinks.services)}</Grid>
+          <Grid item xs={12} md={3}>{renderSection('Who We Help', footerLinks.help)}</Grid>
+          <Grid item xs={12} md={3}>{renderSection('About Us', footerLinks.about)}</Grid>
+          <Grid item xs={12} md={3}>{renderSection('Resources', footerLinks.resources)}</Grid>
+        </Grid>
+      </Box>
+
+      {/* Footer Bottom */}
+      <Box
+        sx={{
+          borderTop: '1px solid rgba(255,255,255,0.2)',
+          position: "relative",
+          bgcolor: 'white',
+          width: '100%',
+          pb: 2,
+          pt: 4,
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center'
+        }}
+      >
+        <Box sx={{ display: 'flex', gap: 2, mb: 2 }}>
+          <Link href="#" target="_blank" color="inherit" sx={{ bgcolor: '#00294f', borderRadius: "50%", p: '6px' }}><FaFacebook size={20} /></Link>
+          <Link href="#" target="_blank" color="inherit" sx={{ bgcolor: '#00294f', borderRadius: "50%", p: '6px' }}><FaXTwitter size={20} /></Link>
+          <Link href="#" target="_blank" color="inherit" sx={{ bgcolor: '#00294f', borderRadius: "50%", p: '6px' }}><FaLinkedin size={20} /></Link>
+          <Link href="#" target="_blank" color="inherit" sx={{ bgcolor: '#00294f', borderRadius: "50%", p: '6px' }}><FaInstagram size={20} /></Link>
+          <Link href="#" target="_blank" color="inherit" sx={{ bgcolor: '#00294f', borderRadius: "50%", p: '6px' }}><FaYoutube size={20} /></Link>
         </Box>
 
-        <Box component="ul" sx={{ 
-          display: 'flex', 
-          gap: 5, 
-          mt: { xs: 4, sm: 0 },
-          p: 0,
-          m: 0,
-          listStyle: 'none'
-        }}>
-          {['Instagram', 'LinkedIn', 'Twitter'].map((platform) => (
-            <li key={platform}>
-              <a 
-                target="_blank" 
-                rel="noopener noreferrer" 
-                href='#'
-                // href={`https://${platform.toLowerCase()}.com/`}
-                style={{ 
-                  color: 'white',
-                  textDecoration: 'none',
-                  '&:hover': {
-                    color: '#7F8DAB'
-                  }
-                }}
-              >
-                <Typography variant="body2">{platform}</Typography>
-              </a>
-            </li>
-          ))}
-        </Box>
+        <Typography variant="body2" sx={{ fontWeight: "semibold", mt: 1, color: '#00294f' }}>
+          © {new Date().getFullYear()} All rights reserved | Developed by{' '}
+          <Link
+            href="https://www.linkedin.com/in/softengrmuhammadnabeel/"
+            target="_blank"
+            rel="noopener"
+            sx={{ fontWeight: "bold", color: '#00294f', textDecoration: 'underline' }}
+          >
+            MD NABEEL
+          </Link>
+        </Typography>
       </Box>
-    </Box>
+    </>
   );
 };
 
