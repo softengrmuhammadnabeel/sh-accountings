@@ -94,39 +94,31 @@ const Page = () => {
         backgroundColor: "#ffffff"
       }}>
         {/* Hero Section */}
-        <Box sx={{
-          width: "100%",
-          height: "100vh",
-          position: "relative",
-          overflow: "hidden",
-          backgroundColor: "#3C4E80"
-        }}>
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            style={{
+        <Box
+          sx={{
+            width: "100%",
+            height: "100vh",
+            position: "relative",
+            overflow: "hidden",
+            backgroundImage: `url('/services/servicesbg.jpeg')`, // Replace with your image path
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            backgroundRepeat: "no-repeat",
+            backgroundColor: "#3C4E80" // fallback color
+          }}
+        >
+          {/* <Box
+            sx={{
               position: "absolute",
               top: 0,
               left: 0,
               width: "100%",
               height: "100%",
-              objectFit: "cover",
-              opacity: 0.8
+              backgroundColor: "rgba(60, 78, 128, 0.5)", // overlay
             }}
-          >
-            <source src={"/vid.mp4"} type="video/mp4" />
-          </video>
+          /> */}
+          <Box sx={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", backgroundColor: "rgba(0, 0, 0, 0.5)" }} />
 
-          <Box sx={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            backgroundColor: "rgba(60, 78, 128, 0.5)"
-          }} />
 
           <Container
             maxWidth="lg"

@@ -491,16 +491,16 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
   return (
     <nav className={`fixed w-full px-8 xs:px-4 backdrop-blur-xs sm:px-10 lg:px-12 xl:px-[10%] py-4 flex items-center justify-between z-50 h-20 transition-all
       ${(isScroll && isSinglePage) || (isScroll && !isSinglePage)
-      ? "bg-white bg-opacity-100 dark:shadow-white/20"
-      : "bg-transparent"
+        ? "bg-white bg-opacity-100 dark:shadow-white/20"
+        : "bg-transparent"
       }`}>
 
       {/* Logo - Adjusted for better responsiveness */}
-      <Link href="/" className="flex items-center">
+      <Link href="/" className="flex items-center justify-center ">
         <img
           src={isScroll ? '/navbar/1-bg.png' : '/navbar/dark/2-bg.png'}
           alt="Clear Horizon Logo"
-          className="h-[8rem] sm:h-[10rem] md:h-[12rem] w-auto max-w-[18rem] md:max-w-[20rem] ml-[-30px] sm:ml-[-40px] md:ml-[-50px] cursor-pointer transition-all duration-300 object-contain"
+          className="h-[10rem] felx justify-center self-center sm:h-[10rem] md:h-[12rem] w-auto max-w-[18rem] md:max-w-[20rem] ml-[-20px] sm:ml-[-30px] md:ml-[-30px] cursor-pointer transition-all duration-300 object-contain"
         />
       </Link>
 
