@@ -156,14 +156,16 @@ import {
 import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube, FaXTwitter } from 'react-icons/fa6';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import Image from 'next/image';
+import React, { useState, useEffect } from "react";
+
 
 const footerLinks = {
-  services: [
-    'Year End Accounts', 'Tax Returns', 'Bookkeeping', 'TPAR', 'BAS Returns',
-    'Payroll', 'Commercial and Business', 'Loans', 'Tax Savings', 'Company Tax',
-    'Cash flow Projections', 'Online Accounts', 'Superannuation', 'Business Plans',
-    'Employment Law', 'Debt Recovery', 'Capital Gains Tax', 'Audits', 'Cryptocurrency Tax',
-  ],
+  // services: [
+  //   'Year End Accounts', 'Tax Returns', 'Bookkeeping', 'TPAR', 'BAS Returns',
+  //   'Payroll', 'Commercial and Business', 'Loans', 'Tax Savings', 'Company Tax',
+  //   'Cash flow Projections', 'Online Accounts', 'Superannuation', 'Business Plans',
+  //   'Employment Law', 'Debt Recovery', 'Capital Gains Tax', 'Audits', 'Cryptocurrency Tax',
+  // ],
   help: [
     'Start Ups', 'Sole Traders', 'Partnerships', 'Companies', 'Contractors',
     'LSL Contractors', 'Landlords', 'Selling Your Business', 'Employed Individuals',
@@ -182,6 +184,56 @@ const footerLinks = {
 const Footer = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+
+
+  const [services, setServices] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+
+  const fetchservices = async () => {
+    const response = await fetch("/api/services");
+    if (!response.ok) {
+      throw new Error("Failed to fetch services");
+    }
+    return response.json();
+  };
+
+  const checkCacheAndFetch = async () => {
+    // Check if data exists in localStorage
+    const cachedData = localStorage.getItem("services");
+    const lastFetched = localStorage.getItem("lastFetchedservices");
+
+    // If cached data exists and was fetched less than 5 minutes ago, use it
+    if (cachedData && lastFetched) {
+      const now = new Date().getTime();
+      const timeDifference = now - parseInt(lastFetched, 10);
+
+      if (timeDifference < 0.5 * 60 * 1000) { // 5 minutes
+        setServices(JSON.parse(cachedData));
+        setLoading(false);
+        return;
+      }
+    }
+
+    // If no valid cache, fetch from API
+    try {
+      const data = await fetchservices();
+      setServices(data);
+
+      // Save data and timestamp to localStorage
+      localStorage.setItem("services", JSON.stringify(data));
+      localStorage.setItem("lastFetchedservices", new Date().getTime().toString());
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    checkCacheAndFetch();
+  }, []);
 
   const renderSection = (title, items) => (
     isMobile ? (
@@ -244,7 +296,7 @@ const Footer = () => {
           <Grid item xs={12} md={3}>
             <Box mb={2}>
               <Image
-                src="/footer/footerfull.png" // 👈 Replace with your logo path (e.g., public/logo.png)
+                src="/footer/footerfull.png"
                 alt="Company Logo"
                 width={140}
                 height={40}
@@ -255,7 +307,7 @@ const Footer = () => {
               Empowering individuals and businesses through expert tax, accounting, and financial guidance.
             </Typography>
           </Grid>
-          <Grid item xs={12} md={3}>{renderSection('Our Services', footerLinks.services)}</Grid>
+          <Grid item xs={12} md={3}>{renderSection('Our Services', services.map(service => service.title.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|[\uD83C-\uDBFF\uDC00-\uDFFF]|[\uFE00-\uFE0F]|\u200D|\u2600-\u26FF|\u2700-\u27BF)/g, '')))}</Grid>
           <Grid item xs={12} md={3}>{renderSection('Who We Help', footerLinks.help)}</Grid>
           <Grid item xs={12} md={3}>{renderSection('Resources', footerLinks.resources)}</Grid>
         </Grid>
@@ -296,14 +348,14 @@ const Footer = () => {
         </Box>
 
         <Typography variant="body2" sx={{ color: 'white' }}>
-          © {new Date().getFullYear()} All rights reserved | Developed by{' '}
+          © {new Date().getFullYear()} All rights reserved | {' '}
           <Link
-            href="https://www.linkedin.com/in/softengrmuhammadnabeel/"
+            href="#"
             target="_blank"
             rel="noopener"
             sx={{ color: '#00294F', fontWeight: 600 }}
           >
-            MD NABEEL
+            CLEAR HORIZON ACCOUNTANTS
           </Link>
         </Typography>
       </Box>

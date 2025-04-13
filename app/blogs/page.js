@@ -290,12 +290,12 @@ const Page = () => {
                     justifyContent: "center",
                     alignItems: "center",
                     height: "50vh",
-                    width: "100%"
                   }}
                 >
                   <CircularProgress />
                 </Box>
               </Grid>
+
             ) : (filteredBlogs.length > 0 ? filteredBlogs : blogs).map((blog) => (
               <Grid item xs={12} sm={6} md={4} key={blog.id || blog._id}>
                 <motion.div

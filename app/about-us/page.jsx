@@ -1,10 +1,10 @@
 "use client";
-import * as React from "react";
+import React, { useState } from "react";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Paper, Grid, TextField, Slider } from "@mui/material";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Link from "next/link";
 const bgImage1 = "/about/fourth.jpg";
@@ -384,7 +384,7 @@ const AppointmentBanner = () => {
         alignItems: 'center',
         justifyContent: 'space-between',
         padding: { xs: '2rem 1rem', md: '4rem 8rem' },
-        gap:5,
+        gap: 5,
 
         borderRadius: 0,
       }}
@@ -407,7 +407,7 @@ const AppointmentBanner = () => {
             borderRadius: '999px',
             padding: '0.8rem 2rem',
             backgroundColor: '#fff',
-            color: 'black', 
+            color: 'black',
             boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.2)',
             fontWeight: 600,
             '&:hover': {
@@ -418,6 +418,170 @@ const AppointmentBanner = () => {
           Book Now
         </Button>
       </Link>
+    </Box>
+  );
+};
+
+
+const ROIAccountingSystem = () => {
+  // State to hold investment, return, and calculated ROI
+  const [investment, setInvestment] = useState(1000);
+  const [returnOnInvestment, setReturnOnInvestment] = useState(1500);
+  const [roi, setRoi] = useState(null);
+  const [error, setError] = useState('');
+
+  // Function to calculate ROI
+  const calculateROI = () => {
+    const inv = parseFloat(investment);
+    const roiValue = parseFloat(returnOnInvestment);
+
+    if (!inv || !roiValue || inv <= 0 || roiValue <= 0) {
+      setError('Please enter valid positive numbers for both fields.');
+      setRoi(null);
+      return;
+    }
+
+    setError('');
+    const calculatedROI = ((roiValue - inv) / inv) * 100; // ROI formula
+    setRoi(calculatedROI.toFixed(2)); // Showing only 2 decimal points
+  };
+
+  // Reset the form
+  const resetForm = () => {
+    setInvestment(1000);
+    setReturnOnInvestment(1500);
+    setRoi(null);
+    setError('');
+  };
+
+  return (
+    <Box sx={{ width: '100%', padding: '5%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <Paper sx={{
+        padding: 4,
+        borderRadius: 3,
+        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+        width: '100%',
+        maxWidth: '700px',
+        backgroundColor: '#FFFFFF',
+        transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+        '&:hover': { transform: 'scale(1.02)', boxShadow: '0 10px 30px rgba(0, 0, 0, 0.1)' }
+      }}>
+        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }}>
+          <Typography variant="h4" align="center" gutterBottom sx={{ color: '#2B4A76', fontWeight: 'bold' }}>
+            ROI Accounting System
+          </Typography>
+          <Typography variant="body1" align="center" paragraph sx={{ color: '#555', lineHeight: 1.6 }}>
+            Easily calculate your Return on Investment (ROI). Adjust the sliders below to set your investment amount and expected return.
+          </Typography>
+
+          {/* Investment Slider */}
+          <Grid container spacing={3} justifyContent="center">
+            <Grid item xs={12}>
+              <Typography variant="h6" color="#2B4A76">Investment Amount: ${investment}</Typography>
+              <Slider
+                value={investment}
+                onChange={(e, newValue) => setInvestment(newValue)}
+                valueLabelDisplay="auto"
+                valueLabelFormat={(value) => `$${value}`}
+                min={500}
+                max={10000}
+                step={50}
+                sx={{
+                  width: '100%',
+                  marginBottom: 3,
+                  '& .MuiSlider-thumb': { backgroundColor: '#2B4A76' },
+                  '& .MuiSlider-rail': { backgroundColor: '#2B4A76' },
+                  '& .MuiSlider-track': { backgroundColor: '#2B4A76' },
+                }}
+              />
+            </Grid>
+
+            {/* Return on Investment Slider */}
+            <Grid item xs={12}>
+              <Typography variant="h6" color="#2B4A76">Return on Investment: ${returnOnInvestment}</Typography>
+              <Slider
+                value={returnOnInvestment}
+                onChange={(e, newValue) => setReturnOnInvestment(newValue)}
+                valueLabelDisplay="auto"
+                valueLabelFormat={(value) => `$${value}`}
+                min={500}
+                max={15000}
+                step={50}
+                sx={{
+                  width: '100%',
+                  marginBottom: 3,
+                  '& .MuiSlider-thumb': { backgroundColor: '#2B4A76' },
+                  '& .MuiSlider-rail': { backgroundColor: '#2B4A76' },
+                  '& .MuiSlider-track': { backgroundColor: '#2B4A76' },
+                }}
+              />
+            </Grid>
+          </Grid>
+
+          {/* Calculate Button */}
+          <Box sx={{ marginTop: 3, textAlign: 'center' }}>
+            <Button
+              variant="contained"
+              size="large"
+              onClick={calculateROI}
+              sx={{
+                backgroundColor: "#7F8DAB",
+                fontSize: "1rem",
+                fontWeight: 600,
+                px: 4,
+                py: 1,
+                border: '2px solid white',
+                borderRadius: "50px",
+                boxShadow: "none",
+                "&:hover": {
+                  backgroundColor: "#3C4E80"
+                }
+              }}
+            >
+              Calculate ROI
+            </Button>
+          </Box>
+
+          {roi !== null && (
+            <Box sx={{ marginTop: 4, textAlign: 'center' }}>
+              <Typography variant="h5" color="#3C4E80" sx={{ fontWeight: 'bold' }}>
+                Your ROI: <span style={{ color: roi < 0 ? 'red' : 'black' }}>{roi} %</span>
+              </Typography>
+            </Box>
+          )}
+
+          {error && (
+            <Box sx={{ marginTop: 2, textAlign: 'center' }}>
+              <Typography variant="body1" color="error" sx={{ fontWeight: 'bold' }}>
+                {error}
+              </Typography>
+            </Box>
+          )}
+
+          <Box sx={{ marginTop: 3, textAlign: 'center' }}>
+
+            <Button
+              variant="contained"
+              size="small"
+              onClick={resetForm}
+              sx={{
+                backgroundColor: "#7F8DAB",
+                fontSize: "0.8rem",
+                fontWeight: 600,
+                px: 4,
+                py: 1,
+                border: '2px solid white',
+                borderRadius: "50px",
+                boxShadow: "none",
+                "&:hover": {
+                  backgroundColor: "#3C4E80"
+                }
+              }}
+            >
+              Reset            </Button>
+          </Box>
+        </motion.div>
+      </Paper>
     </Box>
   );
 };
@@ -448,10 +612,16 @@ const sections = [
   {
     type: "image",
     bgValue: bgImage2,
-    title: "Page in under-development",
-    content: "Built on integrity. Driven by transparency. Focused on your success— MD NABEEL",
-    height: "100vh"
-  }
+    content: <ROIAccountingSystem />,
+    height: "auto"
+  },
+  // {
+  //   type: "image",
+  //   bgValue: bgImage2,
+  //   title: "Page in under-development",
+  //   content: "",
+  //   height: "100vh"
+  // }
 ];
 
 const AboutUsPage = () => {
@@ -587,7 +757,7 @@ const AboutUsPage = () => {
                 }}>
                   {section.content}
                 </Typography>
-                <Button
+                {/* <Button
                   variant={section.type === "color" ? "contained" : "outlined"}
                   size="large"
                   sx={{
@@ -604,7 +774,7 @@ const AboutUsPage = () => {
                   }}
                 >
                   Learn More
-                </Button>
+                </Button> */}
               </motion.div>
               <Box sx={{
                 position: "absolute",
@@ -612,7 +782,7 @@ const AboutUsPage = () => {
                 left: 0,
                 width: "100%",
                 height: "100%",
-                backgroundColor: "rgba(0,0,0,0.5)",
+                // backgroundColor: "rgba(0,0,0,0.5)",
                 zIndex: -1
               }} />
             </Container>

@@ -50,7 +50,6 @@ const Page = () => {
     }
     return response.json();
   };
-  console.log("SERVICES", services);
 
   const checkCacheAndFetch = async () => {
     // Check if data exists in localStorage
@@ -227,9 +226,19 @@ const Page = () => {
 
             <Grid container spacing={4}>
               {loading ? (
-                <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "50vh" }}>
-                  <CircularProgress />
-                </Box>
+                <Grid item xs={12}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      height: "50vh",
+                    }}
+                  >
+                    <CircularProgress />
+                  </Box>
+                </Grid>
+
               ) : services.map((service) => (
                 <Grid item xs={12} sm={6} md={4} key={service._id}>
                   <motion.div
@@ -318,7 +327,7 @@ const Page = () => {
                             borderColor: "#3C4E80",
                             fontWeight: "600",
                             borderRadius: "50px",
-                            alignSelf: "flex-start",
+                            alignSelf: "center",
                             px: 3,
                             fontSize: "0.8rem",
                             "&:hover": {

@@ -1,20 +1,10 @@
 import { assets } from '@/assets/assets';
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import servicesData from '@/utils/serviceData';
 import { Button, Box } from '@mui/material';
 import { useRouter } from 'next/navigation'
 import { CircularProgress } from "@mui/material";
-
-export const rowVariants = {
-  hidden: { opacity: 0, x: -150 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.4, ease: "easeOut" },
-  },
-};
 
 const Services = () => {
   const router = useRouter();
@@ -29,31 +19,25 @@ const Services = () => {
     }
     return response.json();
   };
-  console.log("SERVICES", services);
 
   const checkCacheAndFetch = async () => {
-    // Check if data exists in localStorage
     const cachedData = localStorage.getItem("services");
     const lastFetched = localStorage.getItem("lastFetchedservices");
 
-    // If cached data exists and was fetched less than 5 minutes ago, use it
     if (cachedData && lastFetched) {
       const now = new Date().getTime();
       const timeDifference = now - parseInt(lastFetched, 10);
 
-      if (timeDifference < 0.5 * 60 * 1000) { // 5 minutes
+      if (timeDifference < 0.5 * 60 * 1000) {
         setServices(JSON.parse(cachedData));
         setLoading(false);
         return;
       }
     }
 
-    // If no valid cache, fetch from API
     try {
       const data = await fetchservices();
       setServices(data);
-
-      // Save data and timestamp to localStorage
       localStorage.setItem("services", JSON.stringify(data));
       localStorage.setItem("lastFetchedservices", new Date().getTime().toString());
     } catch (error) {
@@ -66,24 +50,6 @@ const Services = () => {
   useEffect(() => {
     checkCacheAndFetch();
   }, []);
-
-  const formVariants = {
-    hidden: { opacity: 0, x: -50 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
-    },
-  };
-
-  const imageVariants = {
-    hidden: { opacity: 0, x: 50 },
-    visible: {
-      opacity: 1,
-      x: 0,
-      transition: { duration: 0.6, ease: "easeOut" },
-    },
-  };
 
   const onSubmit = (e) => {
     e.preventDefault();
@@ -99,66 +65,54 @@ const Services = () => {
         investors, regulators, and management through our:
       </p>
       <div className="my-10">
-        {/* {Array.from({ length: Math.ceil(services.length ) }).map(
-          (_, rowIndex) => ( */}
-        <motion.div
-          // key={rowIndex}
-          variants={rowVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6"
-        >
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
           {loading ? (
             <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", width: '100%', height: "50vh" }}>
               <CircularProgress />
             </Box>
-          ) :
-
-            services.slice(0, 4) // This will get the first 4 items
-              .map((service, index) => (
-                <div
-                  key={service._id}
-                  className="max-w-sm mx-auto overflow-hidden bg-white dark:bg-[#1c0831] rounded-lg shadow-md"
+          ) : services.slice(0, 4).map((service) => (
+            <div
+              key={service._id}
+              className="max-w-sm mx-auto overflow-hidden bg-white dark:bg-[#1c0831] rounded-lg shadow-md"
+            >
+              <div className="relative h-64 w-full">
+                <Image
+                  src={service.image}
+                  alt={service.title}
+                  fill
+                  className="object-cover"
+                />
+              </div>
+              <div className="p-6 text-center">
+                <h2 className="mb-4 text-2xl font-bold text-gray-800 dark:text-white">
+                  {service.title}
+                </h2>
+                <p className="mb-6 text-gray-600 dark:text-white">
+                  {service?.description?.split("\n")[0]}
+                </p>
+                <Button
+                  variant="outlined"
+                  onClick={() => router.push(`/services/${service._id}`)}
+                  sx={{
+                    color: "#3C4E80",
+                    borderColor: "#3C4E80",
+                    fontWeight: "600",
+                    borderRadius: "50px",
+                    alignSelf: "flex-start",
+                    px: 3,
+                    fontSize: "0.8rem",
+                    "&:hover": {
+                      backgroundColor: "rgba(60, 78, 128, 0.1)",
+                      borderColor: "#3C4E80",
+                    },
+                  }}
                 >
-                  <div className="relative h-64 w-full">
-                    <Image
-                      src={service.image}
-                      alt={service.title}
-                      fill
-                      className="object-cover"
-                    />
-                  </div>
-                  <div className="p-6 text-center">
-                    <h2 className="mb-4 text-2xl font-bold text-gray-800 dark:text-white">
-                      {service.title}
-                    </h2>
-                    <p className="mb-6 text-gray-600 dark:text-white">
-                      {service?.description?.split("\n")[0]}
-                    </p>
-                    <Button
-                      variant="outlined"
-                      onClick={() => router.push(`/services/${service._id}`)}
-                      sx={{
-                        color: "#3C4E80",
-                        borderColor: "#3C4E80",
-                        fontWeight: "600",
-                        borderRadius: "50px",
-                        alignSelf: "flex-start",
-                        px: 3,
-                        fontSize: "0.8rem",
-                        "&:hover": {
-                          backgroundColor: "rgba(60, 78, 128, 0.1)",
-                          borderColor: "#3C4E80",
-                        },
-                      }}
-                    >
-                      Explore More
-                    </Button>
-                  </div>
-                </div>
-              ))}
-        </motion.div>
+                  Explore More
+                </Button>
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
       <Box
@@ -171,11 +125,7 @@ const Services = () => {
         <Button
           variant="contained"
           size="large"
-          component={motion.button}
-          initial={{ scale: 0.9, opacity: 0 }}
           onClick={() => router.push('/services')}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.6, ease: "easeInOut" }}
           sx={{
             backgroundColor: "#7F8DAB",
             fontSize: "1rem",
@@ -193,9 +143,9 @@ const Services = () => {
           Explore More Services
         </Button>
       </Box>
-    </div >
+    </div>
   );
 };
 
+export default Services;
 
-export default Services
