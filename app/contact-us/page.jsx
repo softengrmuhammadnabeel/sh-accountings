@@ -5,6 +5,11 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { motion } from "framer-motion";
+import { useState } from 'react';
+import CircularProgress from "@mui/material/CircularProgress";  // Import CircularProgress for loading spinner
+import { toast } from 'react-toastify';  // Import react-toastify for toast notifications
+
+
 import {
   Grid,
   TextField,
@@ -13,10 +18,51 @@ import { assets } from "@/assets/assets";
 import { rowVariants } from "../services/page";
 
 const Page = () => {
-  const onSubmit = (e) => {
-    e.preventDefault();
-    console.log("Message sent successfully!");
+
+  const [form, setForm] = useState({ firstName: '',lastName:"", email: '', message: '' });
+  const [loading, setLoading] = useState(false);  
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [FormValid, setFormValid] = useState(false);
+  React.useEffect(()=>{
+    const isFormValid = () => {
+      setFormValid(form.firstName !== '' && form.lastName !== '' && form.email !== '' && form.message !== '')
+    };
+    isFormValid()
+  },[form])
+  
+  const handleChange = (e) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
   };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    const res = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(form),
+    });
+
+    const data = await res.json();
+    setLoading(false); 
+    if (res.ok) {
+      setIsSuccess(true);
+      toast.success('Email sent successfully!', { 
+        position:"bottom-right",
+        autoClose: 5000,
+        hideProgressBar: true,
+        theme: "colored",
+      });
+    } else {
+      toast.error('Error: Unable to send email. Please try again later.', {
+        position: "bottom-right",
+        autoClose: 5000,
+        hideProgressBar: true,
+        theme: 'colored',
+      });
+      
+    }
+  };
+
 
   return (
     <>
@@ -27,11 +73,11 @@ const Page = () => {
           height: "100vh",
           position: "relative",
           overflow: "hidden",
-          backgroundImage: `url('/contact/contactbg.jpg')`, // Replace with your image path
+          backgroundImage: `url('/contact/contactbg.jpg')`, 
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
-          backgroundColor: "#3C4E80" // fallback color
+          backgroundColor: "#3C4E80" 
         }}
       >
         <Box sx={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", backgroundColor: "rgba(0, 0, 0, 0.5)" }} />
@@ -175,11 +221,13 @@ const Page = () => {
                 Get in Touch
               </Typography>
 
-              <form onSubmit={onSubmit}>
+              <form onSubmit={handleSubmit}>
                 <Grid container spacing={3}>
                   <Grid item xs={12} sm={6}>
                     <TextField
                       fullWidth
+                      name="firstName"
+                      onChange={handleChange}
                       label="First Name"
                       variant="outlined"
                       sx={{
@@ -206,6 +254,8 @@ const Page = () => {
                   <Grid item xs={12} sm={6}>
                     <TextField
                       fullWidth
+                      onChange={handleChange}
+                      name="lastName"
                       label="Last Name"
                       variant="outlined"
                       sx={{
@@ -233,6 +283,8 @@ const Page = () => {
                     <TextField
                       fullWidth
                       label="Email"
+                      onChange={handleChange}
+                      name="email"  
                       type="email"
                       variant="outlined"
                       sx={{
@@ -261,6 +313,9 @@ const Page = () => {
                       fullWidth
                       label="Your Message"
                       multiline
+                      name="message"
+                      onChange={handleChange}
+                      type="text"
                       rows={4}
                       variant="outlined"
                       sx={{
@@ -289,20 +344,23 @@ const Page = () => {
                       type="submit"
                       variant="contained"
                       fullWidth
+                      disabled={!FormValid}
                       sx={{
                         bgcolor: "common.white",
-                        color: "#3C4E80",
+                        color: FormValid ? "#3C4E80" : "white",
                         fontSize: "1rem",
                         fontWeight: 600,
                         py: 2,
+                        
                         borderRadius: "50px",
                         "&:hover": {
                           bgcolor: "rgba(255, 255, 255, 0.9)",
                         },
                       }}
                     >
-                      Send Message
+                      {loading ? <CircularProgress size={24} color="inherit" /> : 'Send Message'}
                     </Button>
+
                   </Grid>
                 </Grid>
               </form>
@@ -335,224 +393,6 @@ const Page = () => {
           </motion.div>
         </Box>
       </Box>
-
-
-
-
-
-      {/* Contact Form
-        <motion.div
-          initial={{ opacity: 0, x: -50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          viewport={{ once: true, amount: 0.3 }}
-          sx={{ width: { xs: "100%", lg: "50%" } }}
-        >
-          <Box
-            sx={{
-              p: 4,
-              borderRadius: 2,
-              bgcolor: "rgba(255, 255, 255, 0.1)", // Semi-transparent white background
-              backdropFilter: "blur(10px)", // Blur effect for a modern look
-              boxShadow: "0 8px 32px rgba(0, 0, 0, 0.2)", // Subtle shadow
-            }}
-          >
-            <Typography
-              variant="h4"
-              sx={{
-                mb: 4,
-                fontWeight: "bold",
-                color: "common.white",
-                textAlign: { xs: "center", lg: "left" },
-              }}
-            >
-              Contact Us
-            </Typography>
-            <form onSubmit={onSubmit}>
-              <Grid container spacing={3}>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    fullWidth
-                    label="First Name"
-                    variant="outlined"
-                    sx={{
-                      bgcolor: "rgba(255, 255, 255, 0.1)",
-                      borderRadius: "8px",
-                      "& .MuiOutlinedInput-root": {
-                        color: "common.white",
-                        "& fieldset": {
-                          borderColor: "rgba(255, 255, 255, 0.3)",
-                        },
-                        "&:hover fieldset": {
-                          borderColor: "common.white",
-                        },
-                      },
-                      "& .MuiInputLabel-root": {
-                        color: "rgba(255, 255, 255, 0.7)", // Light label color
-                      },
-                      "& .MuiInputLabel-root.Mui-focused": {
-                        color: "common.white", // White label when focused
-                      },
-                    }}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    fullWidth
-                    label="Last Name"
-                    variant="outlined"
-                    sx={{
-                      bgcolor: "rgba(255, 255, 255, 0.1)",
-                      borderRadius: "8px",
-                      "& .MuiOutlinedInput-root": {
-                        color: "common.white",
-                        "& fieldset": {
-                          borderColor: "rgba(255, 255, 255, 0.3)",
-                        },
-                        "&:hover fieldset": {
-                          borderColor: "common.white",
-                        },
-                      },
-                      "& .MuiInputLabel-root": {
-                        color: "rgba(255, 255, 255, 0.7)", // Light label color
-                      },
-                      "& .MuiInputLabel-root.Mui-focused": {
-                        color: "common.white", // White label when focused
-                      },
-                    }}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    fullWidth
-                    label="Email"
-                    type="email"
-                    variant="outlined"
-                    sx={{
-                      bgcolor: "rgba(255, 255, 255, 0.1)",
-                      borderRadius: "8px",
-                      "& .MuiOutlinedInput-root": {
-                        color: "common.white",
-                        "& fieldset": {
-                          borderColor: "rgba(255, 255, 255, 0.3)",
-                        },
-                        "&:hover fieldset": {
-                          borderColor: "common.white",
-                        },
-                      },
-                      "& .MuiInputLabel-root": {
-                        color: "rgba(255, 255, 255, 0.7)", // Light label color
-                      },
-                      "& .MuiInputLabel-root.Mui-focused": {
-                        color: "common.white", // White label when focused
-                      },
-                    }}
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <TextField
-                    fullWidth
-                    label="Phone"
-                    variant="outlined"
-                    sx={{
-                      bgcolor: "rgba(255, 255, 255, 0.1)",
-                      borderRadius: "8px",
-                      "& .MuiOutlinedInput-root": {
-                        color: "common.white",
-                        "& fieldset": {
-                          borderColor: "rgba(255, 255, 255, 0.3)",
-                        },
-                        "&:hover fieldset": {
-                          borderColor: "common.white",
-                        },
-                      },
-                      "& .MuiInputLabel-root": {
-                        color: "rgba(255, 255, 255, 0.7)", // Light label color
-                      },
-                      "& .MuiInputLabel-root.Mui-focused": {
-                        color: "common.white", // White label when focused
-                      },
-                    }}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <TextField
-                    fullWidth
-                    label="Your Message"
-                    multiline
-                    rows={4}
-                    variant="outlined"
-                    sx={{
-                      bgcolor: "rgba(255, 255, 255, 0.1)",
-                      borderRadius: "8px",
-                      "& .MuiOutlinedInput-root": {
-                        color: "common.white",
-                        "& fieldset": {
-                          borderColor: "rgba(255, 255, 255, 0.3)",
-                        },
-                        "&:hover fieldset": {
-                          borderColor: "common.white",
-                        },
-                      },
-                      "& .MuiInputLabel-root": {
-                        color: "rgba(255, 255, 255, 0.7)", // Light label color
-                      },
-                      "& .MuiInputLabel-root.Mui-focused": {
-                        color: "common.white", // White label when focused
-                      },
-                    }}
-                  />
-                </Grid>
-                <Grid item xs={12}>
-                  <Button
-                    type="submit"
-                    variant="contained"
-                    fullWidth
-                    sx={{
-                      bgcolor: "common.white",
-                      color: "#EB1552",
-                      fontSize: "1rem",
-                      fontWeight: 600,
-                      py: 2,
-                      borderRadius: "8px",
-                      "&:hover": {
-                        bgcolor: "rgba(255, 255, 255, 0.9)",
-                      },
-                    }}
-                  >
-                    Send Message
-                  </Button>
-                </Grid>
-              </Grid>
-            </form>
-          </Box>
-        </motion.div>
-
-        {/* Contact Image */}
-      {/* <motion.div
-          initial={{ opacity: 0, x: 50 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.6, ease: "easeOut" }}
-          viewport={{ once: true, amount: 0.3 }}
-          sx={{ width: { xs: "100%", lg: "50%" } }}
-        >
-          <Box
-            sx={{
-              height: { xs: 300, lg: 450 },
-              borderRadius: 2,
-              overflow: "hidden",
-              boxShadow: "0 8px 32px rgba(0, 0, 0, 0.2)",
-            }}
-          >
-            <img
-              src={assets.contactUsGirl.src}
-              alt="Contact"
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
-            />
-          </Box>
-        </motion.div>  */}
-
-
     </>
   );
 };

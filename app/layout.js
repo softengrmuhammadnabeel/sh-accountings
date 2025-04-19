@@ -1,6 +1,10 @@
 import { Outfit, Ovo } from "next/font/google";
 import "./globals.css";
 import Layout from "./components/Layout";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
 const outfit = Outfit({
   subsets: ["latin"], weight: ["400", "500", "600", "700"]
 });
@@ -35,6 +39,8 @@ export default function RootLayout({ children }) {
          dark:bg-darkTheme dark:text-white`}
       >
         <Layout>{children}</Layout>
+        <ToastContainer position="bottom-right" autoClose={5000} />
+
       </body>
     </html>
   );
