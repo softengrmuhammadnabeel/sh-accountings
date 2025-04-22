@@ -182,8 +182,11 @@ import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { motion } from "framer-motion";
+import { useRouter } from "next/navigation";
+useRouter
 
 export const Header = () => {
+    const router = useRouter()
     return (
         <Box sx={{ width: "100%", height: "100vh", position: "relative", overflow: "hidden" }}>
             <video
@@ -256,6 +259,7 @@ export const Header = () => {
                     initial={{ scale: 0.9, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ duration: 0.6, ease: "easeInOut" }}
+                    onClick={()=>router.push("/contact-us")}
                     sx={{
                         backgroundColor: "#7F8DAB",
                         fontSize: "1rem",

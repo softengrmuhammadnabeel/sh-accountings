@@ -17,7 +17,6 @@ import {
   TextField,
   Container,
 } from "@mui/material";
-import servicesData from '@/utils/serviceData';
 import ContactUs from '../components/ContactUs';
 import { useRouter } from 'next/navigation';
 export const cardVariants = {

@@ -23,12 +23,10 @@ import {
   TextField,
   Container,
 } from "@mui/material";
-import blogData from '@/utils/blogData'; // Replace with your blog data
 import ContactUS from '../components/ContactUs';
 
 const Page = () => {
   const isDarkMode = true; // Set this dynamically based on your theme logic
-  console.log(blogData);
   const rowVariants = {
     hidden: { opacity: 0, x: -150 },
     visible: {
@@ -49,7 +47,6 @@ const Page = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log("Message sent successfully!");
   };
 
   const [blogs, setBlogs] = useState([]);

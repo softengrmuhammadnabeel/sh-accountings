@@ -1,7 +1,6 @@
 import { assets } from '@/assets/assets';
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import servicesData from '@/utils/serviceData';
 import { Button, Box } from '@mui/material';
 import { useRouter } from 'next/navigation'
 import { CircularProgress } from "@mui/material";
@@ -53,7 +52,6 @@ const Services = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    console.log("Message sent successfully!");
   };
 
   return (

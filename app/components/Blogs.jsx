@@ -1,10 +1,8 @@
 import { assets } from '@/assets/assets';
 import Image from 'next/image';
 import React, { useState, useEffect, useCallback } from 'react';
-import servicesData from '@/utils/serviceData';
 import { Button, Box, CircularProgress } from '@mui/material'; // <-- added CircularProgress
 import { useRouter } from 'next/navigation';
-import accountingBlogs from '@/utils/blogData';
 import parse from "html-react-parser";
 
 const Blogs = ({ isDarkMode }) => {

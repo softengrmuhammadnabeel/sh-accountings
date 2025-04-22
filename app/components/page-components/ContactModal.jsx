@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import {
     Box,
     Typography,
@@ -14,11 +14,13 @@ import {
     Paper,
     Stack,
 } from "@mui/material";
+import CircularProgress from "@mui/material/CircularProgress";  // Import CircularProgress for loading spinner
 import CloseIcon from "@mui/icons-material/Close";
 import { motion } from "framer-motion";
 import EmailIcon from "@mui/icons-material/Email";
 import PhoneIcon from "@mui/icons-material/Phone";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
+import { toast } from "react-toastify";
 const industries = [
     "Technology", "Healthcare", "Finance", "Education", "Retail", "Manufacturing", "Real Estate", "Automotive", "Energy", "Telecommunications",
     "Agriculture", "Entertainment", "Media", "Construction", "Food & Beverage", "Pharmaceuticals", "Hospitality", "Transportation", "Legal Services", "Aerospace",
@@ -27,6 +29,60 @@ const industries = [
 
 const ContactModal = ({ closeModal }) => {
     const [industry, setIndustry] = React.useState("");
+    const [form, setForm] = useState({ firstName: '', lastName: "", email: '',phoneNumber:'', message: '', Industry: '', companyName: '' });
+    const [loading, setLoading] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);
+    const [FormValid, setFormValid] = useState(false);
+    React.useEffect(() => {
+        const isFormValid = () => {
+            setFormValid(form.firstName !== '' && form.lastName !== '' && form.Industry !== '' &&form.phoneNumber !== '' && form.companyName !== '' && form.email !== '' && form.message !== '')
+        };
+        isFormValid()
+    }, [form])
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+
+        if (name === 'Industry') {
+            setIndustry(value);
+        }
+
+        setForm(prev => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        const res = await fetch('/api/contact', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(form),
+        });
+
+        const data = await res.json();
+        setLoading(false);
+        if (res.ok) {
+            setIsSuccess(true);
+            toast.success('Email sent successfully!', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: true,
+                theme: "colored",
+            });
+        } else {
+            toast.error('Error: Unable to send email. Please try again later.', {
+                position: "bottom-right",
+                autoClose: 5000,
+                hideProgressBar: true,
+                theme: 'colored',
+            });
+
+        }
+    };
+
 
     const onSubmit = (e) => {
         e.preventDefault();
@@ -90,27 +146,31 @@ const ContactModal = ({ closeModal }) => {
                     We can't wait to collaborate with you.
                 </Typography>
 
-                <form onSubmit={onSubmit}>
+                <form onSubmit={handleSubmit}>
                     <Grid container spacing={2}>
                         <Grid item xs={12} sm={6}>
-                            <TextField fullWidth label="First Name" required />
+                            <TextField fullWidth onChange={handleChange} label="First Name" name="firstName" required />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <TextField fullWidth label="Last Name" required />
+                            <TextField fullWidth onChange={handleChange} label="Last Name" name="lastName" required />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <TextField fullWidth label="Email Address" type="email" required />
+                            <TextField fullWidth onChange={handleChange} label="Email Address" name="email" type="email" required />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <TextField fullWidth label="Company Name" required />
+                            <TextField fullWidth onChange={handleChange} label="Company Name" name="companyName" required />
                         </Grid>
                         <Grid item xs={12} sm={6}>
-                            <FormControl fullWidth required>
+                            <TextField fullWidth onChange={handleChange} type="tel" label="Phone Number" name="phoneNumber" required />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <FormControl fullWidth onChange={handleChange} required>
                                 <InputLabel>Industry</InputLabel>
                                 <Select
                                     value={industry}
                                     label="Industry"
-                                    onChange={(e) => setIndustry(e.target.value)}
+                                    onChange={handleChange}
+                                    name="Industry"
                                     MenuProps={{
                                         PaperProps: {
                                             style: {
@@ -129,7 +189,9 @@ const ContactModal = ({ closeModal }) => {
                         </Grid>
                         <Grid item xs={12}>
                             <TextField
+                                name="message"
                                 fullWidth
+                                onChange={handleChange}
                                 label="What Services Are You Interested In?"
                                 multiline
                                 rows={3}
@@ -141,6 +203,7 @@ const ContactModal = ({ closeModal }) => {
                                 type="submit"
                                 variant="contained"
                                 fullWidth
+                                disabled={!FormValid}
                                 sx={{
                                     bgcolor: "#3C4E80",
                                     color: "white",
@@ -152,7 +215,7 @@ const ContactModal = ({ closeModal }) => {
                                     }
                                 }}
                             >
-                                Submit
+                                {loading ? <CircularProgress size={24} color="inherit" /> : 'Submit'}
                             </Button>
                         </Grid>
                     </Grid>

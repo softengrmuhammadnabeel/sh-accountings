@@ -307,7 +307,7 @@ const Footer = () => {
               Empowering individuals and businesses through expert tax, accounting, and financial guidance.
             </Typography>
           </Grid>
-          <Grid item xs={12} md={3}>{renderSection('Our Services', services.map(service => service.title.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|[\uD83C-\uDBFF\uDC00-\uDFFF]|[\uFE00-\uFE0F]|\u200D|\u2600-\u26FF|\u2700-\u27BF)/g, '')))}</Grid>
+          <Grid item xs={12} md={3}>{renderSection('Our Services', services.slice(0,15).map(service => service.title.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|[\uD83C-\uDBFF\uDC00-\uDFFF]|[\uFE00-\uFE0F]|\u200D|\u2600-\u26FF|\u2700-\u27BF)/g, '')))}</Grid>
           <Grid item xs={12} md={3}>{renderSection('Who We Help', footerLinks.help)}</Grid>
           <Grid item xs={12} md={3}>{renderSection('Resources', footerLinks.resources)}</Grid>
         </Grid>

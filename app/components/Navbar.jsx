@@ -728,7 +728,7 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
         <button onClick={handleOpenModal}
           className={`hidden md:flex items-center gap-2 px-4 py-1.5 sm:px-5 sm:py-2 rounded-full font-Ovo border transition shadow-sm text-sm sm:text-base
             ${isScroll ? 'text-[#1F2943] border-black hover:bg-gray-100' : 'text-white border-white hover:bg-white hover:bg-opacity-10'}`}>
-          Contact
+          Get in Touch
           <Image
             src={isScroll ? assets.arrow_icon : assets.arrow_icon_dark}
             alt='Arrow'
