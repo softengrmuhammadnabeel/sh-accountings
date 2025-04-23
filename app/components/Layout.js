@@ -4,8 +4,11 @@ import { useEffect, useState } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 import Wheader from "./page-components/WaComp";
+import { useRouter } from "next/navigation";
 const Layout = ({ children }) => {
   const [isDarkMode, setIsDarkMode] = useState(true);
+  const router = useRouter()
+  const [hideNavbar, setHideNavbar] = useState(false);
 
   useEffect(() => {
     if (
@@ -28,12 +31,23 @@ const Layout = ({ children }) => {
     }
   }, [isDarkMode]);
 
+  useEffect(() => {
+    if (router.pathname && router.pathname.startsWith('/admin')) {
+      setHideNavbar(true);
+    } else {
+      setHideNavbar(false);
+    }
+  }, []); // Run when pathname changes
+
+  if (hideNavbar) {
+    return null; // Don't render Navbar if on admin pages
+  }
   return (
     <>
-      <Navbar isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />
+      {!hideNavbar && <Navbar isDarkMode={isDarkMode} setIsDarkMode={setIsDarkMode} />}
       <Wheader />
       <main>{children}</main>
-      <Footer isDarkMode={isDarkMode} />
+      {!hideNavbar && <Footer isDarkMode={isDarkMode} />}
     </>
   );
 };

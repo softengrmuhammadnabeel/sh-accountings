@@ -640,6 +640,7 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
   const [isSinglePage, setIsSinglePage] = useState()
   const [menuOpen, setMenuOpen] = useState(false)
   const router = useRouter()
+
   const sideMenuRef = useRef(null)
   const [openModal, setOpenModal] = useState(false)
   const pathname = usePathname();
