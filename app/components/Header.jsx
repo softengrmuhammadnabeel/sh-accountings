@@ -230,7 +230,8 @@ export const Header = () => {
                     transition={{ duration: 0.8 }}
                     sx={{ mt: 20, mb: 3, fontWeight: 700, fontSize: { xs: "2.5rem", sm: "3.5rem", md: "4rem" }, lineHeight: 1.2 }}
                 >
-                    Manage Your <Typography component="span" color="white" variant="inherit">Finances</Typography> With Confidence!
+                    Where
+                    <Typography component="span" color="white" variant="inherit"> Accuracy Meets Insight</Typography><Typography component="p" color="white" variant="inherit">Your Partner in Financial Clarity!</Typography>
                     {/* Manage Your <Typography component="span" color="#EB1552" variant="inherit">Finances</Typography> With Confidence! */}
                 </Typography>
 
@@ -243,23 +244,25 @@ export const Header = () => {
                     sx={{
                         mb: 4,
                         fontSize: { xs: "1rem", sm: "1.25rem" },
-                        color: "rgba(255, 255, 255, 0.8)",
+                        color: "rgba(255, 255, 255, 1)",
                         maxWidth: "800px",
                         mx: "auto",
 
                     }}
                 >
-                    We provide expert accounting, tax, and financial services to help businesses and individuals make informed decisions and achieve financial success.
+                    We provide expert accounting, bookkeeping, financial reporting, budgeting and planning
+                    services to help businesses and individuals make informed decisions and achieve financial
+                    success.
                 </Typography>
 
-                <Button
+                {/* <Button
                     variant="contained"
                     size="large"
                     component={motion.button}
                     initial={{ scale: 0.9, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ duration: 0.6, ease: "easeInOut" }}
-                    onClick={()=>router.push("/contact-us")}
+                    onClick={() => router.push("/contact-us")}
                     sx={{
                         backgroundColor: "#7F8DAB",
                         fontSize: "1rem",
@@ -275,7 +278,7 @@ export const Header = () => {
                     }}
                 >
                     Contact Us
-                </Button>
+                </Button> */}
             </Container>
         </Box>
     );

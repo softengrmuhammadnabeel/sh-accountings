@@ -121,7 +121,8 @@ const BlogPost = () => {
     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
       <Box
         sx={{
-          background: 'linear-gradient(to bottom, rgba(1, 10, 0, 0.1), transparent)',
+          // background: 'linear-gradient(to bottom, rgba(1, 10, 0, 0.1), transparent)',
+          background: 'white',
           minHeight: '100vh',
           py: 6
         }}
@@ -148,12 +149,13 @@ const BlogPost = () => {
                   <Box component="span" fontWeight="bold" color="primary.main">
                     {blog.author}
                   </Box>{' '}
-                  • {new Date(blog.date).toLocaleDateString('en-GB', {
+                  &bull;{' '}
+                  {new Date(blog.createdAt).toLocaleDateString('en-GB', {
                     day: 'numeric',
                     month: 'short',
                     year: 'numeric',
                   })}{' '}
-                  • {blog.readTime || '5 min read'}
+                  &bull; {blog.readTime || '5 min read'}
                 </Typography>
 
                 {/* Image */}

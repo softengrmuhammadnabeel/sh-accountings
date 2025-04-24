@@ -19,17 +19,23 @@ import { rowVariants } from "../services/page";
 
 const Page = () => {
 
-  const [form, setForm] = useState({ firstName: '',lastName:"", email: '', message: '' });
-  const [loading, setLoading] = useState(false);  
+  const [form, setForm] = useState({ firstName: '', lastName: "", email: '', message: '' });
+  const [loading, setLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [FormValid, setFormValid] = useState(false);
-  React.useEffect(()=>{
+  const contactRef = React.useRef(null);
+
+  React.useEffect(() => {
     const isFormValid = () => {
       setFormValid(form.firstName !== '' && form.lastName !== '' && form.email !== '' && form.message !== '')
     };
     isFormValid()
-  },[form])
-  
+  }, [form])
+  const scrollToContact = () => {
+    contactRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -43,11 +49,11 @@ const Page = () => {
     });
 
     const data = await res.json();
-    setLoading(false); 
+    setLoading(false);
     if (res.ok) {
       setIsSuccess(true);
-      toast.success('Email sent successfully!', { 
-        position:"bottom-right",
+      toast.success('Email sent successfully!', {
+        position: "bottom-right",
         autoClose: 5000,
         hideProgressBar: true,
         theme: "colored",
@@ -59,7 +65,7 @@ const Page = () => {
         hideProgressBar: true,
         theme: 'colored',
       });
-      
+
     }
   };
 
@@ -73,11 +79,11 @@ const Page = () => {
           height: "100vh",
           position: "relative",
           overflow: "hidden",
-          backgroundImage: `url('/contact/contactbg.jpg')`, 
+          backgroundImage: `url('/contact/contactbg.jpg')`,
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
-          backgroundColor: "#3C4E80" 
+          backgroundColor: "#3C4E80"
         }}
       >
         <Box sx={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%", backgroundColor: "rgba(0, 0, 0, 0.5)" }} />
@@ -117,7 +123,7 @@ const Page = () => {
             sx={{
               mb: 4,
               fontSize: { xs: "1rem", sm: "1.25rem" },
-              color: "rgba(255, 255, 255, 0.8)",
+              color: "rgba(255, 255, 255, 1)",
               maxWidth: "800px",
               mx: "auto",
             }}
@@ -137,6 +143,7 @@ const Page = () => {
             Contact Us
           </Button> */}
           <Button
+            onClick={scrollToContact}
             variant="contained"
             size="large"
             component={motion.button}
@@ -179,7 +186,7 @@ const Page = () => {
       >
         <Box
           id="contact"
-
+          ref={contactRef}
           sx={{
             px: { xs: 2, sm: 2 },
             py: 16,
@@ -284,7 +291,7 @@ const Page = () => {
                       fullWidth
                       label="Email"
                       onChange={handleChange}
-                      name="email"  
+                      name="email"
                       type="email"
                       variant="outlined"
                       sx={{
@@ -351,7 +358,7 @@ const Page = () => {
                         fontSize: "1rem",
                         fontWeight: 600,
                         py: 2,
-                        
+
                         borderRadius: "50px",
                         "&:hover": {
                           bgcolor: "rgba(255, 255, 255, 0.9)",

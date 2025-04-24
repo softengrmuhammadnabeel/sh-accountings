@@ -63,7 +63,7 @@ const Page = () => {
     }
     return response.json();
   }, []);
-
+  console.log(blogs);
   const checkCacheAndFetch = useCallback(async () => {
     const cachedData = localStorage.getItem("blogs");
     const lastFetched = localStorage.getItem("lastFetched");
@@ -175,7 +175,7 @@ const Page = () => {
             sx={{
               mb: 4,
               fontSize: { xs: "1rem", sm: "1.25rem" },
-              color: "rgba(255, 255, 255, 0.9)",
+              color: "rgba(255, 255, 255, 1)",
               maxWidth: "800px",
               mx: "auto",
             }}
@@ -367,26 +367,29 @@ const Page = () => {
                             mb: 2
                           }}
                         >
+                          {/* <Box
+                            sx={{
+                              backgroundColor: "#2B4B74", 
+                              borderRadius: "50%",
+                              padding: "4px", 
+                              display: "inline-flex",
+                              alignItems: "center",
+                              justifyContent: "center",
+                              // width: 28,
+                              // height: 28,
+                            }}
+                          >
+                            <Image src="/tab/favicon-16x16.png" width={20} height={20} alt="category" />
+                          </Box> */}
+
                           <Typography
                             variant="caption"
                             sx={{
                               color: "#7F8DAB",
-                              fontWeight: "medium",
-                              textTransform: "uppercase",
-                              letterSpacing: "0.5px",
                               fontSize: "0.7rem"
                             }}
                           >
-                            {blog?.category || 'Uncategorized'}
-                          </Typography>
-                          <Typography
-                            variant="caption"
-                            sx={{
-                              color: "#7F8DAB",
-                              fontSize: "0.7rem"
-                            }}
-                          >
-                            {blog?.date || ''}
+                            {blog?.createdAt ? new Date(blog.createdAt).toLocaleDateString() : ''}
                           </Typography>
                         </Box>
 
@@ -432,9 +435,9 @@ const Page = () => {
                               bgcolor: "#3C4E80"
                             }}
                           >
-                            {blog?.author ? String(blog.author).charAt(0) : 'A'}
+                            <Image src="/tab/favicon-16x16.png" width={20} height={20} alt="category" />
                           </Avatar>
-                          {blog?.author || 'Anonymous'}
+                          {blog?.author || 'Clear Horizon Accountants'}
                         </Typography>
                       </CardContent>
                     </Card>
@@ -447,9 +450,7 @@ const Page = () => {
       </Box >
 
       {/* Contact Section */}
-
-      {/* Contact Form */}
-      <ContactUS />
+      {/* <ContactUS /> */}
     </>
   );
 };

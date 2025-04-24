@@ -190,7 +190,7 @@ const Footer = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-
+  console.log(services);
   const fetchservices = async () => {
     const response = await fetch("/api/services");
     if (!response.ok) {
@@ -247,7 +247,7 @@ const Footer = () => {
             color: 'white',
             boxShadow: 'none',
           }}
-        >
+          >
           <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: 'white' }} />}>
             <Typography variant="h6" color="black">{title}</Typography>
           </AccordionSummary>
@@ -265,7 +265,7 @@ const Footer = () => {
         <Typography
           variant="h6"
           sx={{ mb: 2, borderBottom: '2px solid #3498DB', color: "black", display: 'inline-block' }}
-        >
+          >
           {title}
         </Typography>
         {items.map((item) => (
@@ -276,7 +276,7 @@ const Footer = () => {
       </Box>
     )
   );
-
+  
   return (
     <>
       <Box
@@ -304,8 +304,7 @@ const Footer = () => {
               />
             </Box>
             <Typography variant="body2" sx={{ lineHeight: 1.8 }}>
-              Empowering individuals and businesses through expert tax, accounting, and financial guidance.
-            </Typography>
+            Empowering individuals and businesses through expert accounting and financial guidance.            </Typography>
           </Grid>
           <Grid item xs={12} md={3}>{renderSection('Our Services', services.slice(0,15).map(service => service.title.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|[\uD83C-\uDBFF\uDC00-\uDFFF]|[\uFE00-\uFE0F]|\u200D|\u2600-\u26FF|\u2700-\u27BF)/g, '')))}</Grid>
           <Grid item xs={12} md={3}>{renderSection('Who We Help', footerLinks.help)}</Grid>

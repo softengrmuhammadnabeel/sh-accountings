@@ -158,7 +158,7 @@ const Page = () => {
               sx={{
                 mb: 4,
                 fontSize: { xs: "1rem", sm: "1.25rem" },
-                color: "rgba(255, 255, 255, 0.9)",
+                color: "rgba(255, 255, 255, 1)",
                 maxWidth: "800px",
                 mx: "auto",
               }}
@@ -314,7 +314,9 @@ const Page = () => {
                             flexGrow: 1,
                           }}
                         >
-                          {service?.description?.split("\n")[0]}
+                          {service?.description?.length > 100
+                            && `${service.description.slice(0, 40)}...`
+                            }
                         </Typography>
 
 
@@ -347,7 +349,7 @@ const Page = () => {
         </Box>
 
         {/* Contact Section */}
-        <ContactUs />
+        {/* <ContactUs /> */}
       </Box>
     </>
   );

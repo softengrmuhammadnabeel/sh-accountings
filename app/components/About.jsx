@@ -69,9 +69,9 @@ const About = ({ isDarkMode }) => {
                     </p>
 
                     <p className="mb-8 max-w-2xl font-Ovo text-lg text-[#1F2943] leading-relaxed">
-                        Our experience spans corporate and public practice, allowing us to offer tailored
-                        solutions to small businesses, enterprises, and SMSFs. Beyond number crunching, we
-                        identify opportunities, solve problems, and streamline financial processes.
+                        Our experience spans corporate and public practice, allowing us to offer tailored solutions to small
+                        businesses and enterprises. Beyond number crunching, we identify opportunities, solve problems, and
+                        streamline financial processes.
                     </p>
 
                     <p className="mb-8 max-w-2xl font-Ovo text-lg text-[#1F2943] leading-relaxed">

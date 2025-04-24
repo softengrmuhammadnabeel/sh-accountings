@@ -700,13 +700,15 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
       }`}>
 
       {/* Logo */}
-      <Link href="/" className="flex items-center justify-center ">
+      <Link href="/" className="flex items-center justify-center">
         <img
-          src={isScroll ? '/navbar/1-bg.png' : '/navbar/dark/2-bg.png'}
+          src={isScroll ? '/navbar/dark/bg1dark.png' : '/navbar/bg1white.png'}
           alt="Clear Horizon Logo"
-          className="h-[10rem] felx justify-center self-center sm:h-[10rem] md:h-[12rem] w-auto max-w-[18rem] md:max-w-[20rem] ml-[-20px] sm:ml-[-30px] md:ml-[-30px] cursor-pointer transition-all duration-300 object-contain"
+          className="h-14 sm:h-16 md:h-20 w-auto max-w-[14rem] sm:max-w-[12rem] md:max-w-[14rem] ml-[-10px] sm:ml-[-20px] md:ml-[-24px] cursor-pointer transition-all duration-300 object-contain"
+          loading="lazy"
         />
       </Link>
+
 
       {/* Desktop Navigation */}
       <div className="hidden md:flex flex-1 justify-center mx-4">
