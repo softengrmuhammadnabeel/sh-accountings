@@ -199,28 +199,24 @@ const Footer = () => {
   };
 
   const checkCacheAndFetch = async () => {
-    // Check if data exists in localStorage
     const cachedData = localStorage.getItem("services");
     const lastFetched = localStorage.getItem("lastFetchedservices");
 
-    // If cached data exists and was fetched less than 5 minutes ago, use it
     if (cachedData && lastFetched) {
       const now = new Date().getTime();
       const timeDifference = now - parseInt(lastFetched, 10);
 
-      if (timeDifference < 0.5 * 60 * 1000) { // 5 minutes
+      if (timeDifference < 0.5 * 60 * 1000) {
         setServices(JSON.parse(cachedData));
         setLoading(false);
         return;
       }
     }
 
-    // If no valid cache, fetch from API
     try {
       const data = await fetchservices();
       setServices(data);
 
-      // Save data and timestamp to localStorage
       localStorage.setItem("services", JSON.stringify(data));
       localStorage.setItem("lastFetchedservices", new Date().getTime().toString());
     } catch (error) {
@@ -233,8 +229,8 @@ const Footer = () => {
   useEffect(() => {
     checkCacheAndFetch();
   }, []);
-
-  const renderSection = (title, items) => (
+  // console.log(services);
+  const renderSection = (title, items, itemUrls) => (
     isMobile ? (
       <Box sx={{ borderBottom: '3px solid #3498DB', mb: 2 }}>
         <Accordion
@@ -246,15 +242,24 @@ const Footer = () => {
             color: 'white',
             boxShadow: 'none',
           }}
-          >
-          <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: 'white' }} />}>
+        >
+          <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: 'black' }} />}>
             <Typography variant="h6" color="black">{title}</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            {items.map((item) => (
-              <Typography key={item} variant="body2" color="black" sx={{ mt: 1, lineHeight: '1.5rem' }}>
-                {item}
+            {items.map((item, index) => (
+              <Typography key={item._id || item.title} variant="body2" color="black" sx={{ cursor: 'pointer', mt: 1, lineHeight: '1.5rem' }}>
+                {title === 'Our Services' ? (
+                  <Link key={index}
+                    href={`/services/${itemUrls[index]}`}
+                    sx={{ textDecoration: 'none', color: 'black' }}
+                    passHref
+                  >{item}</Link>
+                ) : (
+                  item
+                )}
               </Typography>
+
             ))}
           </AccordionDetails>
         </Accordion>
@@ -264,18 +269,29 @@ const Footer = () => {
         <Typography
           variant="h6"
           sx={{ mb: 2, borderBottom: '2px solid #3498DB', color: "black", display: 'inline-block' }}
-          >
+        >
           {title}
         </Typography>
-        {items.map((item) => (
-          <Typography key={item} color="black" variant="body2" sx={{ mt: 1, lineHeight: '1.5rem' }}>
-            {item}
+        {items.map((item, index) => (
+          <Typography key={item._id || item.name} color="black" variant="body2" sx={{ mt: 1, lineHeight: '1.5rem' }}>
+            {title === 'Our Services' && itemUrls ? (
+              <Link key={index}
+                href={`/services/${itemUrls[index]}`}
+                sx={{ textDecoration: 'none', color: 'black' }}
+                passHref
+              >
+                {item}
+              </Link>
+            ) : (
+              item
+            )}
           </Typography>
         ))}
+
       </Box>
     )
   );
-  
+
   return (
     <>
       <Box
@@ -297,15 +313,15 @@ const Footer = () => {
               <Image
                 src="/footer/footerfull.png"
                 alt="Company Logo"
-                width={140}
+                width={250}
                 height={40}
                 style={{ objectFit: 'contain' }}
               />
             </Box>
             <Typography variant="body2" sx={{ lineHeight: 1.8 }}>
-            Empowering individuals and businesses through expert accounting and financial guidance.            </Typography>
+              Empowering individuals and businesses through expert accounting and financial guidance.            </Typography>
           </Grid>
-          <Grid item xs={12} md={3}>{renderSection('Our Services', services.slice(0,15).map(service => service.title.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|[\uD83C-\uDBFF\uDC00-\uDFFF]|[\uFE00-\uFE0F]|\u200D|\u2600-\u26FF|\u2700-\u27BF)/g, '')))}</Grid>
+          <Grid item xs={12} md={3}>{renderSection('Our Services', services.slice(0, 15).map(service => service.title.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|[\uD83C-\uDBFF\uDC00-\uDFFF]|[\uFE00-\uFE0F]|\u200D|\u2600-\u26FF|\u2700-\u27BF)/g, '')), services.slice(0, 15).map(service => service._id))}</Grid>
           <Grid item xs={12} md={3}>{renderSection('Who We Help', footerLinks.help)}</Grid>
           <Grid item xs={12} md={3}>{renderSection('Resources', footerLinks.resources)}</Grid>
         </Grid>
@@ -362,3 +378,28 @@ const Footer = () => {
 };
 
 export default Footer;
+
+
+// coming array
+// Array(6)
+// 0
+// :
+// {_id: '67f032798fee0a2e5dd40758', title: '📘 Bookkeeping', description: 'Accurate records, simplified finances.\nWe offer co…te scrambling during reporting periods or audits.', image: 'https://res.cloudinary.com/deaixklt6/image/upload/v1745454074/uploads/ujmi3iqpgfg2fbhk8xib.jpg', createdAt: '2025-04-04T19:26:49.540Z', …}
+// 1
+// :
+// {_id: '67f032988fee0a2e5dd4075b', title: '📊 Financial Reporting', description: 'Know where you stand, anytime.\nWe prepare clear, p…just accurate, but actionable when you need them.', image: 'https://res.cloudinary.com/deaixklt6/image/upload/v1745455030/uploads/b0xqidi9woiourlqpn9s.jpg', createdAt: '2025-04-04T19:27:20.087Z', …}
+// 2
+// :
+// {_id: '67f032c18fee0a2e5dd4075e', title: '📈 Management Reporting', description: 'Turn your numbers into strategy.\nOur management re…r goals, and adjust your strategies in real time.', image: 'https://res.cloudinary.com/deaixklt6/image/upload/v1745455046/uploads/w10mkey3dno411cuddoe.jpg', createdAt: '2025-04-04T19:28:01.868Z', …}
+// 3
+// :
+// {_id: '67f032e38fee0a2e5dd40761', title: '🧭 Corporate Planning & Budgeting', description: 'Plan confidently. Grow strategically.\nWe help busi…tigate risks and align resources well in advance.', image: 'https://res.cloudinary.com/deaixklt6/image/upload/v1745455149/uploads/aeexvskekwdaa5gckkyl.jpg', createdAt: '2025-04-04T19:28:35.755Z', …}
+// 4
+// :
+// {_id: '67f033088fee0a2e5dd40764', title: '💳 Receivables & Payables Management', description: 'Healthy cash flow, simplified.\nWe manage your inco…elationships and avoidable interest or penalties.', image: 'https://res.cloudinary.com/deaixklt6/image/upload/v1745463027/uploads/aanmgljlfjcrpezwbiih.jpg', createdAt: '2025-04-04T19:29:12.516Z', …}
+// 5
+// :
+// {_id: '680988f746d0f857dcef8c0b', title: 'Dashboard Reporting - Creation and Management', description: 'Our Dashboard Reporting service is designed to tra…ion & Efficiency\n✅ User Access & Role-Based Views', image: 'https://res.cloudinary.com/deaixklt6/image/upload/v1745455350/uploads/hkbcvazzuqkg7q6onpc0.jpg', createdAt: '2025-04-24T00:42:31.486Z', …}
+// length
+// :
+// 6

@@ -86,7 +86,7 @@ const ContactModal = ({ closeModal }) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        console.log("Message sent successfully!");
+        // console.log("Message sent successfully!");
     };
 
     return (

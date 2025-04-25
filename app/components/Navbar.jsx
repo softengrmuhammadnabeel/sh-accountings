@@ -693,7 +693,7 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
   }
 
   return (
-    <nav className={`fixed w-full px-8 xs:px-4 backdrop-blur-xs sm:px-10 lg:px-12 xl:px-[10%] py-4 flex items-center justify-between z-50 h-20 transition-all
+    <nav className={`fixed w-full px-8 xs:px-4 backdrop-blur-xs sm:px-10 lg:px-12 xl:px-[10%]  py-4 flex items-center justify-between z-50 h-20 transition-all
       ${(isScroll && isSinglePage) || (isScroll && !isSinglePage)
         ? "bg-white bg-opacity-100 dark:shadow-white/20"
         : "bg-transparent"
@@ -704,10 +704,11 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
         <img
           src={isScroll ? '/navbar/dark/bg1dark.png' : '/navbar/bg1white.png'}
           alt="Clear Horizon Logo"
-          className="h-14 sm:h-16 md:h-20 w-auto max-w-[14rem] sm:max-w-[12rem] md:max-w-[14rem] ml-[-10px] sm:ml-[-20px] md:ml-[-24px] cursor-pointer transition-all duration-300 object-contain"
+          className="h-[10rem] sm:h-[12rem] md:h-[12rem] lg:h-[16rem] xl:h-[16rem] w-auto max-w-[30rem] sm:max-w-[18rem] md:max-w-[24rem] lg:max-w-[30rem] xl:max-w-[32rem] ml-[-0.5rem] sm:ml-[-1rem] md:ml-[-1.5rem] mt-3 cursor-pointer transition-all duration-300 object-contain"
           loading="lazy"
         />
       </Link>
+
 
 
       {/* Desktop Navigation */}
@@ -731,7 +732,7 @@ const Navbar = ({ isDarkMode, setIsDarkMode }) => {
         <button onClick={handleOpenModal}
           className={`hidden md:flex items-center gap-2 px-4 py-1.5 sm:px-5 sm:py-2 rounded-full font-Ovo border transition shadow-sm text-sm sm:text-base
             ${isScroll ? 'text-[#1F2943] border-black hover:bg-gray-100' : 'text-white border-white hover:bg-white hover:bg-opacity-10'}`}>
-          Get in Touch
+          Get A Quote
           <Image
             src={isScroll ? assets.arrow_icon : assets.arrow_icon_dark}
             alt='Arrow'

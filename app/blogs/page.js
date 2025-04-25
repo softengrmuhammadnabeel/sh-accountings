@@ -63,7 +63,7 @@ const Page = () => {
     }
     return response.json();
   }, []);
-  console.log(blogs);
+  // console.log(blogs);
   const checkCacheAndFetch = useCallback(async () => {
     const cachedData = localStorage.getItem("blogs");
     const lastFetched = localStorage.getItem("lastFetched");

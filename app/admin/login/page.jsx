@@ -11,7 +11,7 @@ const AdminLogin = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(process.env.ADMIN_EMAIL , process.env.ADMIN_PASSWORD );
+    // console.log(process.env.ADMIN_EMAIL , process.env.ADMIN_PASSWORD );
     // In production, use proper authentication
     if (email === process.env.NEXT_PUBLIC_ADMIN_EMAIL && password === process.env.NEXT_PUBLIC_ADMIN_PASSWORD) {
       localStorage.setItem("isAdmin", "true");
