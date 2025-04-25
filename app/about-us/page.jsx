@@ -4,9 +4,12 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { Box, Typography, Paper, Grid, TextField, Slider } from "@mui/material";
+import { Box, Typography, Paper, Grid, TextField, Slider,useMediaQuery, Divider,useTheme } from "@mui/material";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Link from "next/link";
+
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import Diversity3Icon from '@mui/icons-material/Diversity3';
 const bgImage1 = "/about/fourth.jpg";
 // const bgImage1 = "/1.jpg";
 const bgImage2 = "/about/fourth.jpg";
@@ -145,7 +148,7 @@ const ThirdSection = () => {
           Let us tell you about
         </Typography>
 
-        <Typography
+        {/* <Typography
           variant="h1"
           sx={{
             fontSize: { xs: "1.5rem", sm: "2rem", md: "2.5rem", lg: "3rem" },
@@ -157,8 +160,11 @@ const ThirdSection = () => {
           }}
         >
           ACCOUNTING &<br />BOOKKEEPING<br />SERVICES
-        </Typography>
+        </Typography> */}
+        <Typography sx={{fontSize: { xs: "1rem", sm: "2.5rem", md: "3rem" }, fontWeight: {xs:'bold',md:'semibold'}, color: 'text.primary', mb: 1 }}>Precision. Insight. Empowerment.
+        
 
+        </Typography>
         <Box>
           <Typography
             sx={{
@@ -168,11 +174,10 @@ const ThirdSection = () => {
               lineHeight: 1.8,
             }}
           >
-            We are a team of qualified Chartered Accountants with a passion for
-            precision, problem-solving, and empowering businesses through financial
-            clarity. With extensive experience in accounting, financial reporting,
-            and bookkeeping, we bring a unique blend of technical expertise and
-            real-world insight to support your financial journey.
+            We are a team of qualified Chartered Accountants united by a passion for financial
+            clarity, problem-solving, and helping businesses thrive. With years of hands-on
+            experience across accounting, financial reporting, and bookkeeping, we deliver more
+            than just compliance—we offer confidence.
           </Typography>
 
           <Typography
@@ -183,12 +188,14 @@ const ThirdSection = () => {
               lineHeight: 1.8,
             }}
           >
-            Our team has worked in both corporate and public practice environments,
-            allowing us to understand and address the challenges faced by small
-            businesses, growing enterprises, and SMSFs. We go beyond processing
-            numbers—we identify opportunities, find solutions, and help you stay ahead.
+            Our background spans both corporate and public practice settings, giving us a deep
+            understanding of the financial challenges faced by small businesses and growing
+            enterprises. Whether you're a startup finding your footing or an established business
+            scaling up, we tailor our services to support your unique financial journey.
           </Typography>
+          <Typography sx={{fontSize: { xs: "1rem", sm: "2.5rem", md: "3rem" }, fontWeight: {xs:'bold',md:'semibold'}, color: 'text.primary', mb: 1 }}>More Than Numbers
 
+          </Typography>
           <Typography
             sx={{
               fontSize: "1rem",
@@ -197,12 +204,13 @@ const ThirdSection = () => {
               lineHeight: 1.8,
             }}
           >
-            At the core of everything we do is dedication. We are committed to our
-            clients' success, providing reliable, responsive, and tailored financial
-            solutions. By simplifying complex financial matters, we enable you to focus
-            on growing your business with confidence.
+            At our core, we believe in going beyond the numbers. While we pride ourselves on
+            technical excellence, our real value lies in translating financial data into meaningful
+            insights. We help identify opportunities, solve problems, and keep you one step
+            ahead—so you can make smart, informed decisions with confidence.
           </Typography>
-
+          <Typography sx={{fontSize: { xs: "1rem", sm: "2.5rem", md: "3rem" }, fontWeight: {xs:'bold',md:'semibold'}, color: 'text.primary', mb: 1 }}>Built on Trust and Long-Term Partnerships
+          </Typography>
           <Typography
             sx={{
               fontSize: "1rem",
@@ -211,10 +219,13 @@ const ThirdSection = () => {
               lineHeight: 1.8,
             }}
           >
-            Most importantly, we equip you with clear, accurate, and timely financial
-            information, ensuring that you make informed decisions at every stage of
-            your business. Let us take care of your finances—so you can focus on what
-            matters most.
+            We believe that strong financial foundations are built on strong relationships. That’s why
+            we take the time to understand your business, your goals, and your challenges. Our
+            approach is collaborative—we work closely with you, becoming a trusted extension of
+            your team. Whether you need day-to-day accounting support or high-level financial
+            strategy, you’ll always have a dedicated partner who is genuinely invested in your
+            success.
+
           </Typography>
         </Box>
 
@@ -261,34 +272,34 @@ const ThirdSection = () => {
 };
 
 const MotionBox = motion(Box);
-
 const features = [
   {
-    title: "Accuracy",
+    title: "Experienced & Qualified Team",
     description:
-      "ClearHorizon provides precise assistance for accounting and taxation services with unparalleled accuracy. Our team of experts is dedicated to ensuring that your financial goals are met with the utmost attention to detail and professionalism.",
+      "Our team comprises Chartered Accountants and finance professionals with years of experience in both the private and public sectors. We bring deep industry insight and a strong foundation of technical knowledge to every client engagement.",
   },
   {
-    title: "Compliance",
+    title: "Tailored Financial Solutions",
     description:
-      "Recognizing the paramount significance of adhering to ATO taxation compliance and regulations, we are committed to delivering our clients top-notch services that exude professionalism and expertise.",
+      "We understand that every business is unique. That’s why we offer customized accounting, tax planning, and financial advisory services designed specifically for startups, SMEs, and growing enterprises to support their long-term goals.",
   },
   {
-    title: "Approachable",
+    title: "Proactive Financial Guidance",
     description:
-      "At ClearHorizon, we are approachable and committed to providing exceptional service and support. Whether it's a question, concern, or our clients requiring assistance, we are here to help.",
+      "We don’t just react—we anticipate your financial needs. Through regular analysis and forward-thinking advice, we help you stay ahead of compliance changes, optimize cash flow, and plan confidently for the future.",
   },
   {
-    title: "Cost-effective",
+    title: "Clear & Transparent Communication",
     description:
-      "At ClearHorizon, we offer cost-effective solutions to our clients understanding the importance of financial management. Our reputation is built on our commitment to providing service with the best possible advice.",
+      "We eliminate the complexity from financial reporting. Expect concise, jargon-free updates and regular check-ins that keep you informed and in control, every step of the way.",
   },
   {
-    title: "Community-based",
+    title: "Client-Centric Service Philosophy",
     description:
-      "We are a local community-based accounting & taxation firm that prides itself on its adaptability and inclusivity. As a proud member of the Whittlesea community, we provide a family-friendly atmosphere to feel right at home.",
+      "Your business is our priority. Our approach is hands-on, responsive, and built on trust. We work as an extension of your team—reliable partners committed to your success.",
   },
 ];
+
 
 const FourthSection = () => {
   return (
@@ -318,9 +329,9 @@ const FourthSection = () => {
       >
         <Typography
           variant="caption"
-          sx={{ color: "#777", mb: 1 }}
+          sx={{ color: "#777", mb: 1, fontSize: '1.2rem' }}
         >
-          Tax experts at your doorstep.
+          Accounting experts at your doorstep.
         </Typography>
         <Typography
           variant="h4"
@@ -354,13 +365,13 @@ const FourthSection = () => {
             whileInView={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
             viewport={{ once: true }}
-            sx={{ display: "flex", alignItems: "flex-start", gap: 2 }}
+            sx={{ display: "flex", alignItems: "flex-start", gap: 2, mb: 6, }}
           >
             <ChevronRightIcon sx={{ color: "white", fontSize: 28, mt: 0.5 }} />
             <Box>
               <Typography
                 variant="h6"
-                sx={{ fontWeight: 700, mb: 0.5, color: "white" }}
+                sx={{ fontWeight: 700, mb: 1, color: "white" }}
               >
                 {item.title}
               </Typography>
@@ -380,7 +391,9 @@ const AppointmentBanner = () => {
     <Box
       sx={{
         backgroundColor: '#1976D2',
+        // mt:'5rem',
         display: 'flex',
+        height:'fit-content',
         alignItems: 'center',
         justifyContent: 'space-between',
         padding: { xs: '2rem 1rem', md: '4rem 8rem' },
@@ -419,6 +432,219 @@ const AppointmentBanner = () => {
         </Button>
       </Link>
     </Box>
+  );
+};
+
+const RenderMissionSection = () => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const MotionBox = motion(Box);
+
+  return (
+    <MotionBox
+      component="section"
+      initial={{ opacity: 0 }}
+      whileInView={{ opacity: 1 }}
+      viewport={{ once: true, margin: "-100px" }}
+      transition={{ duration: 0.6 }}
+      sx={{
+        maxWidth: "1400px",
+        margin: "0 auto",
+        padding: { xs: "4rem 1.5rem", md: "6rem" },
+        position: "relative",
+        overflow: "hidden",
+      }}
+    >
+      {/* Modern background elements */}
+      <Box sx={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        width: "100%",
+        height: "100%",
+        background: '#fff',
+        zIndex: 0
+      }} />
+      
+      <Box position="relative" zIndex={1}>
+        {/* Section Header */}
+        <Box sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: isMobile ? "center" : "flex-start",
+          mb: { xs: 4, md: 6 }
+        }}>
+          <Typography
+            variant={isMobile ? "h4" : "h3"}
+            component="body1"
+            fontWeight={500}
+            sx={{
+              color: "#3C4E80",
+              lineHeight: 1.2,
+              letterSpacing: "-0.5px",
+              mb: 2,
+              position: "relative",
+              display: "inline-block",
+              // "&::after": {
+              //   content: '""',
+              //   position: "absolute",
+              //   bottom: "-8px",
+              //   left: 0,
+              //   width: "80px",
+              //   height: "4px",
+              //   background: "#3C4E80",
+              //   borderRadius: "2px"
+              // }
+              // "&::after": {
+              //   content: '""',
+              //   position: "absolute",
+              //   bottom: "-8px",
+              //   left: 0,
+              //   width: "80px",
+              //   height: "4px",
+              //   background: "#3C4E80",
+              //   borderRadius: "2px"
+              // }
+            }}
+          >
+            Our Mission
+          </Typography>
+          <Typography
+            variant="subtitle1"
+            sx={{
+              color: "text.secondary",
+              maxWidth: "600px",
+              fontSize: { xs: "1rem", md: "1.1rem" }
+            }}
+          >
+            Delivering financial clarity with precision and care
+          </Typography>
+        </Box>
+
+        {/* Content Grid */}
+        <Grid container spacing={{ xs: 3, md: 6 }}>
+          <Grid item xs={12} md={6}>
+            <MotionBox
+              initial={{ y: 20, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.1, duration: 0.6 }}
+              viewport={{ once: true }}
+              sx={{
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
+                gap: 3
+              }}
+            >
+              <Box sx={{
+                backgroundColor: "#FFFFFF",
+                borderRadius: "16px",
+                p: { xs: 3, md: 4 },
+                boxShadow: "0 8px 24px rgba(60, 78, 128, 0.08)",
+                border: "1px solid rgba(60, 78, 128, 0.08)",
+                height: "100%"
+              }}>
+                <Box sx={{
+                  width: "56px",
+                  height: "56px",
+                  backgroundColor: "rgba(60, 78, 128, 0.1)",
+                  borderRadius: "12px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  mb: 3
+                }}>
+                  <TrendingUpIcon sx={{ fontSize: "28px", color: "#3C4E80" }} />
+                </Box>
+                <Typography variant="h5" component="h3" fontWeight={600} sx={{ color: "#3C4E80", mb: 2 }}>
+                  Financial Empowerment
+                </Typography>
+                <Typography variant="body1" sx={{ color: "text.secondary", lineHeight: 1.7, mb: 2 }}>
+                  We transform complex numbers into clear insights, helping you make confident business decisions.
+                </Typography>
+                <Typography variant="body1" sx={{ color: "text.secondary", lineHeight: 1.7 }}>
+                  Our comprehensive services handle all your financial reporting needs, freeing you to focus on growing your business.
+                </Typography>
+              </Box>
+            </MotionBox>
+          </Grid>
+
+          <Grid item xs={12} md={6}>
+            <MotionBox
+              initial={{ y: 20, opacity: 0 }}
+              whileInView={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+              viewport={{ once: true }}
+              sx={{
+                height: "100%",
+                display: "flex",
+                flexDirection: "column",
+                gap: 3
+              }}
+            >
+              <Box sx={{
+                backgroundColor: "#3C4E80",
+                borderRadius: "16px",
+                p: { xs: 3, md: 4 },
+                boxShadow: "0 8px 24px rgba(60, 78, 128, 0.2)",
+                height: "100%",
+                color: "#FFFFFF"
+              }}>
+                <Box sx={{
+                  width: "56px",
+                  height: "56px",
+                  backgroundColor: "rgba(255, 255, 255, 0.2)",
+                  borderRadius: "12px",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  mb: 3
+                }}>
+                  <Diversity3Icon sx={{ fontSize: "28px", color: "#FFFFFF" }} />
+                </Box>
+                <Typography variant="h5" component="h3" fontWeight={600} sx={{ mb: 2 }}>
+                  Inclusive Leadership
+                </Typography>
+                <Typography variant="body1" sx={{ opacity: 0.9, lineHeight: 1.7, mb: 2 }}>
+                  Founded by Mrs. Bushra Siddiqui, we champion diversity in entrepreneurship through tailored financial guidance.
+                </Typography>
+                <Typography variant="body1" sx={{ opacity: 0.9, lineHeight: 1.7 }}>
+                  Our approach combines technical expertise with genuine care, creating a supportive environment for all business owners.
+                </Typography>
+              </Box>
+            </MotionBox>
+          </Grid>
+        </Grid>
+
+        {/* Bottom CTA */}
+        <MotionBox
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ delay: 0.4, duration: 0.6 }}
+          viewport={{ once: true }}
+          sx={{
+            mt: { xs: 4, md: 6 },
+            textAlign: "center"
+          }}
+        >
+          {/* <Button
+            variant="contained"
+            size="large"
+            sx={{
+              backgroundColor: "#3C4E80",
+              "&:hover": { backgroundColor: "#2C3E70" },
+              px: 4,
+              py: 1.5,
+              borderRadius: "12px",
+              fontSize: "1rem",
+              fontWeight: 600
+            }}
+          >
+            Discover Our Approach
+          </Button> */}
+        </MotionBox>
+      </Box>
+    </MotionBox>
   );
 };
 
@@ -605,16 +831,29 @@ const sections = [
   // },
   {
     type: "color",
-    bgValue: "#EB1552",
-    content: <AppointmentBanner />,
-    height: "auto"
-  },
-  {
-    type: "image",
     bgValue: bgImage2,
-    content: <ROIAccountingSystem />,
+    content: <AppointmentBanner />,
+    height: "100%"
+  },
+  // {
+  //   type: "image",
+  //   bgValue: bgImage2,
+  //   content: <ROIAccountingSystem />,
+  //   height: "auto"
+  // },
+  {
+    type: "color",
+    bgValue: bgImage2,
+    content: <RenderMissionSection />,
     height: "auto"
   },
+  // {
+  //   type: "image",
+  //   bgValue: bgImage2,
+  //   title: "Page in under-development",
+  //   content: "",
+  //   height: "100vh"
+  // }
   // {
   //   type: "image",
   //   bgValue: bgImage2,
@@ -793,7 +1032,7 @@ const AboutUsPage = () => {
       ))}
 
       {/* Footer Spacer */}
-      <Box sx={{ height: "20vh", position: "relative", zIndex: 2 }} />
+      {/* <Box sx={{ height: "20vh", position: "relative", zIndex: 2 }} /> */}
     </Box>
   );
 };

@@ -190,7 +190,6 @@ const Footer = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  console.log(services);
   const fetchservices = async () => {
     const response = await fetch("/api/services");
     if (!response.ok) {
