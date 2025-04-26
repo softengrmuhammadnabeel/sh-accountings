@@ -24,6 +24,9 @@ const Page = () => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [FormValid, setFormValid] = useState(false);
   const contactRef = React.useRef(null);
+  const scrollToContact = () => {
+    contactRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   React.useEffect(() => {
     const isFormValid = () => {
@@ -31,9 +34,6 @@ const Page = () => {
     };
     isFormValid()
   }, [form])
-  const scrollToContact = () => {
-    contactRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
 
 
   const handleChange = (e) => {

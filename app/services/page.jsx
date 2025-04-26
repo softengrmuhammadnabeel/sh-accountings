@@ -2,7 +2,7 @@
 
 import { assets } from '@/assets/assets';
 import Image from "next/image";
-import React, { useState, useEffect } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { CircularProgress } from "@mui/material";
 
@@ -41,6 +41,10 @@ const Page = () => {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const contactRef = React.useRef(null);
+  const scrollToContact = () => {
+    contactRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
 
   const fetchservices = async () => {
     const response = await fetch("/api/services");
@@ -186,6 +190,7 @@ const Page = () => {
                   backgroundColor: "#3C4E80"
                 }
               }}
+              onClick={scrollToContact}
             >
               Explore Services
             </Button>
@@ -210,7 +215,10 @@ const Page = () => {
           }
         }}>
           <Container maxWidth="lg" sx={{ position: "relative", zIndex: 1 }}>
+            <Box ref={contactRef}
+            ></Box>
             <Typography
+
               variant="h4"
               align="center"
               sx={{
@@ -219,6 +227,7 @@ const Page = () => {
                 fontWeight: "bold",
                 color: "#3C4E80"
               }}
+
             >
               Our Services
             </Typography>
@@ -316,7 +325,7 @@ const Page = () => {
                         >
                           {service?.description?.length > 100
                             && `${service.description.slice(0, 40)}...`
-                            }
+                          }
                         </Typography>
 
 

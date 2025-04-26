@@ -55,7 +55,10 @@ const Page = () => {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredBlogs, setFilteredBlogs] = useState([]);
-
+  const contactRef = React.useRef(null);
+  const scrollToContact = () => {
+    contactRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
   const fetchBlogs = useCallback(async () => {
     const response = await fetch("/api/blogs");
     if (!response.ok) {
@@ -184,6 +187,7 @@ const Page = () => {
           </Typography>
 
           <Button
+            onClick={scrollToContact}
             variant="contained"
             size="large"
             component={motion.button}
@@ -227,8 +231,10 @@ const Page = () => {
         }
       }
       }>
+        
         <Container maxWidth="lg" sx={{ position: "relative", zIndex: 1 }}>
           {/* Title and Search Row - Responsive layout */}
+          <Box ref={contactRef}></Box>
           <Box sx={{
             display: 'flex',
             flexDirection: { xs: 'column', sm: 'column', md: 'row' },
@@ -238,6 +244,7 @@ const Page = () => {
             mb: 6,
             pt: 10
           }}>
+            
             <Typography
               variant="h4"
               sx={{
@@ -274,11 +281,12 @@ const Page = () => {
                   md: 'flex-start'
                 }
               }}
+
             />
           </Box>
 
           {/* Blog Grid - Responsive layout */}
-          <Grid container spacing={4}>
+          <Grid container spacing={4} >
             {loading ? (
               <Grid item xs={12}>
                 <Box
@@ -296,6 +304,7 @@ const Page = () => {
             ) : (filteredBlogs.length > 0 ? filteredBlogs : blogs).map((blog) => (
               <Grid item xs={12} sm={6} md={4} key={blog.id || blog._id}>
                 <motion.div
+                  // ref={contactRef}
                   variants={cardVariants}
                   whileHover={{ y: -5 }}
                 >

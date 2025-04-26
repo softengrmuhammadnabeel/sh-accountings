@@ -166,11 +166,11 @@ const footerLinks = {
   //   'Cash flow Projections', 'Online Accounts', 'Superannuation', 'Business Plans',
   //   'Employment Law', 'Debt Recovery', 'Capital Gains Tax', 'Audits', 'Cryptocurrency Tax',
   // ],
-  help: [
-    'Start Ups', 'Sole Traders', 'Partnerships', 'Companies', 'Contractors',
-    'LSL Contractors', 'Landlords', 'Selling Your Business', 'Employed Individuals',
-    'Primary producers',
-  ],
+  // help: [
+  //   'Start Ups', 'Sole Traders', 'Partnerships', 'Companies', 'Contractors',
+  //   'LSL Contractors', 'Landlords', 'Selling Your Business', 'Employed Individuals',
+  //   'Primary producers',
+  // ],
   about: [
     'Fixed Fee Pricing', 'Right For You', 'Switching Is Easy',
     'Buy Local Campaign', 'Careers and Vacancies',
@@ -321,9 +321,9 @@ const Footer = () => {
             <Typography variant="body2" sx={{ lineHeight: 1.8 }}>
               Empowering individuals and businesses through expert accounting and financial guidance.            </Typography>
           </Grid>
-          <Grid item xs={12} md={3}>{renderSection('Our Services', services.slice(0, 15).map(service => service.title.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|[\uD83C-\uDBFF\uDC00-\uDFFF]|[\uFE00-\uFE0F]|\u200D|\u2600-\u26FF|\u2700-\u27BF)/g, '')), services.slice(0, 15).map(service => service._id))}</Grid>
-          <Grid item xs={12} md={3}>{renderSection('Who We Help', footerLinks.help)}</Grid>
-          <Grid item xs={12} md={3}>{renderSection('Resources', footerLinks.resources)}</Grid>
+          <Grid item xs={12} md={5}>{renderSection('Our Services', services.slice(0, 15).map(service => service.title.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|[\uD83C-\uDBFF\uDC00-\uDFFF]|[\uFE00-\uFE0F]|\u200D|\u2600-\u26FF|\u2700-\u27BF)/g, '')), services.slice(0, 15).map(service => service._id))}</Grid>
+          {/* <Grid item xs={12} md={3}>{renderSection('Who We Help', footerLinks.help)}</Grid> */}
+          <Grid item xs={12} md={4}>{renderSection('Resources', footerLinks.resources)}</Grid>
         </Grid>
       </Box>
 
