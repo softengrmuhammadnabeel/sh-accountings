@@ -16,6 +16,7 @@ import {
   ListItemText,
   Divider
 } from '@mui/material';
+import Link from 'next/link';
 
 const BlogPost = () => {
   const [blog, setBlog] = useState(null);
@@ -135,7 +136,7 @@ const BlogPost = () => {
             <Grid item xs={12} md={8}>
               <Container maxWidth="md">
                 {/* Blog Title */}
-                <Typography variant="h4" fontWeight="bold" textAlign="center" gutterBottom>
+                <Typography variant="h4" color="black" fontWeight="bold" textAlign="center" gutterBottom>
                   {blog.title}
                 </Typography>
 
@@ -273,7 +274,14 @@ const BlogPost = () => {
                   />
                   <CardContent>
                     <Typography variant="h6" fontWeight="bold" sx={{ fontSize: '1rem' }}>
-                      {blog.title}
+                      <Link
+                        href={`/blogs/${blog._id}`}
+                        sx={{ textDecoration: 'none', color: 'black' }}
+                        passHref
+                        
+                      >
+                        {blog.title}
+                      </Link>
                     </Typography>
                   </CardContent>
                 </Card>
