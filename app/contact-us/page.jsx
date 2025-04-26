@@ -29,6 +29,10 @@ const Page = () => {
   };
 
   React.useEffect(() => {
+      setForm({ firstName: '', lastName: "", email: '', message: '' })
+  
+    }, [isSuccess])
+  React.useEffect(() => {
     const isFormValid = () => {
       setFormValid(form.firstName !== '' && form.lastName !== '' && form.email !== '' && form.message !== '')
     };
@@ -52,6 +56,7 @@ const Page = () => {
     setLoading(false);
     if (res.ok) {
       setIsSuccess(true);
+      setForm({ firstName: '', lastName: "", email: '', message: '' })
       toast.success('Email sent successfully!', {
         position: "bottom-right",
         autoClose: 5000,

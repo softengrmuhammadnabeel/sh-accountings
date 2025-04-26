@@ -39,6 +39,10 @@ const ContactModal = ({ closeModal }) => {
         };
         isFormValid()
     }, [form])
+    React.useEffect(() => {
+        setForm({ firstName: '', lastName: "", email: '', message: '' })
+    
+      }, [isSuccess])
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -65,7 +69,9 @@ const ContactModal = ({ closeModal }) => {
         const data = await res.json();
         setLoading(false);
         if (res.ok) {
+            setForm({ firstName: '', lastName: "", email: '', message: '' })
             setIsSuccess(true);
+            closeModal()
             toast.success('Email sent successfully!', {
                 position: "bottom-right",
                 autoClose: 5000,
@@ -81,12 +87,6 @@ const ContactModal = ({ closeModal }) => {
             });
 
         }
-    };
-
-
-    const onSubmit = (e) => {
-        e.preventDefault();
-        // console.log("Message sent successfully!");
     };
 
     return (
