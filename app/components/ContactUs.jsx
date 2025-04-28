@@ -489,6 +489,10 @@ const Page = () => {
   const [loading, setLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [FormValid, setFormValid] = useState(false);
+  const contactRef = React.useRef(null);
+  const scrollToContact = () => {
+    contactRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
   React.useEffect(() => {
     const isFormValid = () => {
       setFormValid(form.firstName !== '' && form.lastName !== '' && form.email !== '' && form.message !== '')
@@ -593,7 +597,7 @@ const Page = () => {
               mx: "auto",
             }}
           >
-            Have questions or need assistance? Reach out to us today! Our team is here to help you with all your accounting, tax, and financial needs.
+            Have questions or need assistance? Reach out to us today! Our team is here to help you with all your accounting and reporting needs.
           </Typography>
 
           {/* <Button
@@ -627,6 +631,7 @@ const Page = () => {
                 backgroundColor: "#3C4E80"
               }
             }}
+            onClick={scrollToContact}
           >
             Contact Us
           </Button>
@@ -650,7 +655,7 @@ const Page = () => {
       >
         <Box
           id="contact"
-
+          ref={contactRef}
           sx={{
             px: { xs: 2, sm: 2 },
             py: 16,

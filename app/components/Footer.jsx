@@ -292,12 +292,51 @@ const Footer = () => {
     )
   );
 
+  const socialLinks = [
+    { icon: FaFacebook, url: 'https://www.facebook.com/profile.php?id=61575749609766' },
+    { icon: FaXTwitter, url: 'https://www.linkedin.com/company/clearhorizon-accountants/posts/?feedView=all&viewAsMember=true' },
+    { icon: FaLinkedin, url: 'https://www.linkedin.com/company/clearhorizon-accountants/posts/?feedView=all&viewAsMember=true' },
+    { icon: FaInstagram, url: 'https://www.facebook.com/profile.php?id=61575749609766' },
+    { icon: FaYoutube, url: 'https://www.linkedin.com/company/clearhorizon-accountants/posts/?feedView=all&viewAsMember=true' },
+  ];
+
+  // <Box
+  //       sx={{
+  //         bgcolor: 'white',
+  //         // bgcolor: '#3C4E80',
+  //         position: 'relative',
+  //         color: 'black',
+  //         px: { xs: 3, md: 10 },
+  //         pt: 8,
+  //         pb: 6,
+  //         zIndex: 1,
+  //         borderTop: '4px solid #3498DB',
+  //       }}
+  //     >
+  //       <Grid container spacing={4}>
+  //         <Grid item xs={12} md={3}>
+  //           <Box mb={2}>
+  //             <Image
+  //               src="/footer/footerfull.png"
+  //               alt="Company Logo"
+  //               width={250}
+  //               height={40}
+  //               style={{ objectFit: 'contain' }}
+  //             />
+  //           </Box>
+  //           <Typography variant="body2" sx={{ lineHeight: 1.8 }}>
+  //             Empowering individuals and businesses through expert accounting and financial guidance.            </Typography>
+  //         </Grid>
+  //         <Grid item xs={12} md={5}>{renderSection('Our Services', services.slice(0, 15).map(service => service.title.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|[\uD83C-\uDBFF\uDC00-\uDFFF]|[\uFE00-\uFE0F]|\u200D|\u2600-\u26FF|\u2700-\u27BF)/g, '')), services.slice(0, 15).map(service => service._id))}</Grid>
+  //         {/* <Grid item xs={12} md={3}>{renderSection('Who We Help', footerLinks.help)}</Grid> */}
+  //         <Grid item xs={12} md={4}>{renderSection('Resources', footerLinks.resources)}</Grid>
+  //       </Grid>
+  //     </Box>
   return (
     <>
       <Box
         sx={{
           bgcolor: 'white',
-          // bgcolor: '#3C4E80',
           position: 'relative',
           color: 'black',
           px: { xs: 3, md: 10 },
@@ -307,72 +346,59 @@ const Footer = () => {
           borderTop: '4px solid #3498DB',
         }}
       >
-        <Grid container spacing={4}>
-          <Grid item xs={12} md={3}>
-            <Box mb={2}>
+        <Grid container spacing={4} justifyContent="center" textAlign="center">
+          <Grid item xs={12} md={6}>
+            <Box mb={2} display="flex" justifyContent="center">
               <Image
                 src="/footer/footerfull.png"
                 alt="Company Logo"
-                width={250}
+                width={200}
                 height={40}
                 style={{ objectFit: 'contain' }}
               />
             </Box>
-            <Typography variant="body2" sx={{ lineHeight: 1.8 }}>
-              Empowering individuals and businesses through expert accounting and financial guidance.            </Typography>
+            <Typography variant="body2" sx={{ lineHeight: 1.8, mb: 3 }}>
+              Empowering individuals and businesses through expert accounting and financial guidance.
+            </Typography>
+
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                flexWrap: 'wrap',
+                gap: 2,
+              }}
+            >
+              {socialLinks.map(({ icon: Icon, url }, index) => (
+                <Link
+                  key={index}
+                  href={url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{
+                    bgcolor: '#00294f',
+                    borderRadius: '50%',
+                    p: '6px',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    transition: '0.3s',
+                    '&:hover': {
+                      bgcolor: '#00294f',
+                      color:'#FFFF',
+                      transform: 'scale(1.1)',
+                    },
+                    
+                  }}
+                >
+                  <Icon size={20} color="#FFF" />
+                </Link>
+              ))}
+            </Box>
           </Grid>
-          <Grid item xs={12} md={5}>{renderSection('Our Services', services.slice(0, 15).map(service => service.title.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|[\uD83C-\uDBFF\uDC00-\uDFFF]|[\uFE00-\uFE0F]|\u200D|\u2600-\u26FF|\u2700-\u27BF)/g, '')), services.slice(0, 15).map(service => service._id))}</Grid>
-          {/* <Grid item xs={12} md={3}>{renderSection('Who We Help', footerLinks.help)}</Grid> */}
-          <Grid item xs={12} md={4}>{renderSection('Resources', footerLinks.resources)}</Grid>
         </Grid>
       </Box>
 
-      {/* Footer Bottom */}
-      <Box
-        sx={{
-          borderTop: '1px solid rgba(255,255,255,0.2)',
-          bgcolor: '#7F8DAB',
-          position: 'relative',
-          // bgcolor: '#00294f',
-          width: '100%',
-          py: 4,
-          px: 2,
-          textAlign: 'center',
-        }}
-      >
-        <Box sx={{ display: 'flex', justifyContent: 'center', gap: 2, mb: 2 }}>
-          {[FaFacebook, FaXTwitter, FaLinkedin, FaInstagram, FaYoutube].map((Icon, index) => (
-            <Link key={index} href="#" target="_blank" sx={{
-              bgcolor: '#ffffff',
-              borderRadius: "50%",
-              p: '6px',
-              transition: '0.3s',
-              display: 'inline-flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              '&:hover': {
-                bgcolor: 'lightblue',
-                color: "#fff",
-                transform: 'scale(1.1)',
-              }
-            }}>
-              <Icon size={20} color="#00294f" />
-            </Link>
-          ))}
-        </Box>
-
-        <Typography variant="body2" sx={{ color: 'white' }}>
-          © {new Date().getFullYear()} All rights reserved | {' '}
-          <Link
-            href="#"
-            target="_blank"
-            rel="noopener"
-            sx={{ color: '#00294F', fontWeight: 600 }}
-          >
-            CLEAR HORIZON ACCOUNTANTS
-          </Link>
-        </Typography>
-      </Box>
     </>
   );
 };

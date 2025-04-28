@@ -133,7 +133,7 @@ const Page = () => {
               mx: "auto",
             }}
           >
-            Have questions or need assistance? Reach out to us today! Our team is here to help you with all your accounting, tax, and financial needs.
+            Have questions or need assistance? Reach out to us today! Our team is here to help you with all your accounting and reporting needs.
           </Typography>
 
           {/* <Button

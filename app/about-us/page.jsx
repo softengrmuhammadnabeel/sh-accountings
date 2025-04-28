@@ -75,7 +75,7 @@ const SecondSection = () => {
                 backgroundColor: "primary.main"
               }
             }}>
-              Accounting & Taxation is our passion
+              Accounting & Reporting is our passion
             </Typography>
 
             <Typography variant="h1" sx={{
